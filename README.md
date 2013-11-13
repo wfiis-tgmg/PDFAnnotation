@@ -16,7 +16,7 @@ Do generowania dokumentów PDF korzystamy z biblioteki ITextPDF. Jest to bibliot
 
 PDFAnnotation Wiki jest głównym źródłem dokumentacji dla developerów, oraz użytkowników. Główne sekcje:
 
-* [O projekcie](https://github.com/wfiis-tgmg/PDFAnnotation/wiki/PDFAnnotation-overview) - (ta strona) opis projektu
+* [O projekcie](https://github.com/wfiis-tgmg/PDFAnnotation/wiki/O-projekcie-PDFAnnotation) - (ta strona) opis projektu
 * [Dokumentacja techniczna](https://github.com/wfiis-tgmg/PDFAnnotation/wiki/Dokumentacja-techniczna) - dokumentacja techniczna projektu
 
 
