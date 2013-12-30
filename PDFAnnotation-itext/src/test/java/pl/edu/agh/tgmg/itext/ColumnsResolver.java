@@ -1,12 +1,11 @@
 package pl.edu.agh.tgmg.itext;
 
 
-import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import org.testng.annotations.Test;
-import pl.edu.agh.tgmg.api.Column;
+import pl.edu.agh.tgmg.api.ColumnHeader;
 import pl.edu.agh.tgmg.api.PdfColumn;
 
 import java.lang.reflect.Field;
@@ -56,16 +55,16 @@ public class ColumnsResolver
 
     static class ColumnResolver
     {
-        public List<Column> resolve(Class<?> clazz)
+        public List<ColumnHeader> resolve(Class<?> clazz)
         {
 
             Field[] fields = clazz.getFields();
-            LinkedList<Column> columns = new LinkedList<Column>();
+            LinkedList<ColumnHeader> columnHeaders = new LinkedList<ColumnHeader>();
             for (Field field : fields) {
                 String name = field.getName();
-                columns.add(new ColumnImpl(field.getName()));
+                columnHeaders.add(new ColumnHeaderImpl(field.getName()));
             }
-            return columns;
+            return columnHeaders;
         }
     }
 
@@ -73,30 +72,30 @@ public class ColumnsResolver
 
     @Test
     public void testWithoutAnnotations() throws Exception {
-        List<Column> resolve = columnResolver.resolve(DtoNoAnnotations.class);
+        List<ColumnHeader> resolve = columnResolver.resolve(DtoNoAnnotations.class);
         assertEquals(resolve.size(), 2);
-        assertTrue(resolve.containsAll(of(new ColumnImpl("name"), new ColumnImpl("amoung"))));
+        assertTrue(resolve.containsAll(of(new ColumnHeaderImpl("name"), new ColumnHeaderImpl("amoung"))));
     }
 
     @Test
     public void testColumnOrder() throws Exception {
-        List<Column> resolve = columnResolver.resolve(DtoWithOrder.class);
+        List<ColumnHeader> resolve = columnResolver.resolve(DtoWithOrder.class);
         assertEquals(resolve.size(), 2);
-        assertTrue(resolve.equals(of(new ColumnImpl("amoung"),new ColumnImpl("name"))));
+        assertTrue(resolve.equals(of(new ColumnHeaderImpl("amoung"),new ColumnHeaderImpl("name"))));
     }
 
     @Test
     public void testColumnAlias() throws Exception {
-        List<Column> resolve = columnResolver.resolve(DtoWithAlias.class);
+        List<ColumnHeader> resolve = columnResolver.resolve(DtoWithAlias.class);
         assertEquals(resolve.size(), 2);
-        assertTrue(resolve.containsAll(of(new ColumnImpl("some1"),new ColumnImpl("some2"))));
+        assertTrue(resolve.containsAll(of(new ColumnHeaderImpl("some1"),new ColumnHeaderImpl("some2"))));
     }
 
     @Test
     public void testColumnWithI18n() throws Exception {
-        List<Column> resolve = columnResolver.resolve(DtoWithI18n.class);
+        List<ColumnHeader> resolve = columnResolver.resolve(DtoWithI18n.class);
         assertEquals(resolve.size(), 2);
-        assertTrue(resolve.containsAll(of(new ColumnImpl("lang1"),new ColumnImpl("lang2"))));
+        assertTrue(resolve.containsAll(of(new ColumnHeaderImpl("lang1"),new ColumnHeaderImpl("lang2"))));
     }
 
 
@@ -104,7 +103,7 @@ public class ColumnsResolver
 
     @Data
     @AllArgsConstructor
-    private static class ColumnImpl implements Column {
+    private static class ColumnHeaderImpl implements ColumnHeader {
         String name;
     }
 }
