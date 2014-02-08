@@ -32,12 +32,6 @@ public class ITextDocumentGenerator implements PdfDocumentGenerator {
         Element table = createTable(data, documentStructure);
         document.add(table);
 
-
-//        document.add()
-
-
-
-
         document.close();
 
         } catch (DocumentException e) {
