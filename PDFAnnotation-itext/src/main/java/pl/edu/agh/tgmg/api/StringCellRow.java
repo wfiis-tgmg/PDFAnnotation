@@ -4,8 +4,10 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import pl.edu.agh.tgmg.api.annotations.ToTest;
 
+import java.lang.reflect.Field;
 
-//@ToTest
+
+@ToTest
 public class StringCellRow implements CellRow {
     String name;
 
@@ -24,7 +26,9 @@ public class StringCellRow implements CellRow {
 
     public String getValue(Object o)  {
         try {
-            return o.getClass().getField(name).get(o).toString();
+            Field field = o.getClass().getDeclaredField(name);
+            field.setAccessible(true);
+            return field.get(o).toString();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
