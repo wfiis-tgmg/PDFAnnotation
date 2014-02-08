@@ -5,7 +5,7 @@ import java.util.List;
 public interface DocumentStructure {
 
     List<ColumnHeader> getHeaders();
-    List<ColumnRow> getColumnRow();
+    List<CellRow> getCellRow();
 
     DocumentMetaData getMetaData();
 }

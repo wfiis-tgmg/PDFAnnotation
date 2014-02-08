@@ -2,7 +2,6 @@ package pl.edu.agh.tgmg.api;
 
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
-import com.google.common.collect.Lists;
 import pl.edu.agh.tgmg.itext.ColumnHeaderImpl;
 
 import java.util.LinkedList;
@@ -11,11 +10,11 @@ import java.util.List;
 import static com.google.common.collect.Lists.*;
 
 public class DocumentStructreBuilder {
-    private List<ColumnRow> columnRow = new LinkedList<ColumnRow>();
+    private List<CellRow> cellRow = new LinkedList<CellRow>();
     private List<ColumnHeader> headers = new LinkedList<ColumnHeader>();
 
-    public DocumentStructreBuilder setColumnRow(List<? extends ColumnRow> columnRow) {
-        this.columnRow = transform(columnRow, Functions.<ColumnRow>identity());
+    public DocumentStructreBuilder setCellRow(List<? extends CellRow> cellRow) {
+        this.cellRow = transform(cellRow, Functions.<CellRow>identity());
         return this;
     }
 
@@ -25,10 +24,10 @@ public class DocumentStructreBuilder {
     }
 
     public DocumentStructreBuilder setColumnRowString(String ... columnRow) {
-        this.columnRow = transform(newArrayList(columnRow), new Function<String, ColumnRow>() {
+        this.cellRow = transform(newArrayList(columnRow), new Function<String, CellRow>() {
             @Override
-            public ColumnRow apply(java.lang.String s) {
-                return new ColumnRowImpl(s);
+            public CellRow apply(java.lang.String s) {
+                return new StringCellRow(s);
             }
         });
         return this;
@@ -45,13 +44,13 @@ public class DocumentStructreBuilder {
     }
 
     public DocumentStructreImpl create() {
-        return new DocumentStructreImpl(columnRow, headers);
+        return new DocumentStructreImpl(cellRow, headers);
     }
 
     public DocumentStructreBuilder clear()
     {
         this.headers.clear();
-        this.columnRow.clear();
+        this.cellRow.clear();
         return this;
 
     }

@@ -1,7 +1,6 @@
 package pl.edu.agh.tgmg.itext;
 
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import pl.edu.agh.tgmg.api.ColumnHeader;
 import pl.edu.agh.tgmg.api.DocumentStructure;
@@ -26,39 +25,17 @@ public class ITextDocumentGenerator implements PdfDocumentGenerator {
         try
         {
         Document document = documentFactory.create(out,documentStructure.getMetaData());
-        headerDecorator.decorate(document,documentStructure.getHeaders());
 
 
-            //generate header
+        //for po polach klasy
 
-
-            int allSubColumns = 0;
-            for (ColumnHeader h : documentStructure.getHeaders()) {
-                allSubColumns += h.getSubColumnAmount();
-            }
-
-        PdfPTable table = new PdfPTable(allSubColumns);
-//        table.setWidthPercentage(90);
-//        table.setTotalWidth(500.0f);
-//        table.setLockedWidth(true);
-//        table.setHorizontalAlignment(Element.ALIGN_CENTER);
-
-        for (ColumnHeader h : documentStructure.getHeaders()) {
-            PdfPCell cell = new PdfPCell(new Phrase(h.getName()));
-            if(h.getSubColumnAmount() > 1)
-            cell.setColspan(h.getSubColumnAmount());
-            table.addCell(cell);
-        }
-        //        cell.setFixedHeight(2.5f*cellHeight);
-//        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-//        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-//        cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-
-        //generate rows;
-
-
+        Element table = createTable(data, documentStructure);
         document.add(table);
-        document.newPage();
+
+
+//        document.add()
+
+
 
 
         document.close();
@@ -66,5 +43,19 @@ public class ITextDocumentGenerator implements PdfDocumentGenerator {
         } catch (DocumentException e) {
             throw new GenDocumentException(e);
         }
+    }
+
+    private PdfPTable createTable(List<? extends PdfDocument> data, DocumentStructure documentStructure) {
+        int allSubColumns = 0;
+        for (ColumnHeader h : documentStructure.getHeaders()) {
+            allSubColumns += h.getSubColumnAmount();
+        }
+
+        if(allSubColumns<1) throw new GenDocumentException("The number of columns in PdfPTable constructor must be greater");
+
+        PdfPTable table = new PdfPTable(allSubColumns);
+        headerDecorator.decorate(table,documentStructure.getHeaders());
+        rowDecorator.decorate(table,documentStructure.getCellRow(),data);
+        return table;
     }
 }
