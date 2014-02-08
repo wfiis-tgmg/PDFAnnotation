@@ -1,6 +1,7 @@
-package pl.edu.agh.tgmg.api;
+package pl.edu.agh.tgmg.itext.wrapper;
 
 import com.itextpdf.text.Phrase;
+import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellWrapper;
 
 public class ITextPhraseWrapper implements CellWrapper {
 

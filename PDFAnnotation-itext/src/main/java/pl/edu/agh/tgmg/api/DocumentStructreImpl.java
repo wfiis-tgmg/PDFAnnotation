@@ -1,5 +1,8 @@
 package pl.edu.agh.tgmg.api;
 
+import pl.edu.agh.tgmg.api.buildingBlocks.*;
+import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
+
 import java.util.LinkedList;
 import java.util.List;
 

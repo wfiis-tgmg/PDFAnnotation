@@ -2,7 +2,10 @@ package pl.edu.agh.tgmg.api;
 
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
-import pl.edu.agh.tgmg.itext.ColumnHeaderImpl;
+import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
+import pl.edu.agh.tgmg.api.buildingBlocks.ColumnHeader;
+import pl.edu.agh.tgmg.itext.generators.table.ColumnHeaderImpl;
+import pl.edu.agh.tgmg.itext.wrapper.StringCellRow;
 
 import java.util.LinkedList;
 import java.util.List;

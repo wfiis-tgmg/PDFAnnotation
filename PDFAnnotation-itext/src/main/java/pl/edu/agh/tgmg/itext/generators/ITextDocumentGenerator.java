@@ -1,12 +1,18 @@
-package pl.edu.agh.tgmg.itext;
+package pl.edu.agh.tgmg.itext.generators;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPTable;
-import pl.edu.agh.tgmg.api.ColumnHeader;
-import pl.edu.agh.tgmg.api.DocumentStructure;
+import pl.edu.agh.tgmg.api.buildingBlocks.ColumnHeader;
+import pl.edu.agh.tgmg.api.buildingBlocks.DocumentStructure;
 import pl.edu.agh.tgmg.api.PdfDocument;
-import pl.edu.agh.tgmg.api.PdfDocumentGenerator;
+import pl.edu.agh.tgmg.api.buildingBlocks.generator.PdfDocumentGenerator;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
+import pl.edu.agh.tgmg.itext.generators.metadata.DefaultITextDocumentFactory;
+import pl.edu.agh.tgmg.itext.generators.table.DefaultITextRowGenerator;
+import pl.edu.agh.tgmg.itext.generators.table.DefaultItextHeaderDecorator;
+import pl.edu.agh.tgmg.itext.generators.metadata.ITextDocumentFactory;
+import pl.edu.agh.tgmg.itext.generators.table.ITextHeaderDecorator;
+import pl.edu.agh.tgmg.itext.generators.table.ITextRowGenerator;
 
 import java.io.OutputStream;
 import java.util.List;
@@ -15,7 +21,7 @@ public class ITextDocumentGenerator implements PdfDocumentGenerator {
 
     ITextDocumentFactory documentFactory = new DefaultITextDocumentFactory();
     ITextHeaderDecorator headerDecorator = new DefaultItextHeaderDecorator();
-    ITextRowDecorator rowDecorator = new DefaultITextRowDecorator();
+    ITextRowGenerator rowDecorator = new DefaultITextRowGenerator();
 
 
 

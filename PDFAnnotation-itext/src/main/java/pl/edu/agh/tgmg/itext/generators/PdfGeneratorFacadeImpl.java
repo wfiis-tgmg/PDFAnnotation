@@ -1,15 +1,15 @@
-package pl.edu.agh.tgmg.itext;
+package pl.edu.agh.tgmg.itext.generators;
 
-import pl.edu.agh.tgmg.api.DocumentStructure;
-import pl.edu.agh.tgmg.api.PdfAnnotationParser;
+import pl.edu.agh.tgmg.api.buildingBlocks.DocumentStructure;
+import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfAnnotationParser;
 import pl.edu.agh.tgmg.api.PdfDocument;
-import pl.edu.agh.tgmg.api.PdfDocumentGenerator;
+import pl.edu.agh.tgmg.api.buildingBlocks.generator.PdfDocumentGenerator;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 
 import java.io.OutputStream;
 import java.util.List;
 
-public class ITextPdfDocumentGenerator implements PdfGeneratorFacede {
+public class PdfGeneratorFacadeImpl implements PdfGeneratorFacede {
 
     PdfAnnotationParser annotationParser;
     PdfDocumentGenerator pdfDocumentGenerator;

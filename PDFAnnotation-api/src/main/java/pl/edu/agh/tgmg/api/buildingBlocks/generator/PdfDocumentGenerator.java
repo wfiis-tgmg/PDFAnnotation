@@ -1,5 +1,7 @@
-package pl.edu.agh.tgmg.api;
+package pl.edu.agh.tgmg.api.buildingBlocks.generator;
 
+import pl.edu.agh.tgmg.api.PdfDocument;
+import pl.edu.agh.tgmg.api.buildingBlocks.DocumentStructure;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 
 import java.io.OutputStream;

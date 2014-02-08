@@ -1,14 +1,14 @@
-package pl.edu.agh.tgmg.itext;
+package pl.edu.agh.tgmg.itext.generators.table;
 
-import com.itextpdf.text.Image;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPTable;
-import pl.edu.agh.tgmg.api.CellRow;
-import pl.edu.agh.tgmg.api.CellWrapper;
+import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
+import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellWrapper;
+import pl.edu.agh.tgmg.itext.generators.table.ITextRowGenerator;
 
 import java.util.List;
 
-public class DefaultITextRowDecorator implements ITextRowDecorator {
+public class DefaultITextRowGenerator implements ITextRowGenerator {
     @Override
     public void decorate(PdfPTable table, List<CellRow> cellRow, List data) {
         for (Object obj : data) {

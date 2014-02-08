@@ -3,8 +3,9 @@ package pl.edu.agh.tgmg.itext;
 
 import lombok.Getter;
 import org.testng.annotations.Test;
-import pl.edu.agh.tgmg.api.ColumnHeader;
+import pl.edu.agh.tgmg.api.buildingBlocks.ColumnHeader;
 import pl.edu.agh.tgmg.api.annotations.PdfColumn;
+import pl.edu.agh.tgmg.itext.generators.table.ColumnHeaderImpl;
 
 import java.lang.reflect.Field;
 import java.util.LinkedList;

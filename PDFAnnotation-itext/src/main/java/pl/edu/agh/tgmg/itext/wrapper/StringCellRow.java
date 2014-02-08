@@ -1,8 +1,9 @@
-package pl.edu.agh.tgmg.api;
+package pl.edu.agh.tgmg.itext.wrapper;
 
 import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.PdfPCell;
 import pl.edu.agh.tgmg.api.annotations.ToTest;
+import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
+import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellWrapper;
 
 import java.lang.reflect.Field;
 

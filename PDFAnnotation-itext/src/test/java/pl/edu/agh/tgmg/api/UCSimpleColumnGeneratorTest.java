@@ -1,11 +1,11 @@
 package pl.edu.agh.tgmg.api;
 
-import com.itextpdf.text.ExceptionConverter;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pl.edu.agh.tgmg.api.buildingBlocks.generator.PdfDocumentGenerator;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 import pl.edu.agh.tgmg.examples.TwoColumnTable;
-import pl.edu.agh.tgmg.itext.ITextDocumentGenerator;
+import pl.edu.agh.tgmg.itext.generators.ITextDocumentGenerator;
 
 import java.io.File;
 import java.io.FileOutputStream;

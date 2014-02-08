@@ -1,8 +1,6 @@
-package pl.edu.agh.tgmg.itext;
+package pl.edu.agh.tgmg.itext.generators.table;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import pl.edu.agh.tgmg.api.ColumnHeader;
+import pl.edu.agh.tgmg.api.buildingBlocks.ColumnHeader;
 
 
 public class ColumnHeaderImpl implements ColumnHeader {
