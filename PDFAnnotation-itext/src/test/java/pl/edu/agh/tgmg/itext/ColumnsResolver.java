@@ -1,7 +1,6 @@
 package pl.edu.agh.tgmg.itext;
 
 
-import lombok.Getter;
 import org.testng.annotations.Test;
 import pl.edu.agh.tgmg.api.buildingBlocks.ColumnHeader;
 import pl.edu.agh.tgmg.api.annotations.PdfColumn;
@@ -18,38 +17,67 @@ import static org.testng.Assert.assertTrue;
 @Test(groups = "init")
 public class ColumnsResolver
 {
-    @Getter
     static class DtoNoAnnotations
     {
         public String name;
         public int amoung;
+
+        String getName() {
+            return name;
+        }
+
+        int getAmoung() {
+            return amoung;
+        }
     }
 
-    @Getter
     static class DtoWithOrder
     {
         @PdfColumn(order = 2)
         String name;
         @PdfColumn(order = 1)
         int amoung;
+
+        int getAmoung() {
+            return amoung;
+        }
+
+        String getName() {
+            return name;
+        }
     }
 
-    @Getter
     static class DtoWithAlias
     {
         @PdfColumn(name = "some1")
         String name;
         @PdfColumn(name = "some2")
         int amoung;
+
+        String getName() {
+            return name;
+        }
+
+        int getAmoung() {
+            return amoung;
+        }
     }
 
-    @Getter
+
     static class DtoWithI18n
     {
         @PdfColumn(name = "#{i18n1}")
         String name;
         @PdfColumn(name = "#{i18n2}")
         int amoung;
+
+        int getAmoung() {
+            return amoung;
+        }
+
+        String getName() {
+            return name;
+        }
     }
 
     static class ColumnResolver
