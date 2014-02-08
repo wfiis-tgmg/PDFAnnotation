@@ -29,4 +29,11 @@ public class DefaultITextDocumentFactory implements ITextDocumentFactory {
             throw new GenDocumentException(e);
         }
      }
+
+    @Override
+    public void close(Document document)
+    {
+        document.close();
+    }
 }
+

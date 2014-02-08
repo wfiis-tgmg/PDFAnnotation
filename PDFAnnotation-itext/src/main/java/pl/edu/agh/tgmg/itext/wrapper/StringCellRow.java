@@ -25,8 +25,10 @@ public class StringCellRow implements CellRow {
         return new ITextPhraseWrapper(new Phrase(getValue(o)));
     }
 
+
     public String getValue(Object o)  {
         try {
+
             Field field = o.getClass().getDeclaredField(name);
             field.setAccessible(true);
             return field.get(o).toString();

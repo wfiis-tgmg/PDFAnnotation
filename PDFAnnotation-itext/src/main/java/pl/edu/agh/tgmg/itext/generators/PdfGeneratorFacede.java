@@ -7,5 +7,5 @@ import java.io.OutputStream;
 import java.util.List;
 
 public interface PdfGeneratorFacede {
-    void generate(OutputStream out, List<PdfDocument> dto) throws GenDocumentException;
+    void generate(OutputStream out, PdfDocument dto ) throws GenDocumentException;
 }

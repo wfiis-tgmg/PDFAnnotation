@@ -1,41 +1,35 @@
 package pl.edu.agh.tgmg.api;
 
 import pl.edu.agh.tgmg.api.buildingBlocks.*;
-import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
 
 import java.util.LinkedList;
 import java.util.List;
 
-@Deprecated
 public class DocumentStructreImpl implements DocumentStructure
 {
     public DocumentStructreImpl() {
-        this(new LinkedList<CellRow>(), new LinkedList<ColumnHeader>());
+        this(new LinkedList<PdfElement>(), new DocumentMetaDataImpl());
     }
 
-    public DocumentStructreImpl(List<CellRow> cellRow, List<ColumnHeader> headers) {
-        this.cellRow = cellRow;
-        this.headers = headers;
+
+    public DocumentStructreImpl(List<PdfElement> headers, DocumentMetaData metaData) {
+        this.elements = headers;
+        this.metaData = metaData;
     }
 
-    protected List<ColumnHeader> headers ;
-    protected List<CellRow> cellRow;
+    protected List<PdfElement> elements;
+    protected DocumentMetaData metaData;
+
 
     @Override
-    public List<ColumnHeader> getHeaders() {
+    public List<PdfElement> getPdfElements() {
 
-        return headers;
-    }
-
-    @Override
-    public List<CellRow> getCellRow() {
-
-        return cellRow;
+        return elements;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public DocumentMetaData getMetaData() {
 
-        return new DocumentMetaDataImpl();
+        return metaData;
     }
 }

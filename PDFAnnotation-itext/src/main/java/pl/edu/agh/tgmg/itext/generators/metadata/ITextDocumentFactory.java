@@ -9,4 +9,6 @@ import java.io.OutputStream;
 public interface ITextDocumentFactory {
 
     Document create(OutputStream out, DocumentMetaData metaData) throws GenDocumentException;
+
+    void close(Document document);
 }
