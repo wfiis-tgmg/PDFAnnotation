@@ -8,6 +8,7 @@
     <modules>
         <module>PDFAnnotation-api</module>
         <module>PDFAnnotation-itext</module>
+        <module>PDFAnnotation-examples</module>
     </modules>
 
 
@@ -17,5 +18,37 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>15.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.12.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>6.1.1</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>1.8.5</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+
+
+    </dependencyManagement>
 
 </project>

@@ -1,0 +1,45 @@
+package pl.edu.agh.tgmg.api;
+
+import com.google.common.collect.ImmutableList;
+import com.itextpdf.text.ExceptionConverter;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import pl.edu.agh.tgmg.examples.TwoColumns;
+import pl.edu.agh.tgmg.itext.ColumnHeaderImpl;
+import pl.edu.agh.tgmg.itext.ITextDocumentGenerator;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.util.Collections;
+
+@Test(groups = "docGen")
+public class UCSimpleColumnGeneratorTest {
+
+    DocumentStructreBuilder builder = new DocumentStructreBuilder();
+
+    PdfDocumentGenerator gen = new ITextDocumentGenerator();
+
+    @BeforeMethod
+    public void setUp() throws Exception {
+        builder.clear();
+    }
+
+    //TODO: wrap itext exception
+    @Test(expectedExceptions = ExceptionConverter.class)
+    public void testBlank() throws Exception {
+        File file = new File("blank.pdf");
+        Files.deleteIfExists(file.toPath());
+        gen.generate(new FileOutputStream(file), Collections.<PdfContainer>emptyList(), new DocumentStructreBuilder().create());
+    }
+
+    @Test
+    public void testTwoColumns() throws Exception {
+        File file = new File("twoColumns.pdf");
+        Files.deleteIfExists(file.toPath());
+        DocumentStructreImpl documentStructre = builder.
+                setColumnRowString("name", "surname").
+                setHeadersString("title for name", "title for surname").create();
+        gen.generate(new FileOutputStream(file), TwoColumns.feed(), documentStructre);
+    }
+}

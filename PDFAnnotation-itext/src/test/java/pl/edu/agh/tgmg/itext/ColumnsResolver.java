@@ -1,12 +1,10 @@
 package pl.edu.agh.tgmg.itext;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import org.testng.annotations.Test;
 import pl.edu.agh.tgmg.api.ColumnHeader;
-import pl.edu.agh.tgmg.api.PdfColumn;
+import pl.edu.agh.tgmg.api.annotations.PdfColumn;
 
 import java.lang.reflect.Field;
 import java.util.LinkedList;
@@ -99,11 +97,4 @@ public class ColumnsResolver
     }
 
 
-
-
-    @Data
-    @AllArgsConstructor
-    private static class ColumnHeaderImpl implements ColumnHeader {
-        String name;
-    }
 }
