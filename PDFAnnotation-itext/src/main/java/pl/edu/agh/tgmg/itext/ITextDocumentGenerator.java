@@ -3,10 +3,9 @@ package pl.edu.agh.tgmg.itext;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
 import pl.edu.agh.tgmg.api.ColumnHeader;
 import pl.edu.agh.tgmg.api.DocumentStructure;
-import pl.edu.agh.tgmg.api.PdfContainer;
+import pl.edu.agh.tgmg.api.PdfDocument;
 import pl.edu.agh.tgmg.api.PdfDocumentGenerator;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 
@@ -22,7 +21,7 @@ public class ITextDocumentGenerator implements PdfDocumentGenerator {
 
 
     @Override
-    public void generate(OutputStream out, List<? extends PdfContainer> data, DocumentStructure documentStructure) throws GenDocumentException {
+    public void generate(OutputStream out, List<? extends PdfDocument> data, DocumentStructure documentStructure) throws GenDocumentException {
 
         try
         {
@@ -30,13 +29,13 @@ public class ITextDocumentGenerator implements PdfDocumentGenerator {
         headerDecorator.decorate(document,documentStructure.getHeaders());
 
 
-        //generate header
+            //generate header
 
 
-        int allSubColumns = 0;
-        for (ColumnHeader h : documentStructure.getHeaders()) {
-            allSubColumns += h.getSubColumnAmount();
-        }
+            int allSubColumns = 0;
+            for (ColumnHeader h : documentStructure.getHeaders()) {
+                allSubColumns += h.getSubColumnAmount();
+            }
 
         PdfPTable table = new PdfPTable(allSubColumns);
 //        table.setWidthPercentage(90);
