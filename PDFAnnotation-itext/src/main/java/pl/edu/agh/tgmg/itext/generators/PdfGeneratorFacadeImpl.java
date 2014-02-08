@@ -17,6 +17,7 @@ public class PdfGeneratorFacadeImpl implements PdfGeneratorFacede {
     @Override
     public void generate(OutputStream out, List<PdfDocument> dto) throws GenDocumentException {
         Class<? extends PdfDocument> dtoClazz = dto.get(0).getClass();
+
         DocumentStructure structure = annotationParser.parse(dtoClazz);
         pdfDocumentGenerator.generate(out,dto,structure);
     }

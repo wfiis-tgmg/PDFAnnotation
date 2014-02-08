@@ -1,10 +1,9 @@
-package pl.edu.agh.tgmg.itext.generators.table;
+package pl.edu.agh.tgmg.itext.generators.oldTable;
 
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import pl.edu.agh.tgmg.api.buildingBlocks.ColumnHeader;
-import pl.edu.agh.tgmg.itext.generators.table.ITextHeaderDecorator;
 
 import java.util.List;
 

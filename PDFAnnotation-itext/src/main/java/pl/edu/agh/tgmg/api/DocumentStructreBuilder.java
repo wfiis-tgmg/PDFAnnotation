@@ -4,7 +4,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Functions;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
 import pl.edu.agh.tgmg.api.buildingBlocks.ColumnHeader;
-import pl.edu.agh.tgmg.itext.generators.table.ColumnHeaderImpl;
+import pl.edu.agh.tgmg.itext.generators.oldTable.ColumnHeaderImpl;
 import pl.edu.agh.tgmg.itext.wrapper.StringCellRow;
 
 import java.util.LinkedList;
@@ -12,6 +12,7 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.*;
 
+@Deprecated
 public class DocumentStructreBuilder {
     private List<CellRow> cellRow = new LinkedList<CellRow>();
     private List<ColumnHeader> headers = new LinkedList<ColumnHeader>();

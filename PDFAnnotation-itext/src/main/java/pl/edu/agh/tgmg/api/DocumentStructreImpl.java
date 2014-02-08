@@ -6,6 +6,7 @@ import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
 import java.util.LinkedList;
 import java.util.List;
 
+@Deprecated
 public class DocumentStructreImpl implements DocumentStructure
 {
     public DocumentStructreImpl() {

@@ -8,11 +8,11 @@ import pl.edu.agh.tgmg.api.PdfDocument;
 import pl.edu.agh.tgmg.api.buildingBlocks.generator.PdfDocumentGenerator;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 import pl.edu.agh.tgmg.itext.generators.metadata.DefaultITextDocumentFactory;
-import pl.edu.agh.tgmg.itext.generators.table.DefaultITextRowGenerator;
-import pl.edu.agh.tgmg.itext.generators.table.DefaultItextHeaderDecorator;
+import pl.edu.agh.tgmg.itext.generators.oldTable.DefaultITextRowGenerator;
+import pl.edu.agh.tgmg.itext.generators.oldTable.DefaultItextHeaderDecorator;
 import pl.edu.agh.tgmg.itext.generators.metadata.ITextDocumentFactory;
-import pl.edu.agh.tgmg.itext.generators.table.ITextHeaderDecorator;
-import pl.edu.agh.tgmg.itext.generators.table.ITextRowGenerator;
+import pl.edu.agh.tgmg.itext.generators.oldTable.ITextHeaderDecorator;
+import pl.edu.agh.tgmg.itext.generators.oldTable.ITextRowGenerator;
 
 import java.io.OutputStream;
 import java.util.List;
@@ -31,8 +31,6 @@ public class ITextDocumentGenerator implements PdfDocumentGenerator {
         try
         {
         Document document = documentFactory.create(out,documentStructure.getMetaData());
-
-
         //for po polach klasy
 
         Element table = createTable(data, documentStructure);
