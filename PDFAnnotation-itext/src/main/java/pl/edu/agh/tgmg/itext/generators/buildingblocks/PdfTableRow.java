@@ -45,9 +45,12 @@ public class PdfTableRow {
                 return new PdfPCell((Phrase) value1);
             case TABLE:
                 PdfPCell pdfPCell = new PdfPCell((PdfPTable) value1);
-                pdfPCell.setColspan(2);
                 return pdfPCell;
         }
         throw new GenDocumentException();
+    }
+
+    public int getCells() {
+        return cellRows.size();
     }
 }

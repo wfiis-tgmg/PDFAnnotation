@@ -28,8 +28,6 @@ public class PdfTableHeaderTest {
         ));
     }
 
-
-
     @Test
     public void testSubGroup() throws Exception {
         gen("headerSubgroup.pdf", 2, Arrays.asList(
@@ -38,6 +36,7 @@ public class PdfTableHeaderTest {
                 new TableHeaderColumn(1,2,"C -> A")
         ));
     }
+
     @Test
     public void testAdvanceGrouping() throws Exception {
         gen("headerAdvance.pd f", 4, Arrays.asList(

@@ -4,6 +4,7 @@ public class TableHeaderColumn {
     int column;
     int row;
     String text;
+    String id;
 
 
     public TableHeaderColumn(String text) {

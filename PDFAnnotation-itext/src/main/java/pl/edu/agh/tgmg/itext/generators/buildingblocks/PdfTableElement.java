@@ -8,6 +8,7 @@ import pl.edu.agh.tgmg.api.PdfElement;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 
 import java.util.Collections;
+import java.util.List;
 
 public class PdfTableElement implements PdfElement{
 
@@ -20,6 +21,7 @@ public class PdfTableElement implements PdfElement{
     }
 
     public PdfTableElement(PdfTableRow pdfTableRow) {
+        pdfTableHeader = new PdfTableHeader(pdfTableRow.getCells());
         this.pdfTableRow = pdfTableRow;
     }
 
@@ -29,11 +31,12 @@ public class PdfTableElement implements PdfElement{
     }
 
     @Override
-    public PdfPTable print(Object data) throws DocumentException {
+    public PdfPTable print(Object dataList) throws DocumentException {
 
         PdfPTable t = pdfTableHeader.createPdfTable();
-        for (Object element : getIterable(data)) {
-            for (PdfPCell c : pdfTableRow.print(element)) {
+        for (Object dataRow : getIterable(dataList)) {
+            List<PdfPCell> cells = pdfTableRow.print(dataRow);
+            for (PdfPCell c : cells) {
                 t.addCell(c);
             }
         }
