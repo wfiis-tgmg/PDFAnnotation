@@ -4,7 +4,7 @@ package pl.edu.agh.tgmg.itext;
 import org.testng.annotations.Test;
 import pl.edu.agh.tgmg.api.buildingBlocks.ColumnHeader;
 import pl.edu.agh.tgmg.api.annotations.PdfColumn;
-import pl.edu.agh.tgmg.itext.generators.oldTable.ColumnHeaderImpl;
+import pl.edu.agh.tgmg.oldApi.ColumnHeaderImpl;
 
 import java.lang.reflect.Field;
 import java.util.LinkedList;

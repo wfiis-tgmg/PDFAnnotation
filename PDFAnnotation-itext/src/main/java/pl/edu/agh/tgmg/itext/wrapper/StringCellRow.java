@@ -1,11 +1,13 @@
 package pl.edu.agh.tgmg.itext.wrapper;
 
 import com.itextpdf.text.Phrase;
+import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.annotations.ToTest;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellWrapper;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 
 @ToTest
@@ -22,19 +24,8 @@ public class StringCellRow implements CellRow {
 
     @Override
     public CellWrapper getCell(Object o) {
-        return new ITextPhraseWrapper(new Phrase(getValue(o)));
+        return new ITextPhraseWrapper(new Phrase(CommonUtils.getValue(o,name).toString()));
     }
 
-
-    public String getValue(Object o)  {
-        try {
-
-            Field field = o.getClass().getDeclaredField(name);
-            field.setAccessible(true);
-            return field.get(o).toString();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
 

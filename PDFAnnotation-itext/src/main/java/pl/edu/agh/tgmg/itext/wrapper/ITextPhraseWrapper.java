@@ -5,6 +5,7 @@ import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellWrapper;
 
 public class ITextPhraseWrapper implements CellWrapper {
 
+
     Phrase phrase;
 
     public ITextPhraseWrapper(Phrase phrase) {

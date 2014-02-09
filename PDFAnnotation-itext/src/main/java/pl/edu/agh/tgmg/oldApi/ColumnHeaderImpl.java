@@ -1,4 +1,4 @@
-package pl.edu.agh.tgmg.itext.generators.oldTable;
+package pl.edu.agh.tgmg.oldApi;
 
 import pl.edu.agh.tgmg.api.buildingBlocks.ColumnHeader;
 

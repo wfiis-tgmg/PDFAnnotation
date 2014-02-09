@@ -3,16 +3,15 @@ package pl.edu.agh.tgmg.itext.generators;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import pl.edu.agh.tgmg.api.PdfElement;
+import pl.edu.agh.tgmg.api.PdfGeneratorFacede;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentStructure;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfAnnotationParser;
-import pl.edu.agh.tgmg.api.PdfDocument;
-import pl.edu.agh.tgmg.api.buildingBlocks.generator.PdfDocumentGenerator;
+import pl.edu.agh.tgmg.api.annotations.PdfDocument;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 import pl.edu.agh.tgmg.itext.generators.metadata.DefaultITextDocumentFactory;
 import pl.edu.agh.tgmg.itext.generators.metadata.ITextDocumentFactory;
 
 import java.io.OutputStream;
-import java.util.List;
 
 public class PdfGeneratorFacadeImpl implements PdfGeneratorFacede {
 
@@ -29,17 +28,12 @@ public class PdfGeneratorFacadeImpl implements PdfGeneratorFacede {
             Document document = documentFactory.create(out, structure.getMetaData());
 
             for (PdfElement pdfElement : structure.getPdfElements()) {
-                pdfElement.print(dto,document);
+                pdfElement.print(dto);
             }
 
             documentFactory.close(document);
         } catch (DocumentException e) {
             throw new GenDocumentException(e);
         }
-
-
-
-
-
     }
 }

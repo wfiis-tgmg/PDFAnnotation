@@ -1,6 +1,6 @@
 package pl.edu.agh.tgmg.examples;
 
-import pl.edu.agh.tgmg.api.PdfDocument;
+import pl.edu.agh.tgmg.api.annotations.PdfDocument;
 
 import java.util.LinkedList;
 import java.util.List;

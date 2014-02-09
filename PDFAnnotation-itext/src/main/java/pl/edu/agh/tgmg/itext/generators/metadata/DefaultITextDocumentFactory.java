@@ -4,12 +4,19 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaData;
+import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaDataImpl;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 import pl.edu.agh.tgmg.itext.generators.metadata.ITextDocumentFactory;
 
 import java.io.OutputStream;
 
 public class DefaultITextDocumentFactory implements ITextDocumentFactory {
+
+    public Document create(OutputStream out) throws GenDocumentException {
+        return create(out, new DocumentMetaDataImpl());
+    }
+
+
     @Override
     public Document create(OutputStream out, DocumentMetaData metaData) throws GenDocumentException {
         try {

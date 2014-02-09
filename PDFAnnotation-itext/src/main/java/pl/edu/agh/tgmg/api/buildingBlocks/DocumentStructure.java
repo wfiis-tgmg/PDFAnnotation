@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface DocumentStructure {
 
-    List<PdfElement> getPdfElements();
+    List<? extends PdfElement> getPdfElements();
     DocumentMetaData getMetaData();
 }
