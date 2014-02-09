@@ -3,7 +3,7 @@ package pl.edu.agh.tgmg.itext.generators;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import pl.edu.agh.tgmg.api.PdfElement;
-import pl.edu.agh.tgmg.api.PdfGeneratorFacede;
+import pl.edu.agh.tgmg.api.PdfGeneratorFacade;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentStructure;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfAnnotationParser;
 import pl.edu.agh.tgmg.api.annotations.PdfDocument;
@@ -13,7 +13,7 @@ import pl.edu.agh.tgmg.itext.generators.metadata.ITextDocumentFactory;
 
 import java.io.OutputStream;
 
-public class PdfGeneratorFacadeImpl implements PdfGeneratorFacede {
+public class PdfGeneratorFacadeImpl implements PdfGeneratorFacade {
 
     PdfAnnotationParser annotationParser;
     ITextDocumentFactory documentFactory = new DefaultITextDocumentFactory();

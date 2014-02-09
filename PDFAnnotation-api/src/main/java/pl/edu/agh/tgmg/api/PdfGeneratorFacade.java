@@ -5,6 +5,6 @@ import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 
 import java.io.OutputStream;
 
-public interface PdfGeneratorFacede {
+public interface PdfGeneratorFacade {
     void generate(OutputStream out, PdfDocument dto ) throws GenDocumentException;
 }
