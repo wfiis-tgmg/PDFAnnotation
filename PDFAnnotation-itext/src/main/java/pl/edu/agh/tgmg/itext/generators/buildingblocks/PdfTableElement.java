@@ -19,6 +19,14 @@ public class PdfTableElement implements PdfElement{
         this.pdfTableHeader = pdfTableHeader;
     }
 
+    public PdfTableElement(PdfTableRow pdfTableRow) {
+        this.pdfTableRow = pdfTableRow;
+    }
+
+    public PdfTableElement(PdfTableHeader pdfTableHeader, PdfTableRow pdfTableRow) {
+        this.pdfTableHeader = pdfTableHeader;
+        this.pdfTableRow = pdfTableRow;
+    }
 
     @Override
     public PdfPTable print(Object data) throws DocumentException {

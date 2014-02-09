@@ -1,5 +1,6 @@
 package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 
+import com.google.common.collect.Lists;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -20,6 +21,12 @@ public class PdfTableRow {
         this.cellRows = cellRows;
     }
 
+    public PdfTableRow(CellRow ... cellRows) {
+        this.cellRows = Lists.newArrayList(cellRows);
+    }
+
+
+
     public List<PdfPCell> print(Object data) {
 
         List<PdfPCell> res = new LinkedList<PdfPCell>();
@@ -37,7 +44,9 @@ public class PdfTableRow {
             case PHRASE:
                 return new PdfPCell((Phrase) value1);
             case TABLE:
-                return new PdfPCell((PdfPTable) value1);
+                PdfPCell pdfPCell = new PdfPCell((PdfPTable) value1);
+                pdfPCell.setColspan(2);
+                return pdfPCell;
         }
         throw new GenDocumentException();
     }
