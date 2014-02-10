@@ -3,8 +3,10 @@ package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+
 import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
 
+import java.util.Collections;
 import java.util.List;
 
 public class PdfTableHeader {
@@ -14,22 +16,26 @@ public class PdfTableHeader {
     List<TableHeaderColumn> headerColumns;
 
     public int getColumns() {
-		return columns;
-	}
+        return columns;
+    }
 
-	public void setColumns(int columns) {
-		this.columns = columns;
-	}
+    public void setColumns(int columns) {
+        this.columns = columns;
+    }
 
-	public List<TableHeaderColumn> getHeaderColumns() {
-		return headerColumns;
-	}
+    public List<TableHeaderColumn> getHeaderColumns() {
+        return headerColumns;
+    }
 
-	public void setHeaderColumns(List<TableHeaderColumn> headerColumns) {
-		this.headerColumns = headerColumns;
-	}
+    public void setHeaderColumns(List<TableHeaderColumn> headerColumns) {
+        this.headerColumns = headerColumns;
+    }
 
-	public PdfTableHeader(int column,List<TableHeaderColumn> headerColumns) {
+    public PdfTableHeader(int column) {
+        this(column, Collections.<TableHeaderColumn>emptyList());
+    }
+    
+    public PdfTableHeader(int column,List<TableHeaderColumn> headerColumns) {
         this.columns = column;
         this.headerColumns = headerColumns;
     }
