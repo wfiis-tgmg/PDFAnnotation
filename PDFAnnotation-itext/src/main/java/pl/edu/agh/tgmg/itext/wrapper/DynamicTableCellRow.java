@@ -2,20 +2,19 @@ package pl.edu.agh.tgmg.itext.wrapper;
 
 import com.itextpdf.text.DocumentException;
 import pl.edu.agh.tgmg.api.CommonUtils;
-import pl.edu.agh.tgmg.api.PdfTableElement;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellWrapper;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableElementWithStaticHeader;
 
-public class TableCellRow implements CellRow {
+public class DynamicTableCellRow implements CellRow {
 
     String name;
 
-    PdfTableElement tableElement;
+    PdfTableElementWithStaticHeader tableElement;
 
 
-    public TableCellRow(String name, PdfTableElement tableElement) {
+    public DynamicTableCellRow(String name, PdfTableElementWithStaticHeader tableElement) {
         this.name = name;
         this.tableElement = tableElement;
     }

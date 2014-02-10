@@ -1,7 +1,6 @@
 package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Phrase;
@@ -46,7 +45,7 @@ public class PdfTableRowTest {
     public void testTableInSingleCell() throws Exception {
 
         TableCellRow innerTableCell = new TableCellRow("row3",
-                new PdfTableElement(
+                new PdfTableElementWithStaticHeader(
                         new PdfTableHeader(1), new PdfTableRow(new StringCellRow("name"))
                 )
         );
@@ -102,7 +101,7 @@ public class PdfTableRowTest {
 
 
         TableCellRow innerTable = new TableCellRow("row3",
-                new PdfTableElement(
+                new PdfTableElementWithStaticHeader(
                         new PdfTableHeader(1), new PdfTableRow(new StringCellRow("name"))
                 )
 
@@ -119,11 +118,11 @@ public class PdfTableRowTest {
 
     @Test
     public void test3LvlTable() throws Exception {
-        PdfTableElement simpleTable = new PdfTableElement(
+        PdfTableElementWithStaticHeader simpleTable = new PdfTableElementWithStaticHeader(
                 new PdfTableRow(new StringCellRow("name"))
         );
 
-        PdfTableElement secLvlTable = new PdfTableElement(
+        PdfTableElementWithStaticHeader secLvlTable = new PdfTableElementWithStaticHeader(
                 new PdfTableRow(Arrays.<CellRow>asList(
                         new StringCellRow("row1"),
                         new StringCellRow("row2"),
@@ -132,7 +131,7 @@ public class PdfTableRowTest {
 
         );
 
-        PdfTableElement rootTable = new PdfTableElement(
+        PdfTableElementWithStaticHeader rootTable = new PdfTableElementWithStaticHeader(
                 new PdfTableHeader(2, ImmutableList.of(new TableHeaderColumn("unique"), new TableHeaderColumn("tables"))),
                 new PdfTableRow(Arrays.<CellRow>asList(
                         new StringCellRow("unique")         ,
@@ -149,11 +148,11 @@ public class PdfTableRowTest {
 
     @Test(enabled = false)
     public void testTableSecMode() throws Exception {
-        PdfTableElement simpleTable = new PdfTableElement(
+        PdfTableElementWithStaticHeader simpleTable = new PdfTableElementWithStaticHeader(
                 new PdfTableRow(new StringCellRow("name"))
         );
 
-        PdfTableElement secLvlTable = new PdfTableElement(
+        PdfTableElementWithStaticHeader secLvlTable = new PdfTableElementWithStaticHeader(
                 new PdfTableHeader(1, ImmutableList.of(new TableHeaderColumn("ds"))),
                 new PdfTableRow(Arrays.<CellRow>asList(
                         new StringCellRow("row1"),

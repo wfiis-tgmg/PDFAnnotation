@@ -1,9 +1,9 @@
 package pl.edu.agh.tgmg.itext.generators.dto;
 
 public class TableHeaderColumn {
-    int column;
-    int row;
-    String text;
+    protected int column;
+    protected int row;
+    protected String text;
     String id;
 
 

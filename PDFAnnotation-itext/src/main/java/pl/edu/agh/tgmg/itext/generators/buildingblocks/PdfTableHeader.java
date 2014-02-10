@@ -25,6 +25,7 @@ public class PdfTableHeader {
 
     public PdfPTable createPdfTable() {
         PdfPTable pdfPTable = new PdfPTable(column);
+
         for (TableHeaderColumn h : headerColumns) {
             PdfPCell cell = new PdfPCell(new Phrase(h.getText()));
             cell.setColspan(h.getColSpan());

@@ -38,7 +38,9 @@ class Inner
 {
     Inner(String name) {
         this.name = name;
+        col = name.intern().toUpperCase();
     }
 
     String name;
+    String col;
 }
