@@ -39,7 +39,7 @@ public class PdfTableHeaderTest {
 
     @Test
     public void testAdvanceGrouping() throws Exception {
-        gen("headerAdvance.pd f", 4, Arrays.asList(
+        gen("headerAdvance.pdf", 4, Arrays.asList(
                 new TableHeaderColumn(3,1,"col1"),
                 new TableHeaderColumn(1,3,"colummns"),
                 new TableHeaderColumn(2,1,"col2"),
