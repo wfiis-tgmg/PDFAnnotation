@@ -24,8 +24,8 @@ public class DocumentStructreBuilder {
         return this;
     }
 
-    public DocumentStructreImpl create() {
-        return new DocumentStructreImpl(elements, metaData);
+    public DocumentStructureImpl create() {
+        return new DocumentStructureImpl(elements, metaData);
     }
 
     public DocumentStructreBuilder clear()

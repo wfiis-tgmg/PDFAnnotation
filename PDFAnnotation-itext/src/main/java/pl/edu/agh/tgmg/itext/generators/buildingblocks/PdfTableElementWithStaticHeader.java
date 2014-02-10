@@ -13,7 +13,11 @@ public class PdfTableElementWithStaticHeader implements PdfTableElement {
 
     PdfTableHeader pdfTableHeader;
     PdfTableRow pdfTableRow;
+    
 
+    public PdfTableHeader getPdfTableHeader() {
+		return pdfTableHeader;
+	}
 
     public PdfTableElementWithStaticHeader(PdfTableHeader pdfTableHeader) {
         this.pdfTableHeader = pdfTableHeader;

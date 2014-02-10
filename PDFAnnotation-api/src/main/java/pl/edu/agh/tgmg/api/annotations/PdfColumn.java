@@ -1,7 +1,14 @@
 package pl.edu.agh.tgmg.api.annotations;
 
-public @interface PdfColumn {
-    int order() default Integer.MAX_VALUE;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
+@Target(ElementType.FIELD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface PdfColumn {
+    int order() default -1;
+    String group() default "";
     String name() default "";
 }

@@ -5,14 +5,14 @@ import pl.edu.agh.tgmg.api.buildingBlocks.*;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DocumentStructreImpl implements DocumentStructure
+public class DocumentStructureImpl implements DocumentStructure
 {
-    public DocumentStructreImpl() {
+    public DocumentStructureImpl() {
         this(new LinkedList<PdfElement>(), new DocumentMetaDataImpl());
     }
 
 
-    public DocumentStructreImpl(List<PdfElement> headers, DocumentMetaData metaData) {
+    public DocumentStructureImpl(List<PdfElement> headers, DocumentMetaData metaData) {
         this.elements = headers;
         this.metaData = metaData;
     }

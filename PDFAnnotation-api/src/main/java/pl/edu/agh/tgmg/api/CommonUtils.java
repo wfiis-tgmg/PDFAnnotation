@@ -19,6 +19,14 @@ public class CommonUtils {
             throw new RuntimeException(e);
         }
     }
+     
+    // TODO add localization
+    public static String processText(String input, String defaultValue) {
+    	if(input == null || input.isEmpty()) {
+    		return defaultValue;
+    	}
+    	return input;
+    }
 
     static public Iterable getIterable(Object data) {
         Iterable iter = Collections.emptyList();

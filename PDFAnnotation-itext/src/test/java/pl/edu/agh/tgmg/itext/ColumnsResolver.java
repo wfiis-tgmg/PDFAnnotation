@@ -2,7 +2,7 @@ package pl.edu.agh.tgmg.itext;
 
 
 import org.testng.annotations.Test;
-import pl.edu.agh.tgmg.api.buildingBlocks.ColumnHeader;
+import pl.edu.agh.tgmg.api.buildingBlocks.TableHeaderColumn;
 import pl.edu.agh.tgmg.api.annotations.PdfColumn;
 import pl.edu.agh.tgmg.oldApi.ColumnHeaderImpl;
 
@@ -82,11 +82,11 @@ public class ColumnsResolver
 
     static class ColumnResolver
     {
-        public List<ColumnHeader> resolve(Class<?> clazz)
+        public List<TableHeaderColumn> resolve(Class<?> clazz)
         {
 
             Field[] fields = clazz.getFields();
-            LinkedList<ColumnHeader> columnHeaders = new LinkedList<ColumnHeader>();
+            LinkedList<TableHeaderColumn> columnHeaders = new LinkedList<TableHeaderColumn>();
             for (Field field : fields) {
                 String name = field.getName();
                 columnHeaders.add(new ColumnHeaderImpl(field.getName()));
@@ -99,28 +99,28 @@ public class ColumnsResolver
 
     @Test
     public void testWithoutAnnotations() throws Exception {
-        List<ColumnHeader> resolve = columnResolver.resolve(DtoNoAnnotations.class);
+        List<TableHeaderColumn> resolve = columnResolver.resolve(DtoNoAnnotations.class);
         assertEquals(resolve.size(), 2);
         assertTrue(resolve.containsAll(of(new ColumnHeaderImpl("name"), new ColumnHeaderImpl("amoung"))));
     }
 
     @Test
     public void testColumnOrder() throws Exception {
-        List<ColumnHeader> resolve = columnResolver.resolve(DtoWithOrder.class);
+        List<TableHeaderColumn> resolve = columnResolver.resolve(DtoWithOrder.class);
         assertEquals(resolve.size(), 2);
         assertTrue(resolve.equals(of(new ColumnHeaderImpl("amoung"),new ColumnHeaderImpl("name"))));
     }
 
     @Test
     public void testColumnAlias() throws Exception {
-        List<ColumnHeader> resolve = columnResolver.resolve(DtoWithAlias.class);
+        List<TableHeaderColumn> resolve = columnResolver.resolve(DtoWithAlias.class);
         assertEquals(resolve.size(), 2);
         assertTrue(resolve.containsAll(of(new ColumnHeaderImpl("some1"),new ColumnHeaderImpl("some2"))));
     }
 
     @Test
     public void testColumnWithI18n() throws Exception {
-        List<ColumnHeader> resolve = columnResolver.resolve(DtoWithI18n.class);
+        List<TableHeaderColumn> resolve = columnResolver.resolve(DtoWithI18n.class);
         assertEquals(resolve.size(), 2);
         assertTrue(resolve.containsAll(of(new ColumnHeaderImpl("lang1"),new ColumnHeaderImpl("lang2"))));
     }

@@ -5,27 +5,37 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
 
-import java.util.Collections;
 import java.util.List;
 
 public class PdfTableHeader {
 
-    int column;
+    int columns;
 
     List<TableHeaderColumn> headerColumns;
 
-    public PdfTableHeader(int column) {
-        this(column, Collections.<TableHeaderColumn>emptyList());
-    }
+    public int getColumns() {
+		return columns;
+	}
 
-    public PdfTableHeader(int column,List<TableHeaderColumn> headerColumns) {
-        this.column = column;
+	public void setColumns(int columns) {
+		this.columns = columns;
+	}
+
+	public List<TableHeaderColumn> getHeaderColumns() {
+		return headerColumns;
+	}
+
+	public void setHeaderColumns(List<TableHeaderColumn> headerColumns) {
+		this.headerColumns = headerColumns;
+	}
+
+	public PdfTableHeader(int column,List<TableHeaderColumn> headerColumns) {
+        this.columns = column;
         this.headerColumns = headerColumns;
     }
 
     public PdfPTable createPdfTable() {
-        PdfPTable pdfPTable = new PdfPTable(column);
-
+        PdfPTable pdfPTable = new PdfPTable(columns);
         for (TableHeaderColumn h : headerColumns) {
             PdfPCell cell = new PdfPCell(new Phrase(h.getText()));
             cell.setColspan(h.getColSpan());
