@@ -66,12 +66,8 @@ public class ColumnGroupNode extends TableHeaderColumn implements Comparable<Col
 	}
 	
 	public boolean addLeafNode(ColumnGroupNode node) {
-		//System.out.println(node.toString());
-		//System.out.println(this.toString());
-	
 		if((isRoot() && node.parentId.isEmpty()) || (id != null && id.equals(node.parentId))) {
 			addNode(node);
-			//System.out.println("added");
 			return true;
 		} 
 		for(ColumnGroupNode child : children) {
@@ -131,7 +127,6 @@ public class ColumnGroupNode extends TableHeaderColumn implements Comparable<Col
 	}
 	
 	public int updateOrder() {
-		System.out.println("id: " + getText() + " : setting order");
 		if(order == 0 && leafCount > 0) {
 			for(ColumnGroupNode child : children) {
 				if(child.leafCount > 0) {
@@ -139,7 +134,6 @@ public class ColumnGroupNode extends TableHeaderColumn implements Comparable<Col
 				}
 			}
 		}
-		System.out.println("id: " + id + " : set order : " + order);
 		return order;
 	}
 

@@ -1,6 +1,6 @@
 package pl.edu.agh.tgmg.api.exceptions;
 
-public class InvalidGroupException extends AnnotationParserException {
+public class InvalidGroupException extends InvalidAnnotationException {
 
 	public InvalidGroupException() {
 		super();
