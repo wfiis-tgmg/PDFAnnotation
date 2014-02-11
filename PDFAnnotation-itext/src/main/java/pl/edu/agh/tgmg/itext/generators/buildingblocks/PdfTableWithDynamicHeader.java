@@ -24,10 +24,17 @@ public class PdfTableWithDynamicHeader implements PdfTableElement, CellRow {
         this.pdfTableRow = pdfTableRow;
         this.singleDataTable = singleDataTable;
     }
+    
+    public SingleDataTable getSingleDataTable() {
+        return singleDataTable;
+    }
+    
+    public PdfTableRow getPdfTableRow() {
+        return pdfTableRow;
+    }
 
     @Override
     public PdfPTable print(Object dataList) throws DocumentException {
-
         PdfPTable t = singleDataTable.createPdfTable(dataList);
         Object iter = CommonUtils.getValue(dataList, listFieldName);
         for (Object dataRow : CommonUtils.getIterable(iter)) {
@@ -41,7 +48,6 @@ public class PdfTableWithDynamicHeader implements PdfTableElement, CellRow {
 
     @Override
     public CellWrapper getCell(Object o) {
-
         try {
             return new ITextTableWrapper(print(o));
         } catch (DocumentException e) {
@@ -51,7 +57,6 @@ public class PdfTableWithDynamicHeader implements PdfTableElement, CellRow {
 
     @Override
     public String getName() {
-
         return listFieldName;
     }
 

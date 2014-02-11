@@ -16,8 +16,13 @@ public class PdfTableElementWithStaticHeader implements PdfTableElement {
     
 
     public PdfTableHeader getPdfTableHeader() {
-		return pdfTableHeader;
-	}
+        return pdfTableHeader;
+    }
+    
+
+    public PdfTableRow getPdfTableRow() {
+        return pdfTableRow;
+    }
 
     public PdfTableElementWithStaticHeader(PdfTableHeader pdfTableHeader) {
         this.pdfTableHeader = pdfTableHeader;

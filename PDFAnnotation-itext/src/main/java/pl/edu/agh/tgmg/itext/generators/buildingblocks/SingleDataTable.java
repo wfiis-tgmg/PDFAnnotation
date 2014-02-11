@@ -1,18 +1,16 @@
 package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
+import java.util.Collections;
+import java.util.List;
 
 import pl.edu.agh.tgmg.api.CommonUtils;
-import pl.edu.agh.tgmg.api.PdfElement;
 import pl.edu.agh.tgmg.api.PdfTableElement;
 import pl.edu.agh.tgmg.itext.generators.dto.DynamicTableHeaderColumn;
 
-import java.util.Collections;
-import java.util.List;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 
 public class SingleDataTable implements PdfTableElement {
 
@@ -27,6 +25,14 @@ public class SingleDataTable implements PdfTableElement {
     public SingleDataTable(int column, List<DynamicTableHeaderColumn> headerColumns) {
         this.column = column;
         this.headerColumns = headerColumns;
+    }
+    
+    public int getColumn() {
+        return column;
+    }
+
+    public List<DynamicTableHeaderColumn> getHeaderColumns() {
+        return headerColumns;
     }
 
     public PdfPTable createPdfTable(Object o) {

@@ -12,6 +12,7 @@ import pl.edu.agh.tgmg.api.annotations.PdfColumnGroup;
 import pl.edu.agh.tgmg.api.annotations.PdfColumnGroups;
 import pl.edu.agh.tgmg.api.annotations.PdfTableGroup;
 import pl.edu.agh.tgmg.api.annotations.PdfRowGroup;
+import pl.edu.agh.tgmg.api.annotations.PdfTableGroupHeader;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfTableHeaderParser;
 import pl.edu.agh.tgmg.api.exceptions.InvalidGroupException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableHeader;
@@ -90,6 +91,8 @@ class ColumnWithSimpleRowGroupDTO {
 }
 
 class ColumnWithSimpleTableGroupDTO {
+    @PdfTableGroupHeader
+    String header;
     @PdfTableGroup
     List<SimpleRowGroupDTO> table;
 }
@@ -97,41 +100,47 @@ class ColumnWithSimpleTableGroupDTO {
 //--------- COLUMN GROUPING WITH COMPLEX NESTED TABLES ----------
 
 class ColumnWithComlexTableNestingDTO {
+    @PdfTableGroupHeader(name="header1")
+    String h1;
+    @PdfTableGroupHeader(name="header2")
+    String h2;
     @PdfTableGroup
     List<ComplexNestedTableA> table;
-}
-
-class ComplexNestedTableA {
-    @PdfTableGroup
-    List<ComplexNestedTableB> table;
 }
 
 @PdfColumnGroups({
     @PdfColumnGroup(id="g1"),
     @PdfColumnGroup(id="g2", parent="g1")})
-class ComplexNestedTableB {
+class ComplexNestedTableA {
+    @PdfRowGroup
+    List<ComplexNestedTableD> table1;
     @PdfColumn
     String col1;
     @PdfRowGroup
-    List<ComplexNestedTableC> table;
+    List<ComplexNestedTableB> table2;
     @PdfColumn(group="g2")
     String col5;
 }
 
 @PdfColumnGroups({
     @PdfColumnGroup(id="g3", parent="g2")})
-class ComplexNestedTableC {
+class ComplexNestedTableB {
     @PdfColumn(group="g1")
     String col2;
     @PdfRowGroup
-    List<ComplexNestedTableD> table;
+    List<ComplexNestedTableC> table;
     @PdfColumn(group="g3")
     String col4;
 }
 
-class ComplexNestedTableD {
+class ComplexNestedTableC {
     @PdfColumn(group="g3")
     String col3;
+}
+
+class ComplexNestedTableD {
+    @PdfColumn
+    String col0;
 }
 
 //--------- ERRORS ----------
@@ -246,33 +255,41 @@ public class PdfTableHeaderParserTest {
     @Test
     public void testColumnWithComlexTableNesting () {
         Class<?> testedClass = ColumnWithComlexTableNestingDTO.class;
-        int expectedColumns = 5;
-        String[] expectedNames = {"col1", "g1", "col2", "g2", "g3" , "col5", "col3", "col4"};
-        int[] expectedColSpans = { 1, 4, 1, 3, 2, 1, 1, 1 };
-        int[] expectedRowSpans = { 4, 1, 3, 1, 1, 2, 1, 1 };
+        int expectedColumns = 6;
+        String[] expectedNames = { "col0", "col1", "g1", "col2", "g2", "g3" , "col5", "col3", "col4"};
+        int[] expectedColSpans = { 1, 1, 4, 1, 3, 2, 1, 1, 1 };
+        int[] expectedRowSpans = { 4, 4, 1, 3, 1, 1, 2, 1, 1 };
         checkColumns(testedClass, expectedColumns, expectedNames, expectedColSpans, expectedRowSpans);
     }
     
     //--------- ERRORS ----------
     
-    @Test
+    @Test(expectedExceptions=InvalidGroupException.class, 
+            expectedExceptionsMessageRegExp="parent .* for group .* does not exist!")
     public void testGroupingErrors1() {
-        checkErrors(ColumnGroupError1DTO.class, "parent .* for group .* does not exist!");
+        PdfTableHeaderParser headerParser = new PdfTableHeaderParser();
+        headerParser.parse(ColumnGroupError1DTO.class);
     }
     
-    @Test
+    @Test(expectedExceptions=InvalidGroupException.class, 
+            expectedExceptionsMessageRegExp="group .* already exists!")
     public void testGroupingErrors2() {
-        checkErrors(ColumnGroupError2DTO.class, "group .* already exists!");
+        PdfTableHeaderParser headerParser = new PdfTableHeaderParser();
+        headerParser.parse(ColumnGroupError2DTO.class);
     }
     
-    @Test
+    @Test(expectedExceptions=InvalidGroupException.class, 
+            expectedExceptionsMessageRegExp=".* group not found")
     public void testGroupingErrors3() {
-        checkErrors(ColumnGroupError3DTO.class, ".* group not found");
+        PdfTableHeaderParser headerParser = new PdfTableHeaderParser();
+        headerParser.parse(ColumnGroupError3DTO.class);
     }
     
-    @Test
+    @Test(expectedExceptions=InvalidGroupException.class, 
+            expectedExceptionsMessageRegExp="cyclic dependency encountered!")
     public void testGroupingErrors4() {
-        checkErrors(ColumnGroupError4DTO.class, "cyclic dependency encountered!");
+        PdfTableHeaderParser headerParser = new PdfTableHeaderParser();
+        headerParser.parse(ColumnGroupError4DTO.class);
     }
     
     //--------- HELPERS ----------
@@ -299,13 +316,4 @@ public class PdfTableHeaderParserTest {
         }
     }
     
-    private void checkErrors(Class<?> clazz, String errorMessagePattern) {
-        PdfTableHeaderParser headerParser = new PdfTableHeaderParser();
-        try {
-            headerParser.parse(clazz);
-            Assert.fail("InvalidGroup exception should be thrown");
-        } catch(InvalidGroupException e) {
-            Assert.assertTrue(e.getMessage().matches(errorMessagePattern));
-        }
-    }
 }
