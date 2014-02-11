@@ -5,10 +5,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(ElementType.ANNOTATION_TYPE)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PdfColumnGroup {
-	String id();
-	String name() default "";
-	String parent() default "";
+public @interface PdfParagraph {
+    String value();
+    String[] messageFieldNames() default {};
 }

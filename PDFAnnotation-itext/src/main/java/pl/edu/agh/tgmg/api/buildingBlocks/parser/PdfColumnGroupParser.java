@@ -11,19 +11,18 @@ import pl.edu.agh.tgmg.api.exceptions.InvalidGroupException;
 
 public class PdfColumnGroupParser {
     
-    ColumnGroupNode rootNode = new ColumnGroupNode(null, null, null);
-    List<ColumnGroupNode> nodes = new LinkedList<ColumnGroupNode>();
-    List<Class<?>> visitedClasses = new LinkedList<Class<?>>();
+    ColumnGroupNode rootNode;
+    List<ColumnGroupNode> nodes;
     
-    //@Override
     public ColumnGroupNode parse(Class<?> clazz) {
+        rootNode = new ColumnGroupNode(null, null, null);
+        nodes = new LinkedList<ColumnGroupNode>();
+        
         findGroups(clazz);
         findParents();
         checkForCyclicDependenies();
         return rootNode;
     }
-    
-    
     
     private void findGroups(Class<?> clazz) {
         PdfColumnGroups groups = (PdfColumnGroups) clazz.getAnnotation(PdfColumnGroups.class);    
