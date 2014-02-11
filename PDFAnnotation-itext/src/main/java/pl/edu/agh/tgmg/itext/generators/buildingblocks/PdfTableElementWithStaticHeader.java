@@ -1,13 +1,13 @@
 package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 
+import java.util.List;
+
+import pl.edu.agh.tgmg.api.CommonUtils;
+import pl.edu.agh.tgmg.api.PdfTableElement;
+
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import pl.edu.agh.tgmg.api.CommonUtils;
-import pl.edu.agh.tgmg.api.PdfElement;
-import pl.edu.agh.tgmg.api.PdfTableElement;
-
-import java.util.List;
 
 public class PdfTableElementWithStaticHeader implements PdfTableElement {
 
@@ -47,5 +47,38 @@ public class PdfTableElementWithStaticHeader implements PdfTableElement {
         return t;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result
+                + ((pdfTableHeader == null) ? 0 : pdfTableHeader.hashCode());
+        result = prime * result
+                + ((pdfTableRow == null) ? 0 : pdfTableRow.hashCode());
+        return result;
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        PdfTableElementWithStaticHeader other = (PdfTableElementWithStaticHeader) obj;
+        if (pdfTableHeader == null) {
+            if (other.pdfTableHeader != null)
+                return false;
+        } else if (!pdfTableHeader.equals(other.pdfTableHeader))
+            return false;
+        if (pdfTableRow == null) {
+            if (other.pdfTableRow != null)
+                return false;
+        } else if (!pdfTableRow.equals(other.pdfTableRow))
+            return false;
+        return true;
+    }
+
+    
 }

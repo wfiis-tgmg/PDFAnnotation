@@ -5,6 +5,7 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+
 import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.PdfElement;
 import pl.edu.agh.tgmg.api.PdfTableElement;
@@ -44,4 +45,35 @@ public class SingleDataTable implements PdfTableElement {
     public PdfPTable print(Object data) throws DocumentException {
         return createPdfTable(data);
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + column;
+        result = prime * result
+                + ((headerColumns == null) ? 0 : headerColumns.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SingleDataTable other = (SingleDataTable) obj;
+        if (column != other.column)
+            return false;
+        if (headerColumns == null) {
+            if (other.headerColumns != null)
+                return false;
+        } else if (!headerColumns.equals(other.headerColumns))
+            return false;
+        return true;
+    }
+    
+    
 }

@@ -1,12 +1,5 @@
 package pl.edu.agh.tgmg.itext.generators.dto;
 
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfPCell;
-import pl.edu.agh.tgmg.api.CommonUtils;
-import pl.edu.agh.tgmg.api.PdfElement;
-import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
 
 public class DynamicTableHeaderColumn extends TableHeaderColumn {
 
@@ -25,4 +18,32 @@ public class DynamicTableHeaderColumn extends TableHeaderColumn {
     public String getFieldName() {
         return fieldName;
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result
+                + ((fieldName == null) ? 0 : fieldName.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        DynamicTableHeaderColumn other = (DynamicTableHeaderColumn) obj;
+        if (fieldName == null) {
+            if (other.fieldName != null)
+                return false;
+        } else if (!fieldName.equals(other.fieldName))
+            return false;
+        return true;
+    }
+    
+    
 }

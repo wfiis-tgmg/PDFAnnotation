@@ -6,7 +6,7 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Collections;
 
-import pl.edu.agh.tgmg.api.annotations.PdfNestedTable;
+import pl.edu.agh.tgmg.api.annotations.PdfTableGroup;
 import pl.edu.agh.tgmg.api.annotations.PdfRowGroup;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 import pl.edu.agh.tgmg.api.exceptions.InvalidAnnotationException;
@@ -102,6 +102,6 @@ public class CommonUtils {
 
     public static boolean isFieldANestedTable(Field field) {
         return field.isAnnotationPresent(PdfRowGroup.class) ||
-                field.isAnnotationPresent(PdfNestedTable.class);
+                field.isAnnotationPresent(PdfTableGroup.class);
     }
 }

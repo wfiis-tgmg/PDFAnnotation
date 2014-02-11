@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import pl.edu.agh.tgmg.api.annotations.PdfColumn;
 import pl.edu.agh.tgmg.api.annotations.PdfColumnGroup;
 import pl.edu.agh.tgmg.api.annotations.PdfColumnGroups;
-import pl.edu.agh.tgmg.api.annotations.PdfNestedTable;
+import pl.edu.agh.tgmg.api.annotations.PdfTableGroup;
 import pl.edu.agh.tgmg.api.annotations.PdfRowGroup;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfTableHeaderParser;
 import pl.edu.agh.tgmg.api.exceptions.InvalidGroupException;
@@ -19,7 +19,7 @@ import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
 
 //--------- SIMPLE COLUMNS ----------
 
-class TestSimpleColumns {
+class SimpleColumnsDTO {
     @PdfColumn
     String col1;
     @PdfColumn
@@ -34,7 +34,7 @@ class TestSimpleColumns {
 
 @PdfColumnGroups({
     @PdfColumnGroup(id="g1", name="group1")})
-class TestNamedColumns {
+class NamedColumnsDTO {
     
     @PdfColumn(name="column1")
     String col1;
@@ -47,7 +47,7 @@ class TestNamedColumns {
 @PdfColumnGroups({
     @PdfColumnGroup(id="g1"),
     @PdfColumnGroup(id="g2", parent="g1")})
-class TestColumnGroupDTO {
+class ColumnGroupDTO {
     @PdfColumn
     String col1;
     @PdfColumn(group="g1")
@@ -62,7 +62,7 @@ class TestColumnGroupDTO {
     @PdfColumnGroup(id="g1"),
     @PdfColumnGroup(id="g2"),
     @PdfColumnGroup(id="g3", parent="g2")})
-class TestColumnGroup2DTO {
+class ColumnGroup2DTO {
     @PdfColumn(group="g1")
     String col1;
     @PdfColumn(group="g2")
@@ -73,36 +73,36 @@ class TestColumnGroup2DTO {
 
 //--------- COLUMNS WITH SIMPLE NESTED TABLES ----------
 
-class SimpleRowGroup {
+class SimpleRowGroupDTO {
     @PdfColumn
     String col1;
     @PdfColumn
     String col2;
 }
 
-class TestColumnWithSimpleRowGroupDTO {
+class ColumnWithSimpleRowGroupDTO {
     @PdfColumn
     String col3;
     @PdfRowGroup
-    List<SimpleRowGroup> table;
+    List<SimpleRowGroupDTO> table;
     @PdfColumn
     String col4;
 }
 
-class TestColumnWithSimpleTableGroupDTO {
-    @PdfNestedTable
-    List<SimpleRowGroup> table;
+class ColumnWithSimpleTableGroupDTO {
+    @PdfTableGroup
+    List<SimpleRowGroupDTO> table;
 }
 
 //--------- COLUMN GROUPING WITH COMPLEX NESTED TABLES ----------
 
-class TestColumnWithComlexTableNestingDTO {
-    @PdfNestedTable
+class ColumnWithComlexTableNestingDTO {
+    @PdfTableGroup
     List<ComplexNestedTableA> table;
 }
 
 class ComplexNestedTableA {
-    @PdfNestedTable
+    @PdfTableGroup
     List<ComplexNestedTableB> table;
 }
 
@@ -139,7 +139,7 @@ class ComplexNestedTableD {
 @PdfColumnGroups({
     @PdfColumnGroup(id="g1"),
     @PdfColumnGroup(id="g2", parent="invalidGroup")})
-class TestColumnGroupError1DTO {
+class ColumnGroupError1DTO {
     
     @PdfColumn
     String col1;
@@ -148,7 +148,7 @@ class TestColumnGroupError1DTO {
 @PdfColumnGroups({
     @PdfColumnGroup(id="g1"),
     @PdfColumnGroup(id="g1")})
-class TestColumnGroupError2DTO {
+class ColumnGroupError2DTO {
     @PdfColumn
     String col1;
 }
@@ -156,7 +156,7 @@ class TestColumnGroupError2DTO {
 @PdfColumnGroups({
     @PdfColumnGroup(id="g1"),
     @PdfColumnGroup(id="g2")})
-class TestColumnGroupError3DTO {
+class ColumnGroupError3DTO {
     
     @PdfColumn
     String col1;
@@ -172,7 +172,7 @@ class TestColumnGroupError3DTO {
     @PdfColumnGroup(id="g1"),
     @PdfColumnGroup(id="g2", parent="g3"),
     @PdfColumnGroup(id="g3", parent="g2")})
-class TestColumnGroupError4DTO {
+class ColumnGroupError4DTO {
     
     @PdfColumn
     String col1;
@@ -185,7 +185,7 @@ public class PdfTableHeaderParserTest {
     
     @Test
     public void testSimpleColumns() {    
-        Class<?> testedClass = TestSimpleColumns.class;
+        Class<?> testedClass = SimpleColumnsDTO.class;
         int expectedColumns = 4;
         String[] expectedNames = {"col1", "col2", "col3", "col4" };
         checkColumns(testedClass, expectedColumns, expectedNames);
@@ -195,7 +195,7 @@ public class PdfTableHeaderParserTest {
     
     @Test
     public void testNamedColumns() {
-        Class<?> testedClass = TestNamedColumns.class;
+        Class<?> testedClass = NamedColumnsDTO.class;
         int expectedColumns = 3;
         String[] expectedNames = {"column1", "group1", "column2", "column3"};
         int[] expectedColSpans = { 1, 2, 1, 1 };
@@ -205,7 +205,7 @@ public class PdfTableHeaderParserTest {
     
     @Test
     public void testColumnGrouping() {
-        Class<?> testedClass = TestColumnGroupDTO.class;
+        Class<?> testedClass = ColumnGroupDTO.class;
         int expectedColumns = 4;
         String[] expectedNames = {"col1", "g1", "col2", "g2", "col3", "col4" };
         int[] expectedColSpans = { 1, 3, 1, 2, 1, 1 };
@@ -215,7 +215,7 @@ public class PdfTableHeaderParserTest {
     
     @Test
     public void testColumnGrouping2() {    
-        Class<?> testedClass = TestColumnGroup2DTO.class;
+        Class<?> testedClass = ColumnGroup2DTO.class;
         int expectedColumns = 3;
         String[] expectedNames = {"g1", "g2", "col1", "col2", "col3"};
         int[] expectedColSpans = { 1, 2, 1, 1, 1 };
@@ -227,7 +227,7 @@ public class PdfTableHeaderParserTest {
     
     @Test
     public void testColumnWithSimpleRowGroup() {
-        Class<?> testedClass = TestColumnWithSimpleRowGroupDTO.class;
+        Class<?> testedClass = ColumnWithSimpleRowGroupDTO.class;
         int expectedColumns = 4;
         String[] expectedNames = {"col3", "col1", "col2", "col4" };
         checkColumns(testedClass, expectedColumns, expectedNames);
@@ -235,7 +235,7 @@ public class PdfTableHeaderParserTest {
     
     @Test
     public void testColumnWithSimpleTableGroup() {    
-        Class<?> testedClass = TestColumnWithSimpleTableGroupDTO.class;
+        Class<?> testedClass = ColumnWithSimpleTableGroupDTO.class;
         int expectedColumns = 2;
         String[] expectedNames = {"col1", "col2" };
         checkColumns(testedClass, expectedColumns, expectedNames);
@@ -245,7 +245,7 @@ public class PdfTableHeaderParserTest {
     
     @Test
     public void testColumnWithComlexTableNesting () {
-        Class<?> testedClass = TestColumnWithComlexTableNestingDTO.class;
+        Class<?> testedClass = ColumnWithComlexTableNestingDTO.class;
         int expectedColumns = 5;
         String[] expectedNames = {"col1", "g1", "col2", "g2", "g3" , "col5", "col3", "col4"};
         int[] expectedColSpans = { 1, 4, 1, 3, 2, 1, 1, 1 };
@@ -257,22 +257,22 @@ public class PdfTableHeaderParserTest {
     
     @Test
     public void testGroupingErrors1() {
-        checkErrors(TestColumnGroupError1DTO.class, "parent .* for group .* does not exist!");
+        checkErrors(ColumnGroupError1DTO.class, "parent .* for group .* does not exist!");
     }
     
     @Test
     public void testGroupingErrors2() {
-        checkErrors(TestColumnGroupError2DTO.class, "group .* already exists!");
+        checkErrors(ColumnGroupError2DTO.class, "group .* already exists!");
     }
     
     @Test
     public void testGroupingErrors3() {
-        checkErrors(TestColumnGroupError3DTO.class, ".* group not found");
+        checkErrors(ColumnGroupError3DTO.class, ".* group not found");
     }
     
     @Test
     public void testGroupingErrors4() {
-        checkErrors(TestColumnGroupError4DTO.class, "cyclic dependency encountered!");
+        checkErrors(ColumnGroupError4DTO.class, "cyclic dependency encountered!");
     }
     
     //--------- HELPERS ----------

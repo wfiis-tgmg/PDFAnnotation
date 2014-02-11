@@ -50,4 +50,35 @@ public class PdfTableHeader {
         }
         return pdfPTable;
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + columns;
+        result = prime * result
+                + ((headerColumns == null) ? 0 : headerColumns.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        PdfTableHeader other = (PdfTableHeader) obj;
+        if (columns != other.columns)
+            return false;
+        if (headerColumns == null) {
+            if (other.headerColumns != null)
+                return false;
+        } else if (!headerColumns.equals(other.headerColumns))
+            return false;
+        return true;
+    }
+    
+    
 }
