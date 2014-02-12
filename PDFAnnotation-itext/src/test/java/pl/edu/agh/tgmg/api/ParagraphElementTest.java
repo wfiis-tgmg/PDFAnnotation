@@ -11,13 +11,12 @@ import org.testng.annotations.Test;
 import pl.edu.agh.tgmg.TestGroup;
 import pl.edu.agh.tgmg.api.annotations.ToTest;
 import pl.edu.agh.tgmg.itext.generators.metadata.DefaultITextDocumentFactory;
-import pl.edu.agh.tgmg.itext.generators.metadata.DocumentFactoryBuilder;
 
 import com.itextpdf.text.Paragraph;
 
 public class ParagraphElementTest {
 
-    DefaultITextDocumentFactory factory = new DocumentFactoryBuilder().create();
+    DefaultITextDocumentFactory factory = new DefaultITextDocumentFactory();
 
     public class Temp
     {

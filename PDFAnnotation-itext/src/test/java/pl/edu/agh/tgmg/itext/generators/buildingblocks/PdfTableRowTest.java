@@ -16,7 +16,6 @@ import pl.edu.agh.tgmg.examples.SimpleRow;
 import pl.edu.agh.tgmg.examples.ThirdLvlTableExample;
 import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
 import pl.edu.agh.tgmg.itext.generators.metadata.DefaultITextDocumentFactory;
-import pl.edu.agh.tgmg.itext.generators.metadata.DocumentFactoryBuilder;
 import pl.edu.agh.tgmg.itext.wrapper.StringCellRow;
 import pl.edu.agh.tgmg.itext.wrapper.TableCellRow;
 
@@ -31,7 +30,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 @Test(groups = TestGroup.GEN_DOC)
 public class PdfTableRowTest {
 
-    DefaultITextDocumentFactory factory = new DocumentFactoryBuilder().create();
+    DefaultITextDocumentFactory factory = new DefaultITextDocumentFactory();
 
 
 

@@ -11,7 +11,6 @@ import pl.edu.agh.tgmg.examples.SecLvlTableExample;
 import pl.edu.agh.tgmg.itext.generators.dto.DynamicTableHeaderColumn;
 import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
 import pl.edu.agh.tgmg.itext.generators.metadata.DefaultITextDocumentFactory;
-import pl.edu.agh.tgmg.itext.generators.metadata.DocumentFactoryBuilder;
 import pl.edu.agh.tgmg.itext.wrapper.StringCellRow;
 
 import com.google.common.collect.ImmutableList;
@@ -21,7 +20,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 @Test(groups = TestGroup.GEN_DOC)
 public class PdfTableWithDynamicHeaderTest {
 
-    DefaultITextDocumentFactory factory = new DocumentFactoryBuilder().create();
+    DefaultITextDocumentFactory factory = new DefaultITextDocumentFactory();
 
 
 
