@@ -1,9 +1,11 @@
-package pl.edu.agh.tgmg.api;
+package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import pl.edu.agh.tgmg.api.CommonUtils;
+import pl.edu.agh.tgmg.api.PdfElement;
 import pl.edu.agh.tgmg.api.annotations.ToTest;
 
 import com.itextpdf.text.DocumentException;

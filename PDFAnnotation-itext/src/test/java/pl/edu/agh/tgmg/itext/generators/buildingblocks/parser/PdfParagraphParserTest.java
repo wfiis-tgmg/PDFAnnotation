@@ -7,7 +7,6 @@ import java.util.List;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import pl.edu.agh.tgmg.api.ParagraphElement;
 import pl.edu.agh.tgmg.api.PdfElement;
 import pl.edu.agh.tgmg.api.annotations.PdfAfterDocument;
 import pl.edu.agh.tgmg.api.annotations.PdfDocument;
@@ -18,6 +17,7 @@ import pl.edu.agh.tgmg.api.buildingBlocks.DocumentStructure;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfAnnotationParser;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfAnnotationParserImpl;
 import pl.edu.agh.tgmg.api.exceptions.InvalidParagraphException;
+import pl.edu.agh.tgmg.itext.generators.buildingblocks.ParagraphElement;
 
 @PdfDocument
 class SimpleParagraphDTO {
@@ -82,7 +82,7 @@ class ParagraphError2DTO {
     String str;
 }
 
-public class PdfParagrapghParserTest {
+public class PdfParagraphParserTest {
     
     @Test
     public void testSimpleParagraph() {
@@ -119,13 +119,13 @@ public class PdfParagrapghParserTest {
     }
     
     @Test(expectedExceptions=InvalidParagraphException.class, expectedExceptionsMessageRegExp=
-            "Message feed .* does not exists in class .*")
+            ".* Message feed .* does not exists in class .*")
     public void testErrors1() {
         checkParagraphs(ParagraphError1DTO.class, new ArrayList<ParagraphElement>());
     }
     
     @Test(expectedExceptions=InvalidParagraphException.class, expectedExceptionsMessageRegExp=
-            "Field .* from class .* is not a MessageFeed")
+            ".* Field .* from class .* is not a MessageFeed")
     public void testErrors2() {
         checkParagraphs(ParagraphError2DTO.class, new ArrayList<ParagraphElement>());
     }

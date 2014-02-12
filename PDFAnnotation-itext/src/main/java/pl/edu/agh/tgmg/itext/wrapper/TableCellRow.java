@@ -1,10 +1,10 @@
 package pl.edu.agh.tgmg.itext.wrapper;
 
 import pl.edu.agh.tgmg.api.CommonUtils;
-import pl.edu.agh.tgmg.api.PdfTableElement;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellWrapper;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
+import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableElement;
 
 import com.itextpdf.text.DocumentException;
 

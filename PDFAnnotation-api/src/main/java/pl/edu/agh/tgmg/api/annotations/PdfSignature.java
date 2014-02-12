@@ -5,9 +5,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(ElementType.TYPE)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PdfAfterDocument {
-    PdfParagraph[] paragraphs() default {};
-    PdfSignature[] signatures() default {};
+public @interface PdfSignature {
+    String title() default "";
+    String description() default "( signature )";
+    String staticSignature() default "";
+    String dataFieldName() default "";
 }

@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 
 import pl.edu.agh.tgmg.TestGroup;
 import pl.edu.agh.tgmg.api.annotations.ToTest;
+import pl.edu.agh.tgmg.itext.generators.buildingblocks.ParagraphElement;
 import pl.edu.agh.tgmg.itext.generators.metadata.DefaultITextDocumentFactory;
 
 import com.itextpdf.text.Paragraph;

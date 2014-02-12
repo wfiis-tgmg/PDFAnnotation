@@ -3,7 +3,6 @@ package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 import java.util.List;
 
 import pl.edu.agh.tgmg.api.CommonUtils;
-import pl.edu.agh.tgmg.api.PdfTableElement;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellWrapper;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;

@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 
 import pl.edu.agh.tgmg.api.CommonUtils;
-import pl.edu.agh.tgmg.api.PdfTableElement;
 import pl.edu.agh.tgmg.itext.generators.dto.DynamicTableHeaderColumn;
 
 import com.itextpdf.text.DocumentException;

@@ -6,8 +6,11 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Collections;
 
+import pl.edu.agh.tgmg.api.annotations.PdfMessageFeed;
 import pl.edu.agh.tgmg.api.annotations.PdfRowGroup;
 import pl.edu.agh.tgmg.api.annotations.PdfTableGroup;
+import pl.edu.agh.tgmg.api.exceptions.InvalidAnnotationException;
+import pl.edu.agh.tgmg.api.exceptions.InvalidParagraphException;
 import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 
 public class CommonUtils {
@@ -106,5 +109,18 @@ public class CommonUtils {
     public static boolean isFieldANestedTable(Field field) {
         return field.isAnnotationPresent(PdfRowGroup.class) ||
                 field.isAnnotationPresent(PdfTableGroup.class);
+    }
+    
+    public static void checkFieldMessageFeed(String param, Class<?> root) {
+        try {
+            Field field = root.getDeclaredField(param);
+            if(!field.isAnnotationPresent(PdfMessageFeed.class)) {
+                throw new InvalidAnnotationException("Field '" + param + 
+                        "' from class " + root.getName() + " is not a MessageFeed"); 
+            }
+        } catch (NoSuchFieldException e) {
+            throw new ReflectionException("Message feed '" + param + 
+                    "' does not exists in class " + root.getName());
+        }
     }
 }

@@ -1,5 +1,6 @@
-package pl.edu.agh.tgmg.api;
+package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 
+import pl.edu.agh.tgmg.api.PdfElement;
 import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 
 import com.itextpdf.text.DocumentException;

@@ -10,6 +10,7 @@ import pl.edu.agh.tgmg.api.annotations.PdfAfterDocument;
 import pl.edu.agh.tgmg.api.annotations.PdfDocument;
 import pl.edu.agh.tgmg.api.annotations.PdfParagraph;
 import pl.edu.agh.tgmg.api.annotations.PdfParagraphs;
+import pl.edu.agh.tgmg.api.annotations.PdfSignature;
 import pl.edu.agh.tgmg.api.annotations.PdfTable;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaData;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentStructure;
@@ -28,6 +29,7 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
     PdfTableRowParser rowParser = new PdfTableRowParser();
     PdfParagraphParser paragraphParser = new PdfParagraphParser();
     PdfMetadataParser metadataParser = new PdfMetadataParser();
+    PdfSignatureParser signatureParser = new PdfSignatureParser();
     
     @Override
     public DocumentStructure parse(Class<?> root) throws AnnotationParserException {
@@ -40,6 +42,10 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
         List<PdfElement> elements = new LinkedList<PdfElement>();
         
         for(Field field : root.getDeclaredFields()) {
+            PdfSignature signature = field.getAnnotation(PdfSignature.class);
+            if(signature != null) {
+                elements.add(signatureParser.parse(signature, root));
+            }
             PdfParagraph paragraph = field.getAnnotation(PdfParagraph.class);
             if(paragraph != null) {
                 elements.add(paragraphParser.parse(paragraph, root));
@@ -57,6 +63,9 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
         if(pdfAfter != null) {
             for(PdfParagraph paragraph : pdfAfter.paragraphs()) {
                 elements.add(paragraphParser.parse(paragraph, root));
+            }
+            for(PdfSignature signature : pdfAfter.signatures()) {
+                elements.add(signatureParser.parse(signature, root));
             }
         }
         
