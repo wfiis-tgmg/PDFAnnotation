@@ -7,12 +7,14 @@ import java.util.List;
 import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.PdfElement;
 import pl.edu.agh.tgmg.api.annotations.ToTest;
+import pl.edu.agh.tgmg.itext.generators.styles.ParagraphFormatter;
+import pl.edu.agh.tgmg.itext.generators.styles.StyleFormatter;
 
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 
 @ToTest
-public class ParagraphElement implements PdfElement {
+public class ParagraphElement implements PdfElement, CreatesParagraphElement {
 
     String text;
     List<String> paramNames = Collections.emptyList();
@@ -26,6 +28,12 @@ public class ParagraphElement implements PdfElement {
         this.text = text;
     }
 
+    @Override
+    public void setParagraphFormatter(StyleFormatter<Paragraph> style) {
+        // TODO Auto-generated method stub
+        
+    }
+    
     @Override
     public Paragraph print(Object data) throws DocumentException {
 

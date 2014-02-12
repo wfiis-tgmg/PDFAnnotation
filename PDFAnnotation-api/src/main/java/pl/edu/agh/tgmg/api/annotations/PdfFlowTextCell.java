@@ -10,4 +10,6 @@ import java.lang.annotation.Target;
 public @interface PdfFlowTextCell {
     String name() default "";
     int rowSpan() default 1;
+    boolean startNewTable() default false;
+    boolean placeInTheSameLine() default false;
 }

@@ -4,18 +4,29 @@ import java.util.Collections;
 import java.util.List;
 
 import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
-import pl.edu.agh.tgmg.itext.generators.styles.CellFormatter;
-import pl.edu.agh.tgmg.itext.generators.styles.CellFormatterImpl;
+import pl.edu.agh.tgmg.itext.generators.styles.StyleFormatter;
 
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
-public class PdfTableHeader {
+public class PdfTableHeader implements CreatesCellElement, CreatesTableElement {
 
     int columns;
 
     List<TableHeaderColumn> headerColumns;
+    StyleFormatter<PdfPCell> cellFormatter;
+    
+    @Override
+    public void setTableFormatter(StyleFormatter<PdfPTable> style) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void setCellFormatter(StyleFormatter<PdfPCell> style) {
+        cellFormatter = style;
+    }
 
     public int getColumns() {
         return columns;
@@ -42,15 +53,13 @@ public class PdfTableHeader {
         this.headerColumns = headerColumns;
     }
 
-    CellFormatter cellFormatter = new CellFormatterImpl();
-
     public PdfPTable createPdfTable() {
         PdfPTable pdfPTable = new PdfPTable(columns);
         for (TableHeaderColumn h : headerColumns) {
             PdfPCell cell = new PdfPCell(new Phrase(h.getText()));
             cell.setColspan(h.getColSpan());
             cell.setRowspan(h.getRowSpan());
-            cellFormatter.addStyles(cell);
+            cellFormatter.addStyle(cell);
             pdfPTable.addCell(cell);
         }
         return pdfPTable;
@@ -84,6 +93,5 @@ public class PdfTableHeader {
             return false;
         return true;
     }
-    
-    
+
 }

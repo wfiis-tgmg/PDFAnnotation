@@ -7,13 +7,14 @@ import java.util.List;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellWrapper;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
+import pl.edu.agh.tgmg.itext.generators.styles.StyleFormatter;
 
 import com.google.common.collect.Lists;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
-public class PdfTableRow {
+public class PdfTableRow implements CreatesCellElement{
 
 
     List<CellRow> cellRows = Collections.emptyList();
@@ -24,6 +25,12 @@ public class PdfTableRow {
 
     public PdfTableRow(CellRow ... cellRows) {
         this.cellRows = Lists.newArrayList(cellRows);
+    }
+    
+    @Override
+    public void setCellFormatter(StyleFormatter<PdfPCell> style) {
+        // TODO Auto-generated method stub
+        
     }
 
     public List<CellRow> getCellRows() {
@@ -82,6 +89,8 @@ public class PdfTableRow {
             return false;
         return true;
     }
+
+
     
     
 }

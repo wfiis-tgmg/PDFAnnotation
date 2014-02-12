@@ -8,6 +8,8 @@ import pl.edu.agh.tgmg.api.DocumentStructureImpl;
 import pl.edu.agh.tgmg.api.PdfElement;
 import pl.edu.agh.tgmg.api.annotations.PdfAfterDocument;
 import pl.edu.agh.tgmg.api.annotations.PdfDocument;
+import pl.edu.agh.tgmg.api.annotations.PdfFlowDataCell;
+import pl.edu.agh.tgmg.api.annotations.PdfFlowTextCells;
 import pl.edu.agh.tgmg.api.annotations.PdfParagraph;
 import pl.edu.agh.tgmg.api.annotations.PdfParagraphs;
 import pl.edu.agh.tgmg.api.annotations.PdfSignature;
@@ -22,6 +24,7 @@ import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableElementWithStaticHeader;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableHeader;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableRow;
+import pl.edu.agh.tgmg.itext.generators.buildingblocks.SingleDataTable;
 
 public class PdfAnnotationParserImpl implements PdfAnnotationParser {
 
@@ -30,6 +33,7 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
     PdfParagraphParser paragraphParser = new PdfParagraphParser();
     PdfMetadataParser metadataParser = new PdfMetadataParser();
     PdfSignatureParser signatureParser = new PdfSignatureParser();
+    PdfFlowCellParser flowCellParser = new PdfFlowCellParser();
     
     @Override
     public DocumentStructure parse(Class<?> root) throws AnnotationParserException {
@@ -41,7 +45,9 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
         DocumentMetaData metadata = metadataParser.parse(document);
         List<PdfElement> elements = new LinkedList<PdfElement>();
         
-        for(Field field : root.getDeclaredFields()) {
+        Field[] fields = root.getDeclaredFields();
+        for(int i=0;i<fields.length;i++) {
+            Field field = fields[i];
             PdfSignature signature = field.getAnnotation(PdfSignature.class);
             if(signature != null) {
                 elements.add(signatureParser.parse(signature, root));
@@ -56,6 +62,11 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
             }
             if(field.isAnnotationPresent(PdfTable.class)) {
                 elements.add(parseTable(field));
+            } else if(field.isAnnotationPresent(PdfFlowTextCells.class) || 
+                    field.isAnnotationPresent(PdfFlowDataCell.class)) {
+                List<SingleDataTable> tables = flowCellParser.parse(root, i);
+                i += cellsRetrieved(tables, field.getName()) - 1;
+                elements.addAll(tables);
             }
         }
         
@@ -77,6 +88,16 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
         PdfTableHeader header = headerParser.parse(fieldClass);
         PdfTableRow row = rowParser.parse(fieldClass);
         return new PdfTableElementWithStaticHeader(header, row);
+    }
+    
+    private int cellsRetrieved(List<SingleDataTable> tables, String fieldName) {
+        int result = 0;
+        //TODO
+        if(result == 0) {
+            throw new InvalidAnnotationException("No Flow Cells retrieved from "
+                    + "Flow Cell annotation field " + fieldName);
+        }
+        return result;
     }
 
 }

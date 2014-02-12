@@ -7,13 +7,14 @@ import java.util.List;
 
 import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.itext.generators.dto.DynamicTableHeaderColumn;
+import pl.edu.agh.tgmg.itext.generators.styles.StyleFormatter;
 
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
-public class SingleDataTable implements PdfTableElement {
+public class SingleDataTable implements PdfTableElement, CreatesTableElement, CreatesCellElement {
 
     int column;
 
@@ -26,6 +27,18 @@ public class SingleDataTable implements PdfTableElement {
     public SingleDataTable(int column, List<DynamicTableHeaderColumn> headerColumns) {
         this.column = column;
         this.headerColumns = headerColumns;
+    }
+    
+    @Override
+    public void setCellFormatter(StyleFormatter<PdfPCell> style) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void setTableFormatter(StyleFormatter<PdfPTable> style) {
+        // TODO Auto-generated method stub
+        
     }
     
     public int getColumn() {
@@ -90,7 +103,6 @@ public class SingleDataTable implements PdfTableElement {
         } else if (!headerColumns.equals(other.headerColumns))
             return false;
         return true;
-    }
-    
+    } 
     
 }
