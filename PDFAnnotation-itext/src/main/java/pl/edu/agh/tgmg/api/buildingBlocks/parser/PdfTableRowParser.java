@@ -34,7 +34,7 @@ public class PdfTableRowParser {
     }
     
     private PdfTableWithDynamicHeader findTableGroup(Class<?> clazz) {
-        List<DynamicTableHeaderColumn> headers = new LinkedList<>();
+        List<DynamicTableHeaderColumn> headers = new LinkedList<DynamicTableHeaderColumn>();
         Field tableGroupField = null;
         boolean hasOthers = false;
         for(Field field: clazz.getDeclaredFields()) {

@@ -8,7 +8,6 @@ import pl.edu.agh.tgmg.TestGroup;
 import pl.edu.agh.tgmg.examples.SimpleRow;
 import pl.edu.agh.tgmg.itext.generators.dto.DynamicTableHeaderColumn;
 import pl.edu.agh.tgmg.itext.generators.metadata.DefaultITextDocumentFactory;
-import pl.edu.agh.tgmg.itext.generators.metadata.DocumentFactoryBuilder;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,7 +16,7 @@ import java.io.FileOutputStream;
 public class SingleDataTableTest {
 
 
-    DefaultITextDocumentFactory factory = new DocumentFactoryBuilder().create();
+    DefaultITextDocumentFactory factory = new DefaultITextDocumentFactory();
 
     @Test
     public void testGenerate() throws Exception {

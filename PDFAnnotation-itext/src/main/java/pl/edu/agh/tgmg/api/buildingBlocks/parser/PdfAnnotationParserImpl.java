@@ -32,7 +32,7 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
         }
         
         DocumentMetaData metadata = metadataParser.parse(document);
-        List<PdfElement> elements = new LinkedList<>();
+        List<PdfElement> elements = new LinkedList<PdfElement>();
         
         for(Field field : root.getDeclaredFields()) {
             PdfParagraph paragraph = field.getAnnotation(PdfParagraph.class);

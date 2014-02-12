@@ -8,7 +8,7 @@ import pl.edu.agh.tgmg.api.buildingBlocks.DocumentStructure;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfAnnotationParser;
 import pl.edu.agh.tgmg.api.annotations.PdfDocument;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
-import pl.edu.agh.tgmg.itext.generators.metadata.DocumentFactoryBuilder;
+import pl.edu.agh.tgmg.itext.generators.metadata.DefaultITextDocumentFactory;
 import pl.edu.agh.tgmg.itext.generators.metadata.ITextDocumentFactory;
 
 import java.io.OutputStream;
@@ -16,7 +16,7 @@ import java.io.OutputStream;
 public class PdfGeneratorFacadeImpl implements PdfGeneratorFacade {
 
     PdfAnnotationParser annotationParser;
-    ITextDocumentFactory documentFactory = new DocumentFactoryBuilder().create();
+    ITextDocumentFactory documentFactory = new DefaultITextDocumentFactory();
 
 
 
