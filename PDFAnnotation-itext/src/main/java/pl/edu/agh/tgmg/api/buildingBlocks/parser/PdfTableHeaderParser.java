@@ -9,6 +9,8 @@ import java.util.Queue;
 
 import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.annotations.PdfColumn;
+import pl.edu.agh.tgmg.api.exceptions.InvalidGroupException;
+import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableHeader;
 import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
 
@@ -17,7 +19,7 @@ public class PdfTableHeaderParser {
     ColumnGroupNode groupTree;
     int order;
     
-    public PdfTableHeader parse(Class<?> clazz) {
+    public PdfTableHeader parse(Class<?> clazz) throws ReflectionException, InvalidGroupException  {
         
         PdfColumnGroupParser groupParser = new PdfColumnGroupParser();
         groupTree = groupParser.parse(clazz);
@@ -52,7 +54,7 @@ public class PdfTableHeaderParser {
         return sortedColumns;
     }
     
-    private void findColumns(Class<?> clazz) {
+    private void findColumns(Class<?> clazz) throws ReflectionException {
         for(Field field: clazz.getDeclaredFields()) {
             PdfColumn column = field.getAnnotation(PdfColumn.class);
             if(column != null) {

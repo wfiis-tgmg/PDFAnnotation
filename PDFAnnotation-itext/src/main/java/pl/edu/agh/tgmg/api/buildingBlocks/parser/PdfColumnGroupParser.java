@@ -8,13 +8,14 @@ import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.annotations.PdfColumnGroup;
 import pl.edu.agh.tgmg.api.annotations.PdfColumnGroups;
 import pl.edu.agh.tgmg.api.exceptions.InvalidGroupException;
+import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 
 public class PdfColumnGroupParser {
     
     ColumnGroupNode rootNode;
     List<ColumnGroupNode> nodes;
     
-    public ColumnGroupNode parse(Class<?> clazz) {
+    public ColumnGroupNode parse(Class<?> clazz) throws InvalidGroupException, ReflectionException {
         rootNode = new ColumnGroupNode(null, null, null);
         nodes = new LinkedList<ColumnGroupNode>();
         
@@ -24,7 +25,7 @@ public class PdfColumnGroupParser {
         return rootNode;
     }
     
-    private void findGroups(Class<?> clazz) {
+    private void findGroups(Class<?> clazz) throws ReflectionException, InvalidGroupException {
         PdfColumnGroups groups = (PdfColumnGroups) clazz.getAnnotation(PdfColumnGroups.class);    
         if(groups != null) {
             for(PdfColumnGroup group : groups.value()) {
@@ -42,7 +43,7 @@ public class PdfColumnGroupParser {
         }
     }
     
-    private void checkGroupExists(String id) {
+    private void checkGroupExists(String id) throws InvalidGroupException {
         for(ColumnGroupNode node : nodes) {
             if(node.getId().equals(id)) {
                 throw new InvalidGroupException("group '" + id + "' already exists!");
@@ -50,14 +51,14 @@ public class PdfColumnGroupParser {
         }
     }
     
-    private void findParents() {
+    private void findParents() throws InvalidGroupException {
         for(ColumnGroupNode node : nodes) {
             ColumnGroupNode parent = findParent(node);
             parent.addNode(node);
         }
     }
     
-    private ColumnGroupNode findParent(ColumnGroupNode node) {
+    private ColumnGroupNode findParent(ColumnGroupNode node) throws InvalidGroupException {
         if(node.getParentId().isEmpty()) {
             return rootNode;
         } 
@@ -72,7 +73,7 @@ public class PdfColumnGroupParser {
                 "' for group '" + node.getId() + "' does not exist!");
     }
     
-    private void checkForCyclicDependenies() {
+    private void checkForCyclicDependenies() throws InvalidGroupException {
         if(rootNode.getAllDescendantCount() != nodes.size()) {
             throw new InvalidGroupException("cyclic dependency encountered!");
         }

@@ -10,6 +10,7 @@ import pl.edu.agh.tgmg.api.annotations.PdfTableGroup;
 import pl.edu.agh.tgmg.api.annotations.PdfRowGroup;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 import pl.edu.agh.tgmg.api.exceptions.InvalidAnnotationException;
+import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 
 public class CommonUtils {
 
@@ -33,7 +34,7 @@ public class CommonUtils {
         return input;
     }
 
-    static public Iterable getIterable(Object data) {
+    static public Iterable getIterable(Object data) throws ReflectionException {
         Iterable iter = Collections.emptyList();
         if(data instanceof  Iterable)
         {
@@ -42,7 +43,7 @@ public class CommonUtils {
         else if(data.getClass().isArray())
         {
             iter = Arrays.asList((Object[]) data);
-        } else throw new GenDocumentException("Object is not Iterable");
+        } else throw new ReflectionException("Object is not Iterable");
         return iter;
     }
     
@@ -52,20 +53,20 @@ public class CommonUtils {
     }
     
     
-    public static Class<?> getTypeParamOfIterableField(Field field) {
+    public static Class<?> getTypeParamOfIterableField(Field field) throws ReflectionException {
         Class<?> fieldClass = field.getType();
         if(fieldClass.isArray()) {
             return fieldClass.getComponentType();
         } 
         if(!Iterable.class.isAssignableFrom(fieldClass)) {
-            throw new InvalidAnnotationException("class " + fieldClass.getName() + " is not Iterable");
+            throw new ReflectionException("class " + fieldClass.getName() + " is not Iterable");
         }
         Type type = field.getGenericType();
         if (!(type instanceof ParameterizedType)) {
-            throw new InvalidAnnotationException("class " + fieldClass.getName() + " is not parameterized");
+            throw new ReflectionException("class " + fieldClass.getName() + " is not parameterized");
         }
         if(((ParameterizedType) type).getActualTypeArguments().length < 1) {
-            throw new InvalidAnnotationException("class " + fieldClass.getName() + " has no parameters");
+            throw new ReflectionException("class " + fieldClass.getName() + " has no parameters");
         }
         return (Class<?>) (((ParameterizedType) type).getActualTypeArguments()[0]);
     }

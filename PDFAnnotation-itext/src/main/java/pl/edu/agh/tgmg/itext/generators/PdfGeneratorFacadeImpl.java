@@ -1,34 +1,33 @@
 package pl.edu.agh.tgmg.itext.generators;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
+import java.io.OutputStream;
+
 import pl.edu.agh.tgmg.api.PdfElement;
 import pl.edu.agh.tgmg.api.PdfGeneratorFacade;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentStructure;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfAnnotationParser;
-import pl.edu.agh.tgmg.api.annotations.PdfDocument;
+import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfAnnotationParserImpl;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 import pl.edu.agh.tgmg.itext.generators.metadata.DefaultITextDocumentFactory;
 import pl.edu.agh.tgmg.itext.generators.metadata.ITextDocumentFactory;
 
-import java.io.OutputStream;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 
 public class PdfGeneratorFacadeImpl implements PdfGeneratorFacade {
 
-    PdfAnnotationParser annotationParser;
+    PdfAnnotationParser annotationParser = new PdfAnnotationParserImpl();
     ITextDocumentFactory documentFactory = new DefaultITextDocumentFactory();
 
-
     @Override
-
-    public void generate(OutputStream out, PdfDocument dto) throws GenDocumentException {
+    public void generate(OutputStream out, Object dto) throws GenDocumentException {
 
         try {
             DocumentStructure structure = annotationParser.parse(dto.getClass());
             Document document = documentFactory.create(out, structure.getMetaData());
 
             for (PdfElement pdfElement : structure.getPdfElements()) {
-                pdfElement.print(dto);
+                document.add(pdfElement.print(dto));
             }
 
             documentFactory.close(document);

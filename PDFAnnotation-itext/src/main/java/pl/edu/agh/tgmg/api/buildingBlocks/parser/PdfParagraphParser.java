@@ -12,14 +12,14 @@ import pl.edu.agh.tgmg.api.exceptions.InvalidParagraphException;
 
 public class PdfParagraphParser {
     
-    public ParagraphElement parse(PdfParagraph paragraph, Class<?> root) {
+    public ParagraphElement parse(PdfParagraph paragraph, Class<?> root) throws InvalidParagraphException {
         List<String> params = Arrays.asList(paragraph.messageFieldNames());
         String text = CommonUtils.processText(paragraph.value(), paragraph.value());
         checkParams(params, root);
         return new ParagraphElement(params, text);
     }
     
-    private void checkParams(List<String> params, Class<?> root) {
+    private void checkParams(List<String> params, Class<?> root) throws InvalidParagraphException {
         for(String param : params) {
             try {
                 Field field = root.getDeclaredField(param);

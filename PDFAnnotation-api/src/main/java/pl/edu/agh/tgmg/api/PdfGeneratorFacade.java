@@ -1,10 +1,9 @@
 package pl.edu.agh.tgmg.api;
 
-import pl.edu.agh.tgmg.api.annotations.PdfDocument;
-import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
-
 import java.io.OutputStream;
 
+import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
+
 public interface PdfGeneratorFacade {
-    void generate(OutputStream out, PdfDocument dto ) throws GenDocumentException;
+    void generate(OutputStream out, Object dto ) throws GenDocumentException;
 }

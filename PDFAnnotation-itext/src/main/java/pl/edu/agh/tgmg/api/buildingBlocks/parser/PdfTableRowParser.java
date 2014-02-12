@@ -11,6 +11,7 @@ import pl.edu.agh.tgmg.api.annotations.PdfRowGroup;
 import pl.edu.agh.tgmg.api.annotations.PdfTableGroup;
 import pl.edu.agh.tgmg.api.annotations.PdfTableGroupHeader;
 import pl.edu.agh.tgmg.api.exceptions.InvalidTableGroupException;
+import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableElementWithStaticHeader;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableRow;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableWithDynamicHeader;
@@ -21,11 +22,11 @@ import pl.edu.agh.tgmg.itext.wrapper.TableCellRow;
 
 public class PdfTableRowParser {
 
-    public PdfTableRow parse(Class<?> clazz) {
+    public PdfTableRow parse(Class<?> clazz) throws InvalidTableGroupException, ReflectionException {
         return new PdfTableRow(findCellRows(clazz));
     }
     
-    private List<CellRow> findCellRows(Class<?> clazz) {
+    private List<CellRow> findCellRows(Class<?> clazz) throws InvalidTableGroupException, ReflectionException {
         PdfTableWithDynamicHeader dynamicTable = findTableGroup(clazz);
         if(dynamicTable != null) {
             return Arrays.asList((CellRow) dynamicTable);
@@ -33,8 +34,8 @@ public class PdfTableRowParser {
         return findColumns(clazz);
     }
     
-    private PdfTableWithDynamicHeader findTableGroup(Class<?> clazz) {
-        List<DynamicTableHeaderColumn> headers = new LinkedList<>();
+    private PdfTableWithDynamicHeader findTableGroup(Class<?> clazz) throws ReflectionException, InvalidTableGroupException {
+        List<DynamicTableHeaderColumn> headers = new LinkedList<DynamicTableHeaderColumn>();
         Field tableGroupField = null;
         boolean hasOthers = false;
         for(Field field: clazz.getDeclaredFields()) {
@@ -71,7 +72,7 @@ public class PdfTableRowParser {
                 new PdfTableRow(rows), dataTable);
     }
     
-    private List<CellRow> findColumns(Class<?> clazz) {
+    private List<CellRow> findColumns(Class<?> clazz) throws ReflectionException, InvalidTableGroupException {
         List<CellRow> cellRows = new LinkedList<CellRow>();
         for(Field field: clazz.getDeclaredFields()) {
             if(field.isAnnotationPresent(PdfColumn.class)) {
