@@ -1,5 +1,6 @@
 package pl.edu.agh.tgmg.itext.generators.styles;
 
+import java.io.ObjectInputStream.GetField;
 import java.lang.annotation.Annotation;
 
 import pl.edu.agh.tgmg.api.annotations.styles.CellStyle;
@@ -56,8 +57,11 @@ public class StyleResolver {
     
     
     public void applyStyle(CreatesCellElement element, CellStyle style) {
-        if()
-        cellStyleParser.applyStyle(formatter, style);
+        if(!style.styleClass().isEmpty()) {
+            CellStyle classStyle = getStyleFromClass(style.styleClass(), CellStyle.class);
+            //cellStyleParser.applyStyle(formatter, classStyle);
+        }
+        //cellStyleParser.applyStyle(formatter, style);
     }
     
     public void applyStyle(CreatesParagraphElement element, ParagraphStyle style) {

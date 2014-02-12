@@ -9,14 +9,20 @@ import com.itextpdf.text.pdf.PdfPCell;
 
 public class CellFormatter implements StyleFormatter<PdfPCell> {
 
-    private final BoxValues<Float> padding;
-    private final BoxValues<Float> borderWidth;
-    private final BoxValues<BaseColor> borderColor;
+    private  BoxValues<Float> padding;
+    private  BoxValues<Float> borderWidth;
+    private  BoxValues<BaseColor> borderColor;
 
     public CellFormatter() {
         padding = new BoxValues<Float>(0.5f);
         borderWidth = new BoxValues<Float>(1f);
         borderColor = new BoxValues<BaseColor>(BaseColor.BLACK);
+    }
+
+    public CellFormatter(BoxValues<BaseColor> borderColor, BoxValues<Float> borderWidth, BoxValues<Float> padding) {
+        this.borderColor = borderColor;
+        this.borderWidth = borderWidth;
+        this.padding = padding;
     }
 
     @Override
@@ -44,6 +50,18 @@ public class CellFormatter implements StyleFormatter<PdfPCell> {
 
         p.setVerticalAlignment(Element.ALIGN_CENTER);
         p.setHorizontalAlignment(Element.ALIGN_CENTER);
+    }
+
+    public void setBorderColor(BoxValues<BaseColor> borderColor) {
+        this.borderColor = borderColor;
+    }
+
+    public void setBorderWidth(BoxValues<Float> borderWidth) {
+        this.borderWidth = borderWidth;
+    }
+
+    public void setPadding(BoxValues<Float> padding) {
+        this.padding = padding;
     }
 }
 

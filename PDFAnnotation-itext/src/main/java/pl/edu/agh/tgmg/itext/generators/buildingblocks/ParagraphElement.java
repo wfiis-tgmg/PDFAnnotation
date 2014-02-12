@@ -18,6 +18,7 @@ public class ParagraphElement implements PdfElement, CreatesParagraphElement {
 
     String text;
     List<String> paramNames = Collections.emptyList();
+    StyleFormatter<Paragraph> styleFormatter = new ParagraphFormatter();
 
     public ParagraphElement(String text) {
         this.text = text;
@@ -30,8 +31,7 @@ public class ParagraphElement implements PdfElement, CreatesParagraphElement {
 
     @Override
     public void setParagraphFormatter(StyleFormatter<Paragraph> style) {
-        // TODO Auto-generated method stub
-        
+        styleFormatter = style;
     }
     
     @Override
@@ -44,6 +44,7 @@ public class ParagraphElement implements PdfElement, CreatesParagraphElement {
 
         String format = String.format(text, params.toArray());
         Paragraph element = new Paragraph(format);
+        styleFormatter.addStyle(element);
         return element;
     }
 
