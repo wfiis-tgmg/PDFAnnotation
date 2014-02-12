@@ -1,9 +1,11 @@
 package pl.edu.agh.tgmg.api;
 
-import pl.edu.agh.tgmg.api.buildingBlocks.*;
-
 import java.util.LinkedList;
 import java.util.List;
+
+import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaData;
+import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaDataImpl;
+import pl.edu.agh.tgmg.api.buildingBlocks.DocumentStructure;
 
 public class DocumentStructureImpl implements DocumentStructure
 {

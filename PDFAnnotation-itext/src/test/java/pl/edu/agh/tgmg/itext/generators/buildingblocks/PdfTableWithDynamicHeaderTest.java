@@ -1,9 +1,10 @@
 package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 
-import com.google.common.collect.ImmutableList;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.pdf.PdfPTable;
+import java.io.File;
+import java.io.FileOutputStream;
+
 import org.testng.annotations.Test;
+
 import pl.edu.agh.tgmg.TestGroup;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
 import pl.edu.agh.tgmg.examples.SecLvlTableExample;
@@ -13,8 +14,9 @@ import pl.edu.agh.tgmg.itext.generators.metadata.DefaultITextDocumentFactory;
 import pl.edu.agh.tgmg.itext.generators.metadata.DocumentFactoryBuilder;
 import pl.edu.agh.tgmg.itext.wrapper.StringCellRow;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import com.google.common.collect.ImmutableList;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.pdf.PdfPTable;
 
 @Test(groups = TestGroup.GEN_DOC)
 public class PdfTableWithDynamicHeaderTest {

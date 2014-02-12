@@ -1,12 +1,13 @@
 package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 
-import com.google.common.collect.ImmutableList;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.Arrays;
+import java.util.List;
+
 import org.testng.annotations.Test;
+
 import pl.edu.agh.tgmg.TestGroup;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaDataImpl;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
@@ -19,11 +20,12 @@ import pl.edu.agh.tgmg.itext.generators.metadata.DocumentFactoryBuilder;
 import pl.edu.agh.tgmg.itext.wrapper.StringCellRow;
 import pl.edu.agh.tgmg.itext.wrapper.TableCellRow;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.util.Arrays;
-import java.util.List;
+import com.google.common.collect.ImmutableList;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 
 
 @Test(groups = TestGroup.GEN_DOC)

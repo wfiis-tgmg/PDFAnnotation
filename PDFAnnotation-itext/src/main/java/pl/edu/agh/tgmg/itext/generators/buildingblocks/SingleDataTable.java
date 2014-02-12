@@ -1,9 +1,10 @@
 package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
+
 import java.util.Collections;
 import java.util.List;
 
-import com.google.common.base.Strings;
 import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.PdfTableElement;
 import pl.edu.agh.tgmg.itext.generators.dto.DynamicTableHeaderColumn;
@@ -12,8 +13,6 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-
-import static com.google.common.base.Strings.isNullOrEmpty;
 
 public class SingleDataTable implements PdfTableElement {
 

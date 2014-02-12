@@ -6,10 +6,8 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Collections;
 
-import pl.edu.agh.tgmg.api.annotations.PdfTableGroup;
 import pl.edu.agh.tgmg.api.annotations.PdfRowGroup;
-import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
-import pl.edu.agh.tgmg.api.exceptions.InvalidAnnotationException;
+import pl.edu.agh.tgmg.api.annotations.PdfTableGroup;
 import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 
 public class CommonUtils {

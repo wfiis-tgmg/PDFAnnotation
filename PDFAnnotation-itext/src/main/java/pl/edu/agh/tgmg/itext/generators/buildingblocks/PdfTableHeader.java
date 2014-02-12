@@ -1,15 +1,15 @@
 package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
+import java.util.Collections;
+import java.util.List;
 
 import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
 import pl.edu.agh.tgmg.itext.generators.styles.CellFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.CellFormatterImpl;
 
-import java.util.Collections;
-import java.util.List;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 
 public class PdfTableHeader {
 

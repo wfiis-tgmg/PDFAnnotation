@@ -1,17 +1,17 @@
 package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 
-import com.google.common.collect.Lists;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellWrapper;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import com.google.common.collect.Lists;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 
 public class PdfTableRow {
 

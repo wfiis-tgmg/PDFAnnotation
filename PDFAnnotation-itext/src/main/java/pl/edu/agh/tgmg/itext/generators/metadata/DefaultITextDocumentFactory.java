@@ -1,14 +1,15 @@
 package pl.edu.agh.tgmg.itext.generators.metadata;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.pdf.PdfWriter;
+import java.io.OutputStream;
+
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaData;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaDataImpl;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 import pl.edu.agh.tgmg.itext.generators.styles.BoxValues;
 
-import java.io.OutputStream;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfWriter;
 
 public class DefaultITextDocumentFactory implements ITextDocumentFactory {
 

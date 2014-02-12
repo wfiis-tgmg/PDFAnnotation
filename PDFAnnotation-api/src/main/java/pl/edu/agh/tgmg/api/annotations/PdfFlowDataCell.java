@@ -7,6 +7,7 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PdfTable {
-
+public @interface PdfFlowDataCell {
+    int rowSpan() default 1;
+    String name() default "";
 }

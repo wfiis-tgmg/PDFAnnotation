@@ -1,17 +1,19 @@
 package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 
-import com.google.common.collect.Lists;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.pdf.PdfPTable;
+import java.io.File;
+import java.io.FileOutputStream;
+
 import org.testng.annotations.Test;
+
 import pl.edu.agh.tgmg.TestGroup;
 import pl.edu.agh.tgmg.examples.SimpleRow;
 import pl.edu.agh.tgmg.itext.generators.dto.DynamicTableHeaderColumn;
 import pl.edu.agh.tgmg.itext.generators.metadata.DefaultITextDocumentFactory;
 import pl.edu.agh.tgmg.itext.generators.metadata.DocumentFactoryBuilder;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import com.google.common.collect.Lists;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.pdf.PdfPTable;
 
 @Test(groups = TestGroup.GEN_DOC)
 public class SingleDataTableTest {

@@ -13,6 +13,7 @@ import pl.edu.agh.tgmg.api.annotations.PdfAfterDocument;
 import pl.edu.agh.tgmg.api.annotations.PdfDocument;
 import pl.edu.agh.tgmg.api.annotations.PdfMessageFeed;
 import pl.edu.agh.tgmg.api.annotations.PdfParagraph;
+import pl.edu.agh.tgmg.api.annotations.PdfParagraphs;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentStructure;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfAnnotationParser;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfAnnotationParserImpl;
@@ -24,6 +25,20 @@ class SimpleParagraphDTO {
     @PdfParagraph("Paragraph")
     
     String str;
+}
+
+@PdfDocument
+class MultipleParagraphDTO {
+    
+    @PdfParagraphs({ 
+        @PdfParagraph("p1"),
+        @PdfParagraph("p2")}
+    )
+    String str1;
+    
+    @PdfParagraph("Paragraph")
+    
+    String str2;
 }
 
 @PdfDocument
@@ -69,12 +84,19 @@ class ParagraphError2DTO {
 
 public class PdfParagrapghParserTest {
     
-    
-    
     @Test
     public void testSimpleParagraph() {
         List<ParagraphElement> expected = Arrays.asList(new ParagraphElement("Paragraph"));
         checkParagraphs(SimpleParagraphDTO.class, expected);
+    }
+    
+    @Test
+    public void testMultipleParagraph() {
+        List<ParagraphElement> expected = Arrays.asList(
+                new ParagraphElement("p1"),
+                new ParagraphElement("p2"),
+                new ParagraphElement("Paragraph"));
+        checkParagraphs(MultipleParagraphDTO.class, expected);
     }
 
     @Test

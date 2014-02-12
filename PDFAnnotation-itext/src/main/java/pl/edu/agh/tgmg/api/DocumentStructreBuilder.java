@@ -1,13 +1,14 @@
 package pl.edu.agh.tgmg.api;
 
-import com.google.common.base.Functions;
-import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaData;
-import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaDataImpl;
+import static com.google.common.collect.Lists.transform;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.google.common.collect.Lists.*;
+import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaData;
+import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaDataImpl;
+
+import com.google.common.base.Functions;
 
 
 public class DocumentStructreBuilder {

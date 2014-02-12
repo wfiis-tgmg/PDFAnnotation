@@ -1,8 +1,6 @@
 package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
+import java.util.List;
 
 import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.PdfTableElement;
@@ -11,7 +9,9 @@ import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellWrapper;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 import pl.edu.agh.tgmg.itext.wrapper.ITextTableWrapper;
 
-import java.util.List;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 
 public class PdfTableWithDynamicHeader implements PdfTableElement, CellRow {
 

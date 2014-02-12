@@ -1,18 +1,19 @@
 package pl.edu.agh.tgmg.itext;
 
 
-import org.testng.annotations.Test;
-import pl.edu.agh.tgmg.api.buildingBlocks.TableHeaderColumn;
-import pl.edu.agh.tgmg.api.annotations.PdfColumn;
-import pl.edu.agh.tgmg.oldApi.ColumnHeaderImpl;
+import static com.google.common.collect.ImmutableList.of;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.google.common.collect.ImmutableList.of;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import org.testng.annotations.Test;
+
+import pl.edu.agh.tgmg.api.annotations.PdfColumn;
+import pl.edu.agh.tgmg.api.buildingBlocks.TableHeaderColumn;
+import pl.edu.agh.tgmg.oldApi.ColumnHeaderImpl;
 
 @Test(groups = "init")
 public class ColumnsResolver

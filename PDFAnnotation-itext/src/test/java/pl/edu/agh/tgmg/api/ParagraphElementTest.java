@@ -1,17 +1,19 @@
 package pl.edu.agh.tgmg.api;
 
 
-import com.itextpdf.text.Paragraph;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+
+import java.util.Arrays;
+
 import org.testng.annotations.Test;
+
 import pl.edu.agh.tgmg.TestGroup;
 import pl.edu.agh.tgmg.api.annotations.ToTest;
 import pl.edu.agh.tgmg.itext.generators.metadata.DefaultITextDocumentFactory;
 import pl.edu.agh.tgmg.itext.generators.metadata.DocumentFactoryBuilder;
 
-import java.util.Arrays;
-
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
+import com.itextpdf.text.Paragraph;
 
 public class ParagraphElementTest {
 

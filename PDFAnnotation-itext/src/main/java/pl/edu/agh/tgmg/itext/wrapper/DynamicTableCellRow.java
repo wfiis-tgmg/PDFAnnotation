@@ -1,12 +1,12 @@
 package pl.edu.agh.tgmg.itext.wrapper;
 
-import com.itextpdf.text.DocumentException;
-
 import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellWrapper;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableElementWithStaticHeader;
+
+import com.itextpdf.text.DocumentException;
 
 public class DynamicTableCellRow implements CellRow {
 

@@ -9,13 +9,13 @@ import pl.edu.agh.tgmg.api.PdfElement;
 import pl.edu.agh.tgmg.api.annotations.PdfAfterDocument;
 import pl.edu.agh.tgmg.api.annotations.PdfDocument;
 import pl.edu.agh.tgmg.api.annotations.PdfParagraph;
+import pl.edu.agh.tgmg.api.annotations.PdfParagraphs;
 import pl.edu.agh.tgmg.api.annotations.PdfTable;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaData;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentStructure;
 import pl.edu.agh.tgmg.api.exceptions.AnnotationParserException;
 import pl.edu.agh.tgmg.api.exceptions.InvalidAnnotationException;
 import pl.edu.agh.tgmg.api.exceptions.InvalidGroupException;
-import pl.edu.agh.tgmg.api.exceptions.InvalidParagraphException;
 import pl.edu.agh.tgmg.api.exceptions.InvalidTableGroupException;
 import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableElementWithStaticHeader;
@@ -43,6 +43,10 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
             PdfParagraph paragraph = field.getAnnotation(PdfParagraph.class);
             if(paragraph != null) {
                 elements.add(paragraphParser.parse(paragraph, root));
+            }
+            PdfParagraphs paragraphs = field.getAnnotation(PdfParagraphs.class);
+            if(paragraphs != null) {
+                elements.addAll(paragraphParser.parse(paragraphs, root));
             }
             if(field.isAnnotationPresent(PdfTable.class)) {
                 elements.add(parseTable(field));
