@@ -3,6 +3,7 @@ package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.common.base.Strings;
 import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.PdfTableElement;
 import pl.edu.agh.tgmg.itext.generators.dto.DynamicTableHeaderColumn;
@@ -11,6 +12,8 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+
+import static com.google.common.base.Strings.isNullOrEmpty;
 
 public class SingleDataTable implements PdfTableElement {
 
@@ -35,16 +38,26 @@ public class SingleDataTable implements PdfTableElement {
         return headerColumns;
     }
 
-    public PdfPTable createPdfTable(Object o) {
+    public PdfPTable createPdfTable(Object obj) {
         PdfPTable pdfPTable = new PdfPTable(column);
-        for (DynamicTableHeaderColumn h : headerColumns) {
-            Object value = CommonUtils.getValue(o, h.getFieldName());
-            PdfPCell cell = new PdfPCell(new Phrase(String.format("%s: %s",h.getText(),value) ));
-            cell.setColspan(h.getColSpan());
-            cell.setRowspan(h.getRowSpan());
+        for (DynamicTableHeaderColumn header : headerColumns) {
+
+            PdfPCell cell = new PdfPCell(new Phrase(parseToString(obj, header)));
+            cell.setColspan(header.getColSpan());
+            cell.setRowspan(header.getRowSpan());
             pdfPTable.addCell(cell);
         }
         return pdfPTable;
+    }
+
+    private String parseToString(Object o, DynamicTableHeaderColumn h) {
+        StringBuffer buffer = new StringBuffer();
+        if(!isNullOrEmpty(h.getText())) buffer.append(h.getText());
+        if(!isNullOrEmpty(h.getText()) && !isNullOrEmpty(h.getFieldName())) buffer.append(" : ");
+        if(!isNullOrEmpty(h.getFieldName())) buffer.append(CommonUtils.getValue(o, h.getFieldName()));
+
+
+        return buffer.toString();
     }
 
     @Override

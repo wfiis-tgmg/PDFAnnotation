@@ -36,6 +36,7 @@ public class PdfTableWithDynamicHeader implements PdfTableElement, CellRow {
     @Override
     public PdfPTable print(Object dataList) throws DocumentException {
         PdfPTable t = singleDataTable.createPdfTable(dataList);
+
         Object iter = CommonUtils.getValue(dataList, listFieldName);
         for (Object dataRow : CommonUtils.getIterable(iter)) {
             List<PdfPCell> cells = pdfTableRow.print(dataRow);

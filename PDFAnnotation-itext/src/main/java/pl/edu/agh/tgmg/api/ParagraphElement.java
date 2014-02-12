@@ -1,5 +1,9 @@
 package pl.edu.agh.tgmg.api;
 
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import pl.edu.agh.tgmg.api.annotations.ToTest;
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;

@@ -42,10 +42,11 @@ public class PdfTableElementWithStaticHeader implements PdfTableElement {
     public PdfPTable print(Object dataList) throws DocumentException {
 
         PdfPTable t = pdfTableHeader.createPdfTable();
+
         for (Object dataRow : CommonUtils.getIterable(dataList)) {
             List<PdfPCell> cells = pdfTableRow.print(dataRow);
             for (PdfPCell c : cells) {
-                c.setColspan(2);
+                c.setColspan(pdfTableHeader.getColumns());
                 t.addCell(c);
             }
         }

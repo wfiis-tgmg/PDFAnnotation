@@ -6,9 +6,7 @@ import pl.edu.agh.tgmg.api.PdfElement;
 import pl.edu.agh.tgmg.api.PdfGeneratorFacade;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentStructure;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfAnnotationParser;
-import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfAnnotationParserImpl;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
-import pl.edu.agh.tgmg.itext.generators.metadata.DefaultITextDocumentFactory;
 import pl.edu.agh.tgmg.itext.generators.metadata.ITextDocumentFactory;
 
 import com.itextpdf.text.Document;
@@ -16,8 +14,13 @@ import com.itextpdf.text.DocumentException;
 
 public class PdfGeneratorFacadeImpl implements PdfGeneratorFacade {
 
-    PdfAnnotationParser annotationParser = new PdfAnnotationParserImpl();
-    ITextDocumentFactory documentFactory = new DefaultITextDocumentFactory();
+    PdfAnnotationParser annotationParser;
+    ITextDocumentFactory documentFactory;
+
+    public PdfGeneratorFacadeImpl(PdfAnnotationParser annotationParser, ITextDocumentFactory documentFactory) {
+        this.annotationParser = annotationParser;
+        this.documentFactory = documentFactory;
+    }
 
     @Override
     public void generate(OutputStream out, Object dto) throws GenDocumentException {

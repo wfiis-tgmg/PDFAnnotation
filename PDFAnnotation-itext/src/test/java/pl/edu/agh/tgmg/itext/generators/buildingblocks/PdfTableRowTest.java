@@ -15,6 +15,7 @@ import pl.edu.agh.tgmg.examples.SimpleRow;
 import pl.edu.agh.tgmg.examples.ThirdLvlTableExample;
 import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
 import pl.edu.agh.tgmg.itext.generators.metadata.DefaultITextDocumentFactory;
+import pl.edu.agh.tgmg.itext.generators.metadata.DocumentFactoryBuilder;
 import pl.edu.agh.tgmg.itext.wrapper.StringCellRow;
 import pl.edu.agh.tgmg.itext.wrapper.TableCellRow;
 
@@ -28,7 +29,7 @@ import java.util.List;
 @Test(groups = TestGroup.GEN_DOC)
 public class PdfTableRowTest {
 
-    DefaultITextDocumentFactory factory = new DefaultITextDocumentFactory();
+    DefaultITextDocumentFactory factory = new DocumentFactoryBuilder().create();
 
 
 
@@ -134,7 +135,7 @@ public class PdfTableRowTest {
         PdfTableElementWithStaticHeader rootTable = new PdfTableElementWithStaticHeader(
                 new PdfTableHeader(2, ImmutableList.of(new TableHeaderColumn("unique"), new TableHeaderColumn("tables"))),
                 new PdfTableRow(Arrays.<CellRow>asList(
-                        new StringCellRow("unique")         ,
+                        new StringCellRow("unique"),
                         new TableCellRow("tab", secLvlTable)
                 ))
 
