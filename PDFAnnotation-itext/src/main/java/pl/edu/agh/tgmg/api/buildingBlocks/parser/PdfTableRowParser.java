@@ -17,10 +17,19 @@ import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableRow;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableWithDynamicHeader;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.SingleDataTable;
 import pl.edu.agh.tgmg.itext.generators.dto.DynamicTableHeaderColumn;
+import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
 import pl.edu.agh.tgmg.itext.wrapper.StringCellRow;
 import pl.edu.agh.tgmg.itext.wrapper.TableCellRow;
 
 public class PdfTableRowParser {
+    
+    private StyleResolver styleRepository = new StyleResolver();
+
+    public PdfTableRowParser() {}
+    
+    public PdfTableRowParser(StyleResolver styleRepository) {
+        this.styleRepository = styleRepository;
+    }
 
     public PdfTableRow parse(Class<?> clazz) throws InvalidTableGroupException, ReflectionException {
         return new PdfTableRow(findCellRows(clazz));

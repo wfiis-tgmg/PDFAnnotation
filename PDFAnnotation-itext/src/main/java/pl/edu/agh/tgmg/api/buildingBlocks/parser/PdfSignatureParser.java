@@ -6,9 +6,18 @@ import pl.edu.agh.tgmg.api.exceptions.InvalidAnnotationException;
 import pl.edu.agh.tgmg.api.exceptions.InvalidSignatureException;
 import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfSignatureElement;
+import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
 
 public class PdfSignatureParser {
     
+    private StyleResolver styleRepository = new StyleResolver();
+    
+    public PdfSignatureParser() {}
+    
+    public PdfSignatureParser(StyleResolver styleRepository) {
+        this.styleRepository = styleRepository;
+    }
+
     public PdfSignatureElement parse(PdfSignature signature, Class<?> root) throws InvalidSignatureException {
         if(!signature.dataFieldName().isEmpty()) {
             checkField(signature.dataFieldName(), root);

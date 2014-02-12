@@ -5,6 +5,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import pl.edu.agh.tgmg.api.annotations.styles.PageSize;
+import pl.edu.agh.tgmg.api.annotations.styles.PdfBoxValues;
+
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PdfDocument {

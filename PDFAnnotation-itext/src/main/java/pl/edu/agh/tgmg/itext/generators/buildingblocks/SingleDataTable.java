@@ -7,7 +7,7 @@ import java.util.List;
 
 import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.itext.generators.dto.DynamicTableHeaderColumn;
-import pl.edu.agh.tgmg.itext.generators.styles.StyleFormatter;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Phrase;

@@ -11,9 +11,18 @@ import pl.edu.agh.tgmg.api.exceptions.InvalidAnnotationException;
 import pl.edu.agh.tgmg.api.exceptions.InvalidParagraphException;
 import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.ParagraphElement;
+import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
 
 public class PdfParagraphParser {
     
+    private StyleResolver styleRepository = new StyleResolver();
+    
+    public PdfParagraphParser() {}
+    
+    public PdfParagraphParser(StyleResolver styleRepository) {
+        this.styleRepository = styleRepository;
+    }
+
     public List<ParagraphElement> parse(PdfParagraphs paragraphs, Class<?> root) throws InvalidParagraphException {
         List<ParagraphElement> result = new LinkedList<ParagraphElement>();
         for(PdfParagraph paragraph : paragraphs.value()) {

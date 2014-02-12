@@ -1,6 +1,6 @@
 package pl.edu.agh.tgmg.api.buildingBlocks.parser;
 
-import pl.edu.agh.tgmg.api.annotations.PdfBoxValues;
+import pl.edu.agh.tgmg.api.annotations.styles.PdfBoxValues;
 import pl.edu.agh.tgmg.itext.generators.styles.BoxValues;
 
 public class PdfBoxValueParser {

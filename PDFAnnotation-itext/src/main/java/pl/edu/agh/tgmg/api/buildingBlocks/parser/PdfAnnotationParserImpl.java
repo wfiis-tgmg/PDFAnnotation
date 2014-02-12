@@ -25,15 +25,29 @@ import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableElementWithStatic
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableHeader;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableRow;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.SingleDataTable;
+import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
 
 public class PdfAnnotationParserImpl implements PdfAnnotationParser {
 
-    PdfTableHeaderParser headerParser = new PdfTableHeaderParser();
-    PdfTableRowParser rowParser = new PdfTableRowParser();
-    PdfParagraphParser paragraphParser = new PdfParagraphParser();
-    PdfMetadataParser metadataParser = new PdfMetadataParser();
-    PdfSignatureParser signatureParser = new PdfSignatureParser();
-    PdfFlowCellParser flowCellParser = new PdfFlowCellParser();
+    PdfTableHeaderParser headerParser;
+    PdfTableRowParser rowParser;
+    PdfParagraphParser paragraphParser;
+    PdfMetadataParser metadataParser;
+    PdfSignatureParser signatureParser;
+    PdfFlowCellParser flowCellParser;
+    
+    public PdfAnnotationParserImpl() {
+        this(new StyleResolver());
+    }
+    
+    public PdfAnnotationParserImpl(StyleResolver styleRepository) {
+        headerParser = new PdfTableHeaderParser(styleRepository);
+        rowParser = new PdfTableRowParser(styleRepository);
+        paragraphParser = new PdfParagraphParser(styleRepository);
+        metadataParser = new PdfMetadataParser();
+        signatureParser = new PdfSignatureParser(styleRepository);
+        flowCellParser = new PdfFlowCellParser(styleRepository);
+    }
     
     @Override
     public DocumentStructure parse(Class<?> root) throws AnnotationParserException {
@@ -65,7 +79,7 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
             } else if(field.isAnnotationPresent(PdfFlowTextCells.class) || 
                     field.isAnnotationPresent(PdfFlowDataCell.class)) {
                 List<SingleDataTable> tables = flowCellParser.parse(root, i);
-                i += cellsRetrieved(tables, field.getName()) - 1;
+                i += flowCellParser.cellsRetrieved() - 1;
                 elements.addAll(tables);
             }
         }
@@ -90,14 +104,6 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
         return new PdfTableElementWithStaticHeader(header, row);
     }
     
-    private int cellsRetrieved(List<SingleDataTable> tables, String fieldName) {
-        int result = 0;
-        //TODO
-        if(result == 0) {
-            throw new InvalidAnnotationException("No Flow Cells retrieved from "
-                    + "Flow Cell annotation field " + fieldName);
-        }
-        return result;
-    }
+
 
 }

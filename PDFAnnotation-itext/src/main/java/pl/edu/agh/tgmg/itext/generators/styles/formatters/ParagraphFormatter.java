@@ -1,4 +1,4 @@
-package pl.edu.agh.tgmg.itext.generators.styles;
+package pl.edu.agh.tgmg.itext.generators.styles.formatters;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Font;

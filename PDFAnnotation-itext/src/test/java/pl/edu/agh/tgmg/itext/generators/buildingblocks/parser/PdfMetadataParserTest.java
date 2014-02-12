@@ -3,9 +3,9 @@ package pl.edu.agh.tgmg.itext.generators.buildingblocks.parser;
 import org.testng.annotations.Test;
 
 import junit.framework.Assert;
-import pl.edu.agh.tgmg.api.annotations.PageSize;
-import pl.edu.agh.tgmg.api.annotations.PdfBoxValues;
 import pl.edu.agh.tgmg.api.annotations.PdfDocument;
+import pl.edu.agh.tgmg.api.annotations.styles.PageSize;
+import pl.edu.agh.tgmg.api.annotations.styles.PdfBoxValues;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaData;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfMetadataParser;
 import pl.edu.agh.tgmg.itext.generators.styles.BoxValues;

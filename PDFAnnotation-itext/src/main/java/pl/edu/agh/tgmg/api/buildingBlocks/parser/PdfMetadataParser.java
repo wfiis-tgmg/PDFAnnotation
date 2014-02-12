@@ -4,8 +4,8 @@ import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.RectangleReadOnly;
 
 import pl.edu.agh.tgmg.api.CommonUtils;
-import pl.edu.agh.tgmg.api.annotations.PageSize;
 import pl.edu.agh.tgmg.api.annotations.PdfDocument;
+import pl.edu.agh.tgmg.api.annotations.styles.PageSize;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaData;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaDataImpl;
 import pl.edu.agh.tgmg.itext.generators.styles.BoxValues;

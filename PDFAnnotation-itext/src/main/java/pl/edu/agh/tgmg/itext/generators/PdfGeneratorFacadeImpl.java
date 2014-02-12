@@ -16,8 +16,9 @@ public class PdfGeneratorFacadeImpl implements PdfGeneratorFacade {
 
     PdfAnnotationParser annotationParser;
     ITextDocumentFactory documentFactory;
-
+    
     public PdfGeneratorFacadeImpl(PdfAnnotationParser annotationParser, ITextDocumentFactory documentFactory) {
+        super();
         this.annotationParser = annotationParser;
         this.documentFactory = documentFactory;
     }

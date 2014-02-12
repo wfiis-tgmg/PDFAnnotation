@@ -1,11 +1,11 @@
 package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 
-import pl.edu.agh.tgmg.itext.generators.styles.StyleFormatter;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 
 import com.itextpdf.text.pdf.PdfPTable;
 
 public interface CreatesTableElement {
     
-    public void setTableFormatter(StyleFormatter<PdfPTable> style);
+    public StyleFormatter<PdfPTable> getTableFormatter();
 }
 

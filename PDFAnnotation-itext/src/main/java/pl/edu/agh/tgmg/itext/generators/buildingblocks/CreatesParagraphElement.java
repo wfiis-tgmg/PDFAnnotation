@@ -1,10 +1,10 @@
 package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 
-import pl.edu.agh.tgmg.itext.generators.styles.StyleFormatter;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 
 import com.itextpdf.text.Paragraph;
 
 public interface CreatesParagraphElement {
     
-    public void setParagraphFormatter(StyleFormatter<Paragraph> style);
+    public StyleFormatter<Paragraph> getParagraphFormatter();
 }

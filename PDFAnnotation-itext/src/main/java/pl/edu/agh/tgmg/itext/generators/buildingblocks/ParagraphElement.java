@@ -7,8 +7,8 @@ import java.util.List;
 import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.PdfElement;
 import pl.edu.agh.tgmg.api.annotations.ToTest;
-import pl.edu.agh.tgmg.itext.generators.styles.ParagraphFormatter;
-import pl.edu.agh.tgmg.itext.generators.styles.StyleFormatter;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.ParagraphFormatter;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;

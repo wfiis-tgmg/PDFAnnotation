@@ -13,8 +13,17 @@ import pl.edu.agh.tgmg.api.exceptions.InvalidGroupException;
 import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableHeader;
 import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
+import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
 
 public class PdfTableHeaderParser {
+
+    private StyleResolver styleRepository = new StyleResolver();
+    
+    public PdfTableHeaderParser() {}
+    
+    public PdfTableHeaderParser(StyleResolver styleRepository) {
+        this.styleRepository = styleRepository;
+    }
 
     ColumnGroupNode groupTree;
     int order;

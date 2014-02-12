@@ -1,4 +1,6 @@
-package pl.edu.agh.tgmg.itext.generators.styles;
+package pl.edu.agh.tgmg.itext.generators.styles.formatters;
+
+import pl.edu.agh.tgmg.itext.generators.styles.BoxValues;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Element;

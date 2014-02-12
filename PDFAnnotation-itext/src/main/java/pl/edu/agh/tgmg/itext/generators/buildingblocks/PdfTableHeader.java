@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
-import pl.edu.agh.tgmg.itext.generators.styles.StyleFormatter;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;

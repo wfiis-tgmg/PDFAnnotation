@@ -1,10 +1,10 @@
 package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 
-import pl.edu.agh.tgmg.itext.generators.styles.StyleFormatter;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 
 import com.itextpdf.text.pdf.PdfPCell;
 
 public interface CreatesCellElement {
     
-    public void setCellFormatter(StyleFormatter<PdfPCell> style);
+    public StyleFormatter<PdfPCell> getCellFormatter();
 }
