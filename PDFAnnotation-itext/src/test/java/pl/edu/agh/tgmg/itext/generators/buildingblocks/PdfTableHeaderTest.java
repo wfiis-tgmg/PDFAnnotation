@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import pl.edu.agh.tgmg.TestGroup;
 import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
 import pl.edu.agh.tgmg.itext.generators.metadata.DefaultITextDocumentFactory;
+import pl.edu.agh.tgmg.itext.generators.metadata.DocumentFactoryBuilder;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,7 +17,7 @@ import java.util.List;
 @Test(groups = TestGroup.GEN_DOC)
 public class PdfTableHeaderTest {
 
-    DefaultITextDocumentFactory factory = new DefaultITextDocumentFactory();
+    DefaultITextDocumentFactory factory = new DocumentFactoryBuilder().create();
 
     @Test
     public void testGenFlat() throws Exception {

@@ -5,6 +5,8 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
 import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
+import pl.edu.agh.tgmg.itext.generators.styles.CellFormatter;
+import pl.edu.agh.tgmg.itext.generators.styles.CellFormatterImpl;
 
 import java.util.Collections;
 import java.util.List;
@@ -40,12 +42,15 @@ public class PdfTableHeader {
         this.headerColumns = headerColumns;
     }
 
+    CellFormatter cellFormatter = new CellFormatterImpl();
+
     public PdfPTable createPdfTable() {
         PdfPTable pdfPTable = new PdfPTable(columns);
         for (TableHeaderColumn h : headerColumns) {
             PdfPCell cell = new PdfPCell(new Phrase(h.getText()));
             cell.setColspan(h.getColSpan());
             cell.setRowspan(h.getRowSpan());
+            cellFormatter.addStyles(cell);
             pdfPTable.addCell(cell);
         }
         return pdfPTable;
