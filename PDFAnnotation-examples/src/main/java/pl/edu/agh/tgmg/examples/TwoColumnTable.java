@@ -1,12 +1,9 @@
 package pl.edu.agh.tgmg.examples;
 
-import pl.edu.agh.tgmg.api.annotations.PdfDocument;
-
-import java.lang.annotation.Annotation;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TwoColumnTable implements PdfDocument {
+public class TwoColumnTable {
     String surname;
     String name;
 
@@ -31,10 +28,5 @@ public class TwoColumnTable implements PdfDocument {
         this.surname = surname;
     }
 
-    // FIXME po co to jest? 
-	@Override
-	public Class<? extends Annotation> annotationType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 }

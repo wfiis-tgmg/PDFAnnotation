@@ -25,6 +25,10 @@ public class CommonUtils {
     }
 
     // TODO add localization
+    public static String processText(String input) {
+        return processText(input, input);
+    }
+    
     public static String processText(String input, String defaultValue) {
         if(input == null || input.isEmpty()) {
             return defaultValue;

@@ -6,8 +6,8 @@ import pl.edu.agh.tgmg.itext.generators.styles.BoxValues;
 
 public class DocumentMetaDataImpl implements DocumentMetaData {
 
-    private final String title = "";
-    private  String subject = "";
+    private String title = "";
+    private String subject = "";
     private boolean createDate = true;
     private String author = "";
     private BoxValues<Integer> margins = new BoxValues<Integer>(20);
@@ -17,12 +17,14 @@ public class DocumentMetaDataImpl implements DocumentMetaData {
     public DocumentMetaDataImpl() {
     }
 
-    public DocumentMetaDataImpl(String author, boolean createDate, BoxValues<Integer> margins, String subject,Rectangle p ) {
+    public DocumentMetaDataImpl(String author, boolean createDate, BoxValues<Integer> margins,
+            String subject, Rectangle p, String title) {
         this.author = author;
         this.createDate = createDate;
         this.margins = margins;
         this.subject = subject;
         this.p = p;
+        this.title = title;
     }
 
     @Override
@@ -54,4 +56,6 @@ public class DocumentMetaDataImpl implements DocumentMetaData {
     public String getTitle() {
         return title;
     }
+    
+    
 }
