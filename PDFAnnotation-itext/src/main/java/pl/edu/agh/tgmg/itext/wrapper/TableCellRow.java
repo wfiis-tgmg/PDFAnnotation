@@ -1,19 +1,24 @@
 package pl.edu.agh.tgmg.itext.wrapper;
 
 import pl.edu.agh.tgmg.api.CommonUtils;
+import pl.edu.agh.tgmg.api.annotations.styles.CellRowStyle;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellWrapper;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableElement;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellFormatter;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellRowFormatter;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfPCell;
 
 public class TableCellRow implements CellRow {
 
     String name;
 
     PdfTableElement tableElement;
-
+    StyleFormatter<PdfPCell, CellRowStyle> cellFormatter = new CellRowFormatter();
 
     public TableCellRow(String name, PdfTableElement tableElement) {
         this.name = name;
@@ -70,6 +75,11 @@ public class TableCellRow implements CellRow {
         } else if (!tableElement.equals(other.tableElement))
             return false;
         return true;
+    }
+
+    @Override
+    public StyleFormatter<PdfPCell, CellRowStyle> getFormatter() {
+        return cellFormatter;
     }
     
     

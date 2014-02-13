@@ -21,8 +21,8 @@ public class PdfFlowCellParser {
     
     public PdfFlowCellParser() {}
     
-    public PdfFlowCellParser(StyleResolver styleRepository) {
-        this.styleRepository = styleRepository;
+    public PdfFlowCellParser(StyleResolver styleResolver) {
+        this.styleRepository = styleResolver;
     }
 
     public List<SingleDataTable> parse(Class<?> root, int currentField) {

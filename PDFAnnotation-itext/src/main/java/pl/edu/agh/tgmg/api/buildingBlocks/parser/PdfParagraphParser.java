@@ -15,12 +15,12 @@ import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
 
 public class PdfParagraphParser {
     
-    private StyleResolver styleRepository = new StyleResolver();
+    private StyleResolver styleResolver = new StyleResolver();
     
     public PdfParagraphParser() {}
     
-    public PdfParagraphParser(StyleResolver styleRepository) {
-        this.styleRepository = styleRepository;
+    public PdfParagraphParser(StyleResolver styleResolver) {
+        this.styleResolver = styleResolver;
     }
 
     public List<ParagraphElement> parse(PdfParagraphs paragraphs, Class<?> root) throws InvalidParagraphException {
@@ -31,11 +31,14 @@ public class PdfParagraphParser {
         return result;
     }
     
+  //TODO (element, ParagraphStyle, class))
     public ParagraphElement parse(PdfParagraph paragraph, Class<?> root) throws InvalidParagraphException {
         List<String> params = Arrays.asList(paragraph.messageFieldNames());
         String text = CommonUtils.processText(paragraph.value(), paragraph.value());
         checkParams(params, root);
-        return new ParagraphElement(params, text);
+        ParagraphElement result = new ParagraphElement(params, text);
+        styleResolver.applyStyle(result, paragraph.style(), root);
+        return result;
     }
     
     private void checkParams(List<String> params, Class<?> root) throws InvalidParagraphException {

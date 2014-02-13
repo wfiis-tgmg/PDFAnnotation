@@ -17,12 +17,12 @@ import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
 
 public class PdfTableHeaderParser {
 
-    private StyleResolver styleRepository = new StyleResolver();
+    private StyleResolver styleResolver = new StyleResolver();
     
     public PdfTableHeaderParser() {}
     
-    public PdfTableHeaderParser(StyleResolver styleRepository) {
-        this.styleRepository = styleRepository;
+    public PdfTableHeaderParser(StyleResolver styleResolver) {
+        this.styleResolver = styleResolver;
     }
 
     ColumnGroupNode groupTree;
@@ -30,7 +30,7 @@ public class PdfTableHeaderParser {
     
     public PdfTableHeader parse(Class<?> clazz) throws ReflectionException, InvalidGroupException  {
         
-        PdfColumnGroupParser groupParser = new PdfColumnGroupParser();
+        PdfColumnGroupParser groupParser = new PdfColumnGroupParser(styleResolver);
         groupTree = groupParser.parse(clazz);
         order = 1;
         findColumns(clazz);
@@ -64,11 +64,12 @@ public class PdfTableHeaderParser {
     }
     
     private void findColumns(Class<?> clazz) throws ReflectionException {
-        for(Field field: clazz.getDeclaredFields()) {
+        for(Field field : clazz.getDeclaredFields()) {
             PdfColumn column = field.getAnnotation(PdfColumn.class);
             if(column != null) {
                 String name = CommonUtils.processText(column.name(), field.getName());
                 ColumnGroupNode node = new ColumnGroupNode(name, column.group(),order++);
+                styleResolver.applyStyle(node, column.headerStyle(), clazz);
                 groupTree.addLeafNode(node);
             } else if(CommonUtils.isFieldANestedTable(field)) {
                 Class<?> nestedClass = CommonUtils.getTypeParamOfIterableField(field);

@@ -7,6 +7,8 @@ import java.util.List;
 import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.PdfElement;
 import pl.edu.agh.tgmg.api.annotations.ToTest;
+import pl.edu.agh.tgmg.api.annotations.styles.ParagraphStyle;
+import pl.edu.agh.tgmg.itext.generators.buildingblocks.formatters.CreatesParagraphElement;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.ParagraphFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 
@@ -18,7 +20,7 @@ public class ParagraphElement implements PdfElement, CreatesParagraphElement {
 
     String text;
     List<String> paramNames = Collections.emptyList();
-    StyleFormatter<Paragraph> styleFormatter = new ParagraphFormatter();
+    StyleFormatter<Paragraph, ParagraphStyle> styleFormatter = new ParagraphFormatter();
 
     public ParagraphElement(String text) {
         this.text = text;
@@ -28,10 +30,10 @@ public class ParagraphElement implements PdfElement, CreatesParagraphElement {
         this.paramNames = paramNames;
         this.text = text;
     }
-
+    
     @Override
-    public void setParagraphFormatter(StyleFormatter<Paragraph> style) {
-        styleFormatter = style;
+    public StyleFormatter<Paragraph, ParagraphStyle> getFormatter() {
+        return styleFormatter;
     }
     
     @Override
@@ -85,4 +87,6 @@ public class ParagraphElement implements PdfElement, CreatesParagraphElement {
         return "ParagraphElement [text=" + text + ", paramNames=" + paramNames
                 + "]";
     }
+
+
 }

@@ -3,9 +3,13 @@ package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 import java.util.List;
 
 import pl.edu.agh.tgmg.api.CommonUtils;
+import pl.edu.agh.tgmg.api.annotations.styles.CellRowStyle;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellWrapper;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellFormatter;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellRowFormatter;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 import pl.edu.agh.tgmg.itext.wrapper.ITextTableWrapper;
 
 import com.itextpdf.text.DocumentException;
@@ -17,6 +21,8 @@ public class PdfTableWithDynamicHeader implements PdfTableElement, CellRow {
     SingleDataTable singleDataTable;
     PdfTableRow pdfTableRow;
     String listFieldName;
+    
+    StyleFormatter<PdfPCell, CellRowStyle> cellFormatter = new CellRowFormatter();
 
     public PdfTableWithDynamicHeader(String listFieldName, PdfTableRow pdfTableRow, SingleDataTable singleDataTable) {
         this.listFieldName = listFieldName;
@@ -98,6 +104,11 @@ public class PdfTableWithDynamicHeader implements PdfTableElement, CellRow {
         } else if (!singleDataTable.equals(other.singleDataTable))
             return false;
         return true;
+    }
+
+    @Override
+    public StyleFormatter<PdfPCell, CellRowStyle> getFormatter() {
+        return cellFormatter;
     }
     
     

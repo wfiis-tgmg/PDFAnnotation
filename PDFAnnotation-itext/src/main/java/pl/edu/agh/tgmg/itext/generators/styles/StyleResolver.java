@@ -1,88 +1,104 @@
 package pl.edu.agh.tgmg.itext.generators.styles;
 
-import java.io.ObjectInputStream.GetField;
 import java.lang.annotation.Annotation;
+import java.util.HashMap;
+import java.util.Map;
 
-import pl.edu.agh.tgmg.api.annotations.styles.CellStyle;
+import pl.edu.agh.tgmg.api.annotations.styles.CellHeaderStyle;
+import pl.edu.agh.tgmg.api.annotations.styles.CellRowStyle;
 import pl.edu.agh.tgmg.api.annotations.styles.ParagraphStyle;
 import pl.edu.agh.tgmg.api.annotations.styles.TableStyle;
 import pl.edu.agh.tgmg.api.exceptions.InvalidStyleException;
-import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
-import pl.edu.agh.tgmg.itext.generators.buildingblocks.CreatesCellElement;
-import pl.edu.agh.tgmg.itext.generators.buildingblocks.CreatesParagraphElement;
-import pl.edu.agh.tgmg.itext.generators.buildingblocks.CreatesTableElement;
+import pl.edu.agh.tgmg.itext.generators.buildingblocks.formatters.CreatesPdfElement;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellFormatter;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellHeaderFormatter;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellRowFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.ParagraphFormatter;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.TableFormatter;
-import pl.edu.agh.tgmg.itext.generators.styles.parser.CellStyleParser;
+import pl.edu.agh.tgmg.itext.generators.styles.parser.HeaderCellStyleParser;
 import pl.edu.agh.tgmg.itext.generators.styles.parser.ParagraphStyleParser;
+import pl.edu.agh.tgmg.itext.generators.styles.parser.RowCellStyleParser;
+import pl.edu.agh.tgmg.itext.generators.styles.parser.StyleElementParser;
 import pl.edu.agh.tgmg.itext.generators.styles.parser.TableStyleParser;
 
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+
 public class StyleResolver {
+    
+    private Map<Class<? extends Annotation>, StyleFormatter<? extends Element, ? extends Annotation>> defaultFormatters;
+    private Map<Class<? extends Annotation>, StyleElementParser<? extends Element, ? extends Annotation>> styleParsers;
 
-    private final CellFormatter defaultCellStyle;
-    private final TableFormatter defaultTableStyle;
-    private final ParagraphFormatter defaultParagraphStyle;
-    
-    private final CellStyleParser cellStyleParser = new CellStyleParser();
-    private final TableStyleParser tableStyleParser = new TableStyleParser();
-    private final ParagraphStyleParser paragraphStyleParser = new ParagraphStyleParser();
-    
     public StyleResolver() {
-        this.defaultCellStyle = new CellFormatter();
-        this.defaultTableStyle = new TableFormatter();
-        this.defaultParagraphStyle = new ParagraphFormatter();
+        this(new CellHeaderFormatter(), new CellRowFormatter(), new TableFormatter(), new ParagraphFormatter());
     }
     
-    public CellFormatter getDefaultCellStyle() {
-        return defaultCellStyle;
+    public StyleResolver(StyleFormatter<PdfPCell, CellHeaderStyle> defaultHeaderCellStyle, 
+            StyleFormatter<PdfPCell, CellRowStyle> defaultRowCellStyle,
+            StyleFormatter<PdfPTable, TableStyle> defaultTableStyle,
+            StyleFormatter<Paragraph, ParagraphStyle> defaultParagraphStyle) {
+        defaultFormatters = new HashMap<>();
+        defaultFormatters.put(CellRowStyle.class, defaultRowCellStyle);
+        defaultFormatters.put(CellHeaderStyle.class, defaultHeaderCellStyle);
+        defaultFormatters.put(TableStyle.class, defaultTableStyle);
+        defaultFormatters.put(ParagraphStyle.class, defaultParagraphStyle);
+        styleParsers = new HashMap<>();
+        styleParsers.put(CellRowStyle.class, new RowCellStyleParser());
+        styleParsers.put(CellHeaderStyle.class, new HeaderCellStyleParser());
+        styleParsers.put(TableStyle.class, new TableStyleParser());
+        styleParsers.put(ParagraphStyle.class, new ParagraphStyleParser());  
     }
-
-    public TableFormatter getDefaultTableStyle() {
-        return defaultTableStyle;
-    }
-
-    public ParagraphFormatter getDefaultParagraphStyle() {
-        return defaultParagraphStyle;
-    }
-
-    public StyleResolver(CellFormatter defaultCellStyle,
-            TableFormatter defaultTableStyle,
-            ParagraphFormatter defaultParagraphStyle) {
-        this.defaultCellStyle = defaultCellStyle;
-        this.defaultTableStyle = defaultTableStyle;
-        this.defaultParagraphStyle = defaultParagraphStyle;
-    }
-
     
-    
-    public void applyStyle(CreatesCellElement element, CellStyle style) {
-        if(!style.styleClass().isEmpty()) {
-            CellStyle classStyle = getStyleFromClass(style.styleClass(), CellStyle.class);
-            //cellStyleParser.applyStyle(formatter, classStyle);
+    @SuppressWarnings("unchecked")
+    public <E extends Element, S extends Annotation> void applyStyle(CreatesPdfElement<E, S> element, 
+            S styleAnnotation, Class<?> declaringClass) {
+        applyDefaultStyle(element);
+        Class<S> annotationClass = (Class<S>) styleAnnotation.getClass();
+        S style = declaringClass.getAnnotation(annotationClass);
+        if(style != null) {
+            applyStyle(element, style);
         }
-        //cellStyleParser.applyStyle(formatter, style);
+        applyStyle(element, styleAnnotation);
     }
     
-    public void applyStyle(CreatesParagraphElement element, ParagraphStyle style) {
-        
+    @SuppressWarnings("unchecked")
+    private <E extends Element, S extends Annotation> void applyDefaultStyle(CreatesPdfElement<E, S> element) {
+        StyleFormatter<E, S> formatter = element.getFormatter();
+        Class<S> annotationClass = formatter.getFormatterStyleClass();
+        StyleFormatter<E, S> defaultFormatter = (StyleFormatter<E, S>) defaultFormatters.get(annotationClass);
+        formatter.setStyle(defaultFormatter);
     }
     
-    public void applyStyle(CreatesTableElement element, TableStyle style) {
-        
-    }
-    
-    private <T extends Annotation> T getStyleFromClass(String className, Class<T> annotationClass) {
-        try {
-            Class<?> styleClass = Class.forName(className);
-            T style = styleClass.getAnnotation(annotationClass);
+    @SuppressWarnings("unchecked")
+    private <E extends Element, S extends Annotation> void applyStyle(CreatesPdfElement<E, S> element, S styleAnnotation) {
+        StyleFormatter<E, S> formatter = element.getFormatter();
+        Class<S> annotationClass = (Class<S>) styleAnnotation.getClass();
+        Class<?> styleClass = getStyleClass(styleAnnotation);
+        StyleElementParser<E, S> styleParser = (StyleElementParser<E, S>) styleParsers.get(annotationClass);
+        if(!styleClass.equals(Class.class)) {
+            S style = styleClass.getAnnotation(annotationClass);
             if(style == null) {
-                throw new InvalidStyleException("Class " + className + " has no " + annotationClass.getName());
+                throw new InvalidStyleException("Class " + styleClass.getName() + 
+                        " has no " + annotationClass.getName());
             }
-            return style;
-        } catch (ClassNotFoundException e) {
-            throw new InvalidStyleException("Couldn't read Style from class " 
-                    + className +". Class not found");
+            styleParser.applyStyle(formatter, style);
         }
-    } 
+        styleParser.applyStyle(formatter, styleAnnotation);
+    }
+    
+    private <S extends Annotation> Class<?> getStyleClass(S styleAnnotation) {
+        if(styleAnnotation instanceof CellHeaderStyle) {
+            return ((CellHeaderStyle) styleAnnotation).styleClass();
+        } else if(styleAnnotation instanceof TableStyle) {
+            return ((TableStyle) styleAnnotation).styleClass();
+        } else if(styleAnnotation instanceof ParagraphStyle) {
+            return ((ParagraphStyle) styleAnnotation).styleClass();
+        } else {
+            throw new InvalidStyleException("Parser for style annotation '" + 
+                    styleAnnotation.getClass().getName() + "' is not defined");
+        }
+    }
 }

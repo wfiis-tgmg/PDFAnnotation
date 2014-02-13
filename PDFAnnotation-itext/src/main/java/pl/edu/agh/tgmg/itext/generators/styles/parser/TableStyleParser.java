@@ -5,9 +5,9 @@ import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 
 import com.itextpdf.text.pdf.PdfPTable;
 
-public class TableStyleParser {
+public class TableStyleParser implements StyleElementParser<PdfPTable, TableStyle>  {
     
-    public void applyStyle(StyleFormatter<PdfPTable> formatter, TableStyle style) {
+    public void applyStyle(StyleFormatter<PdfPTable, TableStyle> formatter, TableStyle style) {
         
     }
 

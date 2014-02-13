@@ -1,26 +1,28 @@
 package pl.edu.agh.tgmg.itext.wrapper;
 
 import pl.edu.agh.tgmg.api.CommonUtils;
+import pl.edu.agh.tgmg.api.annotations.styles.CellRowStyle;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellWrapper;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableElementWithStaticHeader;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellRowFormatter;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfPCell;
 
 public class DynamicTableCellRow implements CellRow {
 
     String name;
-
     PdfTableElementWithStaticHeader tableElement;
-
+    
+    StyleFormatter<PdfPCell, CellRowStyle> cellFormatter = new CellRowFormatter();
 
     public DynamicTableCellRow(String name, PdfTableElementWithStaticHeader tableElement) {
         this.name = name;
         this.tableElement = tableElement;
     }
-
-
 
     @Override
     public CellWrapper getCell(Object o)  {
@@ -36,8 +38,6 @@ public class DynamicTableCellRow implements CellRow {
     public String getName() {
         return name;
     }
-
-
 
     @Override
     public int hashCode() {
@@ -69,6 +69,11 @@ public class DynamicTableCellRow implements CellRow {
         } else if (!tableElement.equals(other.tableElement))
             return false;
         return true;
+    }
+
+    @Override
+    public StyleFormatter<PdfPCell, CellRowStyle> getFormatter() {
+        return cellFormatter;
     }
     
     

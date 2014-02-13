@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-public @interface TableStyle {
+public @interface CellRowStyle {
     Class<?> styleClass() default Class.class;
 }

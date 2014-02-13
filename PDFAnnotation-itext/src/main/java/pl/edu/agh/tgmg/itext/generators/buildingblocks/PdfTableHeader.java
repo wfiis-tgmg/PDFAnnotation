@@ -3,8 +3,9 @@ package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 import java.util.Collections;
 import java.util.List;
 
+import pl.edu.agh.tgmg.api.annotations.styles.TableStyle;
+import pl.edu.agh.tgmg.itext.generators.buildingblocks.formatters.CreatesTableElement;
 import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
-import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.TableFormatter;
 
@@ -12,22 +13,17 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
-public class PdfTableHeader implements CreatesCellElement, CreatesTableElement {
+public class PdfTableHeader implements CreatesTableElement {
 
     int columns;
 
     List<TableHeaderColumn> headerColumns;
-    StyleFormatter<PdfPCell> cellFormatter = new CellFormatter();
-    StyleFormatter<PdfPTable> tableFormatter = new TableFormatter();
+    
+    StyleFormatter<PdfPTable, TableStyle> tableFormatter = new TableFormatter();
 
     @Override
-    public StyleFormatter<PdfPTable> getTableFormatter() {
+    public StyleFormatter<PdfPTable, TableStyle> getFormatter() {
         return tableFormatter;
-    }
-
-    @Override
-    public StyleFormatter<PdfPCell> getCellFormatter() {
-        return cellFormatter;
     }
 
     public int getColumns() {
@@ -62,7 +58,7 @@ public class PdfTableHeader implements CreatesCellElement, CreatesTableElement {
             PdfPCell cell = new PdfPCell(new Phrase(h.getText()));
             cell.setColspan(h.getColSpan());
             cell.setRowspan(h.getRowSpan());
-            cellFormatter.addStyle(cell);
+            h.getFormatter().addStyle(cell);
             pdfPTable.addCell(cell);
         }
         return pdfPTable;
@@ -96,7 +92,5 @@ public class PdfTableHeader implements CreatesCellElement, CreatesTableElement {
             return false;
         return true;
     }
-
-
 
 }

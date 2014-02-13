@@ -1,12 +1,13 @@
 package pl.edu.agh.tgmg.itext.generators.styles.formatters;
 
+import pl.edu.agh.tgmg.api.annotations.styles.ParagraphStyle;
+
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 
-public class ParagraphFormatter implements StyleFormatter<Paragraph> {
-
+public class ParagraphFormatter implements StyleFormatter<Paragraph, ParagraphStyle> {
 
     private  int defaultsize = Font.DEFAULTSIZE;
     private  BaseColor color = BaseColor.BLACK;
@@ -68,5 +69,16 @@ public class ParagraphFormatter implements StyleFormatter<Paragraph> {
 
     public void setSpacingBefore(float spacingBefore) {
         this.spacingBefore = spacingBefore;
+    }
+
+    @Override
+    public Class<ParagraphStyle> getFormatterStyleClass() {
+        return ParagraphStyle.class;
+    }
+
+    @Override
+    public void setStyle(StyleFormatter<Paragraph, ParagraphStyle> other) {
+        // TODO Auto-generated method stub
+        
     }
 }

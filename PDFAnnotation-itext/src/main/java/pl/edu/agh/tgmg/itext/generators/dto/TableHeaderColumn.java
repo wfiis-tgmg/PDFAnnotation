@@ -1,9 +1,19 @@
 package pl.edu.agh.tgmg.itext.generators.dto;
 
-public class TableHeaderColumn {
+import com.itextpdf.text.pdf.PdfPCell;
+
+import pl.edu.agh.tgmg.api.annotations.styles.CellHeaderStyle;
+import pl.edu.agh.tgmg.itext.generators.buildingblocks.formatters.CreatesHeaderCellElement;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellFormatter;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellHeaderFormatter;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
+
+public class TableHeaderColumn implements CreatesHeaderCellElement {
     protected int column;
     protected int row;
     protected String text;
+    
+    StyleFormatter<PdfPCell, CellHeaderStyle> cellFormatter = new CellHeaderFormatter();
 
     public TableHeaderColumn(String text) {
         this(1, 1, text);
@@ -13,6 +23,11 @@ public class TableHeaderColumn {
         this.column = colspan;
         this.row = rowspan;
         this.text = text;
+    }
+    
+    @Override
+    public StyleFormatter<PdfPCell, CellHeaderStyle> getFormatter() {
+        return cellFormatter;
     }
 
     public int getColSpan() {

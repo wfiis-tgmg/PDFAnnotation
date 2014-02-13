@@ -7,7 +7,7 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 
-public class CellFormatter implements StyleFormatter<PdfPCell> {
+public class CellFormatter {
 
     private  BoxValues<Float> padding;
     private  BoxValues<Float> borderWidth;
@@ -25,7 +25,6 @@ public class CellFormatter implements StyleFormatter<PdfPCell> {
         this.padding = padding;
     }
 
-    @Override
     public void addStyle(PdfPCell p) {
         p.setBorder(Rectangle.BOX);
 
@@ -62,6 +61,10 @@ public class CellFormatter implements StyleFormatter<PdfPCell> {
 
     public void setPadding(BoxValues<Float> padding) {
         this.padding = padding;
+    }
+    
+    public void setStyle(CellFormatter other) {
+        
     }
 }
 

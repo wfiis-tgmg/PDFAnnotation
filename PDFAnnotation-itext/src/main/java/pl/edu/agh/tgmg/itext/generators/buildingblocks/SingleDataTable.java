@@ -6,8 +6,9 @@ import java.util.Collections;
 import java.util.List;
 
 import pl.edu.agh.tgmg.api.CommonUtils;
+import pl.edu.agh.tgmg.api.annotations.styles.TableStyle;
+import pl.edu.agh.tgmg.itext.generators.buildingblocks.formatters.CreatesTableElement;
 import pl.edu.agh.tgmg.itext.generators.dto.DynamicTableHeaderColumn;
-import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.TableFormatter;
 
@@ -16,13 +17,12 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
-public class SingleDataTable implements PdfTableElement, CreatesTableElement, CreatesCellElement {
+public class SingleDataTable implements PdfTableElement, CreatesTableElement {
 
     int column;
 
     List<DynamicTableHeaderColumn> headerColumns;
-    StyleFormatter<PdfPCell> cellFormatter = new CellFormatter();
-    StyleFormatter<PdfPTable> styleFormatter = new TableFormatter();
+    StyleFormatter<PdfPTable, TableStyle> tableFormatter = new TableFormatter();
 
     public SingleDataTable(int column) {
         this(column, Collections.<DynamicTableHeaderColumn>emptyList());
@@ -32,15 +32,10 @@ public class SingleDataTable implements PdfTableElement, CreatesTableElement, Cr
         this.column = column;
         this.headerColumns = headerColumns;
     }
-    
-    @Override
-    public StyleFormatter<PdfPCell> getCellFormatter() {
-        return cellFormatter;
-    }
 
     @Override
-    public StyleFormatter<PdfPTable> getTableFormatter() {
-        return styleFormatter;
+    public StyleFormatter<PdfPTable, TableStyle> getFormatter() {
+        return tableFormatter;
     }
     
     public int getColumn() {
@@ -53,11 +48,12 @@ public class SingleDataTable implements PdfTableElement, CreatesTableElement, Cr
 
     public PdfPTable createPdfTable(Object obj) {
         PdfPTable pdfPTable = new PdfPTable(column);
+        tableFormatter.addStyle(pdfPTable);
         for (DynamicTableHeaderColumn header : headerColumns) {
             PdfPCell cell = new PdfPCell(new Phrase(parseToString(obj, header)));
             cell.setColspan(header.getColSpan());
             cell.setRowspan(header.getRowSpan());
-            cellFormatter.addStyle(cell);
+            header.getFormatter().addStyle(cell);
             pdfPTable.addCell(cell);
         }
         return pdfPTable;
@@ -115,7 +111,7 @@ public class SingleDataTable implements PdfTableElement, CreatesTableElement, Cr
         this.headerColumns = headerColumns;
     }
 
-    public void setStyleFormatter(StyleFormatter<PdfPTable> styleFormatter) {
-        this.styleFormatter = styleFormatter;
+    public void setStyleFormatter(StyleFormatter<PdfPTable, TableStyle> styleFormatter) {
+        this.tableFormatter = styleFormatter;
     }
 }

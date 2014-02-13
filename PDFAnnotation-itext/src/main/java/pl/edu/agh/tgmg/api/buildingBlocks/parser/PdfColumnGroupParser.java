@@ -9,12 +9,19 @@ import pl.edu.agh.tgmg.api.annotations.PdfColumnGroup;
 import pl.edu.agh.tgmg.api.annotations.PdfColumnGroups;
 import pl.edu.agh.tgmg.api.exceptions.InvalidGroupException;
 import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
+import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
 
 public class PdfColumnGroupParser {
+    
+    private StyleResolver styleResolver = new StyleResolver();
     
     ColumnGroupNode rootNode;
     List<ColumnGroupNode> nodes;
     
+    public PdfColumnGroupParser(StyleResolver styleResolver) {
+        this.styleResolver = styleResolver;
+    }
+
     public ColumnGroupNode parse(Class<?> clazz) throws InvalidGroupException, ReflectionException {
         rootNode = new ColumnGroupNode(null, null, null);
         nodes = new LinkedList<ColumnGroupNode>();
@@ -25,13 +32,16 @@ public class PdfColumnGroupParser {
         return rootNode;
     }
     
+    //TODO HeaderCellStyle (element, HeaderCellStyle, class, parentField))
     private void findGroups(Class<?> clazz) throws ReflectionException, InvalidGroupException {
         PdfColumnGroups groups = (PdfColumnGroups) clazz.getAnnotation(PdfColumnGroups.class);    
         if(groups != null) {
             for(PdfColumnGroup group : groups.value()) {
                 String name = CommonUtils.processText(group.name(), group.id());
                 checkGroupExists(group.id());
-                nodes.add(new ColumnGroupNode(group.id(), name, group.parent()));
+                ColumnGroupNode node = new ColumnGroupNode(group.id(), name, group.parent());
+                styleResolver.applyStyle(node, group.style(), clazz);
+                nodes.add(node);
             }
         }
         

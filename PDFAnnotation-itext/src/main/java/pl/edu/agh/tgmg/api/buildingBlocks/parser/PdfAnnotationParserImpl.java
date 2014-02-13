@@ -18,19 +18,12 @@ import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaData;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentStructure;
 import pl.edu.agh.tgmg.api.exceptions.AnnotationParserException;
 import pl.edu.agh.tgmg.api.exceptions.InvalidAnnotationException;
-import pl.edu.agh.tgmg.api.exceptions.InvalidGroupException;
-import pl.edu.agh.tgmg.api.exceptions.InvalidTableGroupException;
-import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
-import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableElementWithStaticHeader;
-import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableHeader;
-import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableRow;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.SingleDataTable;
 import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
 
 public class PdfAnnotationParserImpl implements PdfAnnotationParser {
 
-    PdfTableHeaderParser headerParser;
-    PdfTableRowParser rowParser;
+    PdfTableParser tableParser;
     PdfParagraphParser paragraphParser;
     PdfMetadataParser metadataParser;
     PdfSignatureParser signatureParser;
@@ -40,13 +33,12 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
         this(new StyleResolver());
     }
     
-    public PdfAnnotationParserImpl(StyleResolver styleRepository) {
-        headerParser = new PdfTableHeaderParser(styleRepository);
-        rowParser = new PdfTableRowParser(styleRepository);
-        paragraphParser = new PdfParagraphParser(styleRepository);
+    public PdfAnnotationParserImpl(StyleResolver styleResolver) {
+        tableParser = new PdfTableParser(styleResolver);
+        paragraphParser = new PdfParagraphParser(styleResolver);
         metadataParser = new PdfMetadataParser();
-        signatureParser = new PdfSignatureParser(styleRepository);
-        flowCellParser = new PdfFlowCellParser(styleRepository);
+        signatureParser = new PdfSignatureParser(styleResolver);
+        flowCellParser = new PdfFlowCellParser(styleResolver);
     }
     
     @Override
@@ -75,7 +67,7 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
                 elements.addAll(paragraphParser.parse(paragraphs, root));
             }
             if(field.isAnnotationPresent(PdfTable.class)) {
-                elements.add(parseTable(field));
+                elements.add(tableParser.parseTable(field));
             } else if(field.isAnnotationPresent(PdfFlowTextCells.class) || 
                     field.isAnnotationPresent(PdfFlowDataCell.class)) {
                 List<SingleDataTable> tables = flowCellParser.parse(root, i);
@@ -96,14 +88,5 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
         
         return new DocumentStructureImpl(elements, metadata);
     }
-    
-    private PdfTableElementWithStaticHeader parseTable(Field field) throws ReflectionException, InvalidTableGroupException, InvalidGroupException {
-        Class<?> fieldClass = field.getType();
-        PdfTableHeader header = headerParser.parse(fieldClass);
-        PdfTableRow row = rowParser.parse(fieldClass);
-        return new PdfTableElementWithStaticHeader(header, row);
-    }
-    
-
 
 }

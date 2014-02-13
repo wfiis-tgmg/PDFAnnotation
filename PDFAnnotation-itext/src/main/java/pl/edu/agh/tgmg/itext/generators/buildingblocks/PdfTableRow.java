@@ -4,10 +4,13 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import pl.edu.agh.tgmg.api.annotations.styles.CellRowStyle;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellWrapper;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
+import pl.edu.agh.tgmg.itext.generators.buildingblocks.formatters.CreatesRowCellElement;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellFormatter;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellRowFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 
 import com.google.common.collect.Lists;
@@ -15,10 +18,10 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
-public class PdfTableRow implements CreatesCellElement{
+public class PdfTableRow implements CreatesRowCellElement{
 
     List<CellRow> cellRows = Collections.emptyList();
-    StyleFormatter<PdfPCell> cellFormatter = new CellFormatter();
+    StyleFormatter<PdfPCell, CellRowStyle> cellFormatter = new CellRowFormatter();
 
     public PdfTableRow(List<CellRow> cellRows) {
         this.cellRows = cellRows;
@@ -29,7 +32,7 @@ public class PdfTableRow implements CreatesCellElement{
     }
     
     @Override
-    public StyleFormatter<PdfPCell> getCellFormatter() {
+    public StyleFormatter<PdfPCell, CellRowStyle> getFormatter() {
         return cellFormatter;
         
     }
@@ -42,8 +45,8 @@ public class PdfTableRow implements CreatesCellElement{
 
         List<PdfPCell> res = new LinkedList<PdfPCell>();
         for (CellRow row : cellRows) {
-            PdfPCell cell = new PdfPCell(cast(row.getCell(data)));
-            cellFormatter.addStyle(cell);
+            PdfPCell cell = new PdfPCell(cast(row.getCell(data))); //FIXME Na pewno dwa razy new PdfPCell?
+            row.getFormatter().addStyle(cell);
             res.add(cell);
         }
 

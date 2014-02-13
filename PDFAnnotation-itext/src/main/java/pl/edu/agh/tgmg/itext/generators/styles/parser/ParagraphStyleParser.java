@@ -5,9 +5,9 @@ import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 
 import com.itextpdf.text.Paragraph;
 
-public class ParagraphStyleParser {
+public class ParagraphStyleParser implements StyleElementParser<Paragraph, ParagraphStyle>  {
 
-    public void applyStyle(StyleFormatter<Paragraph> formatter, ParagraphStyle style) {
+    public void applyStyle(StyleFormatter<Paragraph, ParagraphStyle> formatter, ParagraphStyle style) {
         
     }
 }

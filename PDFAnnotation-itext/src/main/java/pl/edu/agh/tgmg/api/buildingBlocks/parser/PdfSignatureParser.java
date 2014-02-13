@@ -10,12 +10,12 @@ import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
 
 public class PdfSignatureParser {
     
-    private StyleResolver styleRepository = new StyleResolver();
+    private StyleResolver styleResolver = new StyleResolver();
     
     public PdfSignatureParser() {}
     
-    public PdfSignatureParser(StyleResolver styleRepository) {
-        this.styleRepository = styleRepository;
+    public PdfSignatureParser(StyleResolver styleResolver) {
+        this.styleResolver = styleResolver;
     }
 
     public PdfSignatureElement parse(PdfSignature signature, Class<?> root) throws InvalidSignatureException {
