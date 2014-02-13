@@ -29,11 +29,14 @@ public class CommonUtils {
     public static String processText(String input) {
         return processText(input, input);
     }
-    
+
+
     public static String processText(String input, String defaultValue) {
         if(input == null || input.isEmpty()) {
             return defaultValue;
         }
+
+
         return input;
     }
 

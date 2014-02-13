@@ -3,6 +3,7 @@ package pl.edu.agh.tgmg.itext.generators.buildingblocks.parser;
 import org.testng.annotations.Test;
 
 import junit.framework.Assert;
+import pl.edu.agh.tgmg.api.BlankI18nResolverImpl;
 import pl.edu.agh.tgmg.api.annotations.PdfDocument;
 import pl.edu.agh.tgmg.api.annotations.styles.elements.PageSize;
 import pl.edu.agh.tgmg.api.annotations.styles.elements.PdfBoxValuesF;
@@ -20,7 +21,7 @@ public class PdfMetadataParserTest {
     
     @Test
     public void testMetadata() {
-        PdfMetadataParser parser = new PdfMetadataParser();
+        PdfMetadataParser parser = new PdfMetadataParser(new BlankI18nResolverImpl());
         DocumentMetaData metadata = parser.parse(
                 MetadataTestDTO.class.getAnnotation(PdfDocument.class));
         Assert.assertEquals("author", metadata.getAuthor());

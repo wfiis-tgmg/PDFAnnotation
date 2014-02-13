@@ -4,7 +4,9 @@ import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.List;
 
+import pl.edu.agh.tgmg.api.BlankI18nResolverImpl;
 import pl.edu.agh.tgmg.api.DocumentStructureImpl;
+import pl.edu.agh.tgmg.api.I18nResolver;
 import pl.edu.agh.tgmg.api.PdfElement;
 import pl.edu.agh.tgmg.api.annotations.PdfAfterDocument;
 import pl.edu.agh.tgmg.api.annotations.PdfDocument;
@@ -29,15 +31,20 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
     PdfMetadataParser metadataParser;
     PdfSignatureParser signatureParser;
     PdfFlowCellParser flowCellParser;
-    
+
     public PdfAnnotationParserImpl() {
         this(new StyleResolverImpl());
     }
-    
+
     public PdfAnnotationParserImpl(StyleResolver styleResolver) {
+        this(styleResolver, new BlankI18nResolverImpl());
+    }
+
+    public PdfAnnotationParserImpl(StyleResolver styleResolver,I18nResolver i18nResolver) {
+
         tableParser = new PdfTableParser(styleResolver);
         paragraphParser = new PdfParagraphParser(styleResolver);
-        metadataParser = new PdfMetadataParser();
+        metadataParser = new PdfMetadataParser(i18nResolver);
         signatureParser = new PdfSignatureParser(styleResolver);
         flowCellParser = new PdfFlowCellParser(styleResolver);
     }
