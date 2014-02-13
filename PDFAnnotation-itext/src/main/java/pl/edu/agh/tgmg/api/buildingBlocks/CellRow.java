@@ -1,7 +1,6 @@
-package pl.edu.agh.tgmg.api.buildingBlocks.parser;
+package pl.edu.agh.tgmg.api.buildingBlocks;
 
 
-import pl.edu.agh.tgmg.api.buildingBlocks.Column;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.formatters.CreatesHeaderCellElement;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.formatters.CreatesRowCellElement;
 

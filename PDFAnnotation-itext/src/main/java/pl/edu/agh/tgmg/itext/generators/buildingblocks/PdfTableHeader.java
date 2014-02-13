@@ -93,4 +93,9 @@ public class PdfTableHeader implements CreatesTableElement {
         return true;
     }
 
+    @Override
+    public void setFormatter(StyleFormatter<PdfPTable, TableStyle> formatter) {
+        tableFormatter = formatter;
+    }
+
 }

@@ -3,7 +3,7 @@ package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.PdfElement;
 import pl.edu.agh.tgmg.api.annotations.ToTest;
-import pl.edu.agh.tgmg.api.annotations.styles.Alignment;
+import pl.edu.agh.tgmg.api.annotations.styles.elements.HorizontalAlignment;
 import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 
 import com.itextpdf.text.DocumentException;
@@ -23,7 +23,7 @@ public class PdfSignatureElement implements PdfElement {
     String staticSignature;
     String dataFieldName;
     
-    Alignment alignment = Alignment.RIGHT; //FIXME move to styles
+    HorizontalAlignment horizontalAlignment = HorizontalAlignment.RIGHT; //FIXME move to styles
     Boolean useBorders = false;     //FIXME move to styles
     Boolean useDottedLine = true;   //FIXME move to styles
     float contentPadding = 4.0f;    //FIXME move to styles
@@ -52,17 +52,17 @@ public class PdfSignatureElement implements PdfElement {
         PdfPTable table = new PdfPTable(3);
         table.setWidthPercentage(100);
         
-        if(alignment != Alignment.LEFT) {
+        if(horizontalAlignment != HorizontalAlignment.LEFT) {
             addEmptyCell(table, rowSpan);
         }
-        if(alignment == Alignment.RIGHT) {
+        if(horizontalAlignment == HorizontalAlignment.RIGHT) {
             addEmptyCell(table, rowSpan);
         }
         addTextCell(table, title, CellPosition.TOP);
-        if(alignment != Alignment.RIGHT) {
+        if(horizontalAlignment != HorizontalAlignment.RIGHT) {
             addEmptyCell(table, rowSpan);
         }
-        if(alignment == Alignment.LEFT) {
+        if(horizontalAlignment == HorizontalAlignment.LEFT) {
             addEmptyCell(table, rowSpan);
         }
         addTextCell(table, staticSignature, CellPosition.CENTER);

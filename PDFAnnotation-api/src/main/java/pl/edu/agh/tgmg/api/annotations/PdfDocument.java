@@ -5,8 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import pl.edu.agh.tgmg.api.annotations.styles.PageSize;
-import pl.edu.agh.tgmg.api.annotations.styles.PdfBoxValues;
+import pl.edu.agh.tgmg.api.annotations.styles.elements.PageSize;
+import pl.edu.agh.tgmg.api.annotations.styles.elements.PdfBoxValuesF;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -16,6 +16,6 @@ public @interface PdfDocument {
     String subject() default "";
     boolean createDate() default true;
     String author() default "";
-    PdfBoxValues margins() default @PdfBoxValues(forAll=20);
+    PdfBoxValuesF margins() default @PdfBoxValuesF(forAll=20);
     PageSize pageSize() default PageSize.A4;
 }

@@ -5,6 +5,7 @@ import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 
 import com.itextpdf.text.pdf.PdfPCell;
 
+@Deprecated
 public class RowCellStyleParser implements StyleElementParser<PdfPCell, CellRowStyle>{
 
     @Override

@@ -6,7 +6,9 @@ import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 
 import com.itextpdf.text.Element;
 
+@Deprecated
 public interface StyleElementParser <E extends Element, S extends Annotation> {
     
     public void applyStyle(StyleFormatter<E, S> formatter, S style);
+    
 }

@@ -8,4 +8,5 @@ import com.itextpdf.text.Element;
 
 public interface CreatesPdfElement <E extends Element, S extends Annotation>{
     public StyleFormatter<E, S> getFormatter();
+    public void setFormatter(StyleFormatter<E, S> formatter);
 }

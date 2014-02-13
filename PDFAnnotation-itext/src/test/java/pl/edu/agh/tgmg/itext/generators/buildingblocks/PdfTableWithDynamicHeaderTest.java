@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 import org.testng.annotations.Test;
 
 import pl.edu.agh.tgmg.TestGroup;
-import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
+import pl.edu.agh.tgmg.api.buildingBlocks.CellRow;
 import pl.edu.agh.tgmg.examples.SecLvlTableExample;
 import pl.edu.agh.tgmg.itext.generators.dto.DynamicTableHeaderColumn;
 import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;

@@ -1,6 +1,6 @@
 package pl.edu.agh.tgmg.itext.wrapper;
 
-import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellWrapper;
+import pl.edu.agh.tgmg.api.buildingBlocks.CellWrapper;
 
 import com.itextpdf.text.Phrase;
 

@@ -4,13 +4,13 @@ import org.testng.annotations.Test;
 
 import junit.framework.Assert;
 import pl.edu.agh.tgmg.api.annotations.PdfDocument;
-import pl.edu.agh.tgmg.api.annotations.styles.PageSize;
-import pl.edu.agh.tgmg.api.annotations.styles.PdfBoxValues;
+import pl.edu.agh.tgmg.api.annotations.styles.elements.PageSize;
+import pl.edu.agh.tgmg.api.annotations.styles.elements.PdfBoxValuesF;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaData;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfMetadataParser;
-import pl.edu.agh.tgmg.itext.generators.styles.BoxValues;
+import pl.edu.agh.tgmg.itext.generators.styles.elements.BoxValues;
 
-@PdfDocument(author="author", createDate=false, margins=@PdfBoxValues(forAll=13), 
+@PdfDocument(author="author", createDate=false, margins=@PdfBoxValuesF(forAll=13), 
     pageSize=PageSize.A0, subject="subject", title="title")
 class MetadataTestDTO {
     

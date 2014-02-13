@@ -1,6 +1,6 @@
 package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 
-import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
+import pl.edu.agh.tgmg.api.buildingBlocks.CellRow;
 import pl.edu.agh.tgmg.itext.generators.dto.DynamicTableHeaderColumn;
 import pl.edu.agh.tgmg.itext.wrapper.StringCellRow;
 import pl.edu.agh.tgmg.itext.wrapper.TableCellRow;

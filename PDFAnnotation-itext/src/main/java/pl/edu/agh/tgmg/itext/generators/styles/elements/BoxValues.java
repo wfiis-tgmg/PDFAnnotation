@@ -1,19 +1,13 @@
-package pl.edu.agh.tgmg.itext.generators.styles;
+package pl.edu.agh.tgmg.itext.generators.styles.elements;
 
 public class BoxValues<T> {
 
-    private  T forAll;
     private  T forBottom;
     private  T forTop;
     private  T forLeft;
     private  T forRight;
 
     public BoxValues(T forBottom, T forLeft, T forRight, T forTop) {
-        this(forBottom, forBottom, forLeft, forRight, forTop);
-    }
-
-    public BoxValues(T forAll, T forBottom, T forLeft, T forRight, T forTop) {
-        this.forAll = forAll;
         this.forBottom = forBottom;
         this.forLeft = forLeft;
         this.forRight = forRight;
@@ -21,11 +15,7 @@ public class BoxValues<T> {
     }
 
     public BoxValues(T forAll) {
-        this(forAll,forAll,forAll,forAll,forAll);
-    }
-
-    public T getForAll() {
-        return forAll;
+        this(forAll,forAll,forAll,forAll);
     }
 
     public T getForBottom() {
@@ -43,12 +33,26 @@ public class BoxValues<T> {
     public T getForRight() {
         return forRight;
     }
+    
+    public void setValue(BoxValues<T> other) {
+        if(other.forBottom != null) {
+            forBottom = other.forBottom;
+        } 
+        if(other.forLeft!= null) {
+            forLeft = other.forLeft;
+        } 
+        if(other.forRight != null) {
+            forRight = other.forRight;
+        } 
+        if(other.forTop != null) {
+            forTop = other.forTop;
+        } 
+    }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((forAll == null) ? 0 : forAll.hashCode());
         result = prime * result
                 + ((forBottom == null) ? 0 : forBottom.hashCode());
         result = prime * result + ((forLeft == null) ? 0 : forLeft.hashCode());
@@ -67,11 +71,6 @@ public class BoxValues<T> {
         if (getClass() != obj.getClass())
             return false;
         BoxValues other = (BoxValues) obj;
-        if (forAll == null) {
-            if (other.forAll != null)
-                return false;
-        } else if (!forAll.equals(other.forAll))
-            return false;
         if (forBottom == null) {
             if (other.forBottom != null)
                 return false;
@@ -97,10 +96,8 @@ public class BoxValues<T> {
 
     @Override
     public String toString() {
-        return "BoxValues [forAll=" + forAll + ", forBottom=" + forBottom
-                + ", forTop=" + forTop + ", forLeft=" + forLeft + ", forRight="
-                + forRight + "]";
+        return "BoxValues [forBottom=" + forBottom + ", forTop=" + forTop
+                + ", forLeft=" + forLeft + ", forRight=" + forRight + "]";
     }
-    
     
 }

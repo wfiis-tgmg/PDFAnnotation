@@ -114,4 +114,9 @@ public class SingleDataTable implements PdfTableElement, CreatesTableElement {
     public void setStyleFormatter(StyleFormatter<PdfPTable, TableStyle> styleFormatter) {
         this.tableFormatter = styleFormatter;
     }
+
+    @Override
+    public void setFormatter(StyleFormatter<PdfPTable, TableStyle> formatter) {
+        tableFormatter = formatter;
+    }
 }

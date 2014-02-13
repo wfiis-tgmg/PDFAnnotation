@@ -1,9 +1,14 @@
 package pl.edu.agh.tgmg.itext.generators.styles.formatters;
 
-import pl.edu.agh.tgmg.itext.generators.styles.BoxValues;
+import java.util.Arrays;
+import java.util.List;
+
+import pl.edu.agh.tgmg.itext.generators.styles.elements.BoxValues;
 
 import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Font.FontFamily;
+import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 
@@ -11,61 +16,127 @@ public class CellFormatter {
 
     private  BoxValues<Float> padding;
     private  BoxValues<Float> borderWidth;
-    private  BoxValues<BaseColor> borderColor;
-
-    public CellFormatter() {
-        padding = new BoxValues<Float>(0.5f);
-        borderWidth = new BoxValues<Float>(1f);
-        borderColor = new BoxValues<BaseColor>(BaseColor.BLACK);
-    }
-
-    public CellFormatter(BoxValues<BaseColor> borderColor, BoxValues<Float> borderWidth, BoxValues<Float> padding) {
+    private  BaseColor borderColor;
+    private  BaseColor backgroundColor;
+    private  BoxValues<Boolean> border;
+    private int horizontalAlignment;
+    private int verticalAlignment;
+    
+    private  int fontSize;
+    private  BaseColor fontColor;
+    private  Font.FontFamily fontFamily;
+    private  int fontStyle;
+    
+    public CellFormatter(BoxValues<Float> padding,
+            BoxValues<Float> borderWidth, BaseColor borderColor,
+            BaseColor backgroundColor, BoxValues<Boolean> borders,
+            int horizontalAlignment, int verticalAlignment, int fontSize,
+            BaseColor fontColor, FontFamily fontFamily, int fontStyle) {
+        this.padding.setValue(padding);
+        this.borderWidth.setValue(borderWidth);
         this.borderColor = borderColor;
-        this.borderWidth = borderWidth;
-        this.padding = padding;
+        this.backgroundColor = backgroundColor;
+        this.border.setValue(borders);
+        this.horizontalAlignment = horizontalAlignment;
+        this.verticalAlignment = verticalAlignment;
+        this.fontSize = fontSize;
+        this.fontColor = fontColor;
+        this.fontFamily = fontFamily;
+        this.fontStyle = fontStyle;
     }
-
+    
     public void addStyle(PdfPCell p) {
-        p.setBorder(Rectangle.BOX);
-
-        p.setPadding(padding.getForAll());
         p.setPaddingBottom(padding.getForBottom());
         p.setPaddingTop(padding.getForTop());
         p.setPaddingLeft(padding.getForLeft());
         p.setPaddingRight(padding.getForRight());
 
-        p.setBorderColor(borderColor.getForAll());
-        p.setBorderColorBottom(borderColor.getForBottom());
-        p.setBorderColorTop(borderColor.getForTop());
-        p.setBorderColorLeft(borderColor.getForLeft());
-        p.setBorderColorRight(borderColor.getForRight());
+        p.setBorderColor(borderColor);
+        p.setBackgroundColor(backgroundColor);
 
-
-        p.setBorderWidth(borderWidth.getForAll());
         p.setBorderWidthBottom(borderWidth.getForBottom());
         p.setBorderWidthTop(borderWidth.getForTop());
         p.setBorderWidthLeft(borderWidth.getForLeft());
         p.setBorderWidthRight(borderWidth.getForRight());
+        
+        Phrase phrase = p.getPhrase();
+        if(phrase != null) {
+            phrase.getFont().setSize(fontSize);
+            phrase.getFont().setColor(fontColor);
+            phrase.getFont().setFamily(fontFamily.name());
+            phrase.getFont().setStyle(fontStyle);
+        }
+        
+        int brd = Rectangle.NO_BORDER;
+        if(border.getForLeft()) brd |= Rectangle.LEFT;
+        if(border.getForRight()) brd |= Rectangle.RIGHT;
+        if(border.getForTop()) brd |= Rectangle.TOP;
+        if(border.getForBottom()) brd |= Rectangle.BOTTOM;
+        p.setBorder(brd);
 
-        p.setVerticalAlignment(Element.ALIGN_CENTER);
-        p.setHorizontalAlignment(Element.ALIGN_CENTER);
+        p.setVerticalAlignment(verticalAlignment);
+        p.setHorizontalAlignment(horizontalAlignment);
     }
 
-    public void setBorderColor(BoxValues<BaseColor> borderColor) {
-        this.borderColor = borderColor;
+    public void setPadding(BoxValues<Float> padding) {
+        this.padding = padding;
     }
 
     public void setBorderWidth(BoxValues<Float> borderWidth) {
         this.borderWidth = borderWidth;
     }
 
-    public void setPadding(BoxValues<Float> padding) {
-        this.padding = padding;
+    public void setBorderColor(BaseColor borderColor) {
+        this.borderColor = borderColor;
     }
-    
-    public void setStyle(CellFormatter other) {
-        
+
+    public void setBackgroundColor(BaseColor backgroundColor) {
+        this.backgroundColor = backgroundColor;
     }
+
+    public void setBorder(BoxValues<Boolean> border) {
+        this.border = border;
+    }
+
+    public void setFontSize(int fontSize) {
+        this.fontSize = fontSize;
+    }
+
+    public void setFontColor(BaseColor fontColor) {
+        this.fontColor = fontColor;
+    }
+
+    public void setFontFamily(Font.FontFamily fontFamily) {
+        this.fontFamily = fontFamily;
+    }
+
+    public void setFontStyle(int fontStyle) {
+        this.fontStyle = fontStyle;
+    }
+
+    public void setHorizontalAlignment(int horizontalAlignment) {
+        this.horizontalAlignment = horizontalAlignment;
+    }
+
+    public void setVerticalAlignment(int verticalAlignment) {
+        this.verticalAlignment = verticalAlignment;
+    }
+
+    public List<String> getValueNames() {
+        return Arrays.asList(
+            "padding", 
+            "borderWidth", 
+            "borderColor",
+            "backgroundColor", 
+            "border", 
+            "horizontalAlignment",
+            "verticalAlignment",
+            "fontSize", 
+            "fontColor", 
+            "fontFamily", 
+            "fontStyle");
+    }
+  
 }
 
 

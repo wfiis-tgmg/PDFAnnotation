@@ -1,4 +1,4 @@
-package pl.edu.agh.tgmg.api.buildingBlocks.parser;
+package pl.edu.agh.tgmg.api.buildingBlocks;
 
 public interface CellWrapper {
     public enum Type {PHRASE,TABLE}

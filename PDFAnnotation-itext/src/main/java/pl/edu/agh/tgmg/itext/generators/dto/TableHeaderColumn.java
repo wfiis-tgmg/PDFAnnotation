@@ -88,6 +88,11 @@ public class TableHeaderColumn implements CreatesHeaderCellElement {
             return false;
         return true;
     }
+
+    @Override
+    public void setFormatter(StyleFormatter<PdfPCell, CellHeaderStyle> formatter) {
+        cellFormatter = formatter;
+    }
     
     
 }

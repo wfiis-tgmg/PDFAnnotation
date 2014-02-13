@@ -1,4 +1,4 @@
-package pl.edu.agh.tgmg.api.annotations.styles;
+package pl.edu.agh.tgmg.api.annotations.styles.elements;
 
 public enum PageSize {
     /** This is the letter format */

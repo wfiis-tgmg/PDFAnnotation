@@ -1,5 +1,8 @@
 package pl.edu.agh.tgmg.itext.generators.styles.formatters;
 
+import java.util.Arrays;
+import java.util.List;
+
 import pl.edu.agh.tgmg.api.annotations.styles.ParagraphStyle;
 
 import com.itextpdf.text.BaseColor;
@@ -9,58 +12,69 @@ import com.itextpdf.text.Paragraph;
 
 public class ParagraphFormatter implements StyleFormatter<Paragraph, ParagraphStyle> {
 
-    private  int defaultsize = Font.DEFAULTSIZE;
-    private  BaseColor color = BaseColor.BLACK;
+    private  int fontSize = Font.DEFAULTSIZE;
+    private  BaseColor fontColor = BaseColor.BLACK;
     private  Font.FontFamily fontFamily = Font.FontFamily.HELVETICA;
     private  int extraSpace = 0;
     private  float spacingAfter = 0.5f;
     private  float spacingBefore = 0.5f;
-    private  int alignCenter = Element.ALIGN_CENTER;
-
-
-    public ParagraphFormatter(int alignCenter, BaseColor color, int defaultsize, int extraSpace, Font.FontFamily fontFamily, float spacingAfter, float spacingBefore) {
-        this.alignCenter = alignCenter;
-        this.color = color;
-        this.defaultsize = defaultsize;
-        this.extraSpace = extraSpace;
-        this.fontFamily = fontFamily;
-        this.spacingAfter = spacingAfter;
-        this.spacingBefore = spacingBefore;
-    }
+    private  int textAlignment = Element.ALIGN_CENTER;
+    private  int fontStyle = Font.NORMAL;
+    private  float indentationRight = 0;
+    private  float indentationLeft = 0;
 
     public ParagraphFormatter() {
     }
 
     @Override
     public void addStyle(Paragraph p) {
-        p.getFont().setSize(defaultsize);
-        p.getFont().setColor(color);
+        p.getFont().setSize(fontSize);
+        p.getFont().setColor(fontColor);
         p.getFont().setFamily(fontFamily.name());
+        p.getFont().setStyle(fontStyle);
+        p.setIndentationLeft(indentationLeft);
+        p.setIndentationRight(indentationRight);
 
         p.setExtraParagraphSpace(extraSpace);
         p.setSpacingAfter(spacingAfter);
         p.setSpacingBefore(spacingBefore);
-        p.setAlignment(alignCenter);
+        p.setAlignment(textAlignment);
     }
 
-    public void setAlignCenter(int alignCenter) {
-        this.alignCenter = alignCenter;
+    @Override
+    public Class<ParagraphStyle> getFormatterStyleClass() {
+        return ParagraphStyle.class;
     }
 
-    public void setColor(BaseColor color) {
-        this.color = color;
+    @Override
+    public List<String> getValueNames() {
+       return Arrays.asList(
+           "fontSize",
+            "fontColor",
+            "fontFamily",
+            "extraSpace",
+            "spacingAfter",
+            "spacingBefore",
+            "textAlignment",
+            "fontStyle",
+            "indentationRight",
+            "indentationLeft");
     }
 
-    public void setDefaultsize(int defaultsize) {
-        this.defaultsize = defaultsize;
+    public void setFontSize(int fontSize) {
+        this.fontSize = fontSize;
     }
 
-    public void setExtraSpace(int extraSpace) {
-        this.extraSpace = extraSpace;
+    public void setFontColor(BaseColor fontColor) {
+        this.fontColor = fontColor;
     }
 
     public void setFontFamily(Font.FontFamily fontFamily) {
         this.fontFamily = fontFamily;
+    }
+
+    public void setExtraSpace(int extraSpace) {
+        this.extraSpace = extraSpace;
     }
 
     public void setSpacingAfter(float spacingAfter) {
@@ -71,14 +85,22 @@ public class ParagraphFormatter implements StyleFormatter<Paragraph, ParagraphSt
         this.spacingBefore = spacingBefore;
     }
 
-    @Override
-    public Class<ParagraphStyle> getFormatterStyleClass() {
-        return ParagraphStyle.class;
+    public void setTextAlignment(int textAlignment) {
+        this.textAlignment = textAlignment;
     }
 
-    @Override
-    public void setStyle(StyleFormatter<Paragraph, ParagraphStyle> other) {
-        // TODO Auto-generated method stub
-        
+    public void setFontStyle(int fontStyle) {
+        this.fontStyle = fontStyle;
     }
+
+    public void setIndentationRight(float indentationRight) {
+        this.indentationRight = indentationRight;
+    }
+
+    public void setIndentationLeft(float indentationLeft) {
+        this.indentationLeft = indentationLeft;
+    }
+    
+    
+
 }

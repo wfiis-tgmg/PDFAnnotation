@@ -1,14 +1,13 @@
 package pl.edu.agh.tgmg.api.buildingBlocks.parser;
 
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.RectangleReadOnly;
-
 import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.annotations.PdfDocument;
-import pl.edu.agh.tgmg.api.annotations.styles.PageSize;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaData;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaDataImpl;
-import pl.edu.agh.tgmg.itext.generators.styles.BoxValues;
+import pl.edu.agh.tgmg.itext.generators.styles.elements.BoxValues;
+import pl.edu.agh.tgmg.itext.generators.styles.parser.SmallElementsParser;
+
+import com.itextpdf.text.Rectangle;
 
 public class PdfMetadataParser {
     
@@ -17,9 +16,8 @@ public class PdfMetadataParser {
         String subject = CommonUtils.processText(document.subject());
         String title = CommonUtils.processText(document.title());
         boolean createDate = document.createDate();
-        BoxValues<Integer> margins = new PdfBoxValueParser().parse(document.margins());
-        PageSize pageSize = document.pageSize();
-        Rectangle p = new RectangleReadOnly(pageSize.getUrx(),pageSize.getUry());
-        return new DocumentMetaDataImpl(author, createDate, margins, subject, p, title);
+        BoxValues<Float> margins = SmallElementsParser.parse(document.margins());
+        Rectangle size = SmallElementsParser.parse(document.pageSize());
+        return new DocumentMetaDataImpl(author, createDate, margins, subject, size, title);
     }
 }

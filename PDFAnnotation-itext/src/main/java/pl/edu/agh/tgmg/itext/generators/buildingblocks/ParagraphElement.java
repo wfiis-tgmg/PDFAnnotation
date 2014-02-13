@@ -88,5 +88,10 @@ public class ParagraphElement implements PdfElement, CreatesParagraphElement {
                 + "]";
     }
 
+    @Override
+    public void setFormatter(StyleFormatter<Paragraph, ParagraphStyle> formatter) {
+        this.styleFormatter = formatter;
+    }
+
 
 }

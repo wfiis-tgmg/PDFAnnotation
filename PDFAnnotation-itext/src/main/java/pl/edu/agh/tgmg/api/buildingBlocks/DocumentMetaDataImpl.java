@@ -2,7 +2,8 @@ package pl.edu.agh.tgmg.api.buildingBlocks;
 
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Rectangle;
-import pl.edu.agh.tgmg.itext.generators.styles.BoxValues;
+
+import pl.edu.agh.tgmg.itext.generators.styles.elements.BoxValues;
 
 public class DocumentMetaDataImpl implements DocumentMetaData {
 
@@ -10,18 +11,17 @@ public class DocumentMetaDataImpl implements DocumentMetaData {
     private String subject = "";
     private boolean createDate = true;
     private String author = "";
-    private BoxValues<Integer> margins = new BoxValues<Integer>(20);
+    private BoxValues<Float> margins = new BoxValues<Float>(20.0f);
     Rectangle p = PageSize.A4 ;
-
 
     public DocumentMetaDataImpl() {
     }
 
-    public DocumentMetaDataImpl(String author, boolean createDate, BoxValues<Integer> margins,
+    public DocumentMetaDataImpl(String author, boolean createDate, BoxValues<Float> margins,
             String subject, Rectangle p, String title) {
         this.author = author;
         this.createDate = createDate;
-        this.margins = margins;
+        this.margins.setValue(margins);
         this.subject = subject;
         this.p = p;
         this.title = title;
@@ -43,7 +43,7 @@ public class DocumentMetaDataImpl implements DocumentMetaData {
     }
 
     @Override
-    public BoxValues<Integer> getMargins() {
+    public BoxValues<Float> getMargins() {
         return margins;
     }
 

@@ -2,8 +2,8 @@ package pl.edu.agh.tgmg.itext.wrapper;
 
 import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.annotations.styles.CellRowStyle;
-import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellRow;
-import pl.edu.agh.tgmg.api.buildingBlocks.parser.CellWrapper;
+import pl.edu.agh.tgmg.api.buildingBlocks.CellRow;
+import pl.edu.agh.tgmg.api.buildingBlocks.CellWrapper;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableElement;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellFormatter;
@@ -80,6 +80,11 @@ public class TableCellRow implements CellRow {
     @Override
     public StyleFormatter<PdfPCell, CellRowStyle> getFormatter() {
         return cellFormatter;
+    }
+
+    @Override
+    public void setFormatter(StyleFormatter<PdfPCell, CellRowStyle> formatter) {
+        cellFormatter = formatter;
     }
     
     
