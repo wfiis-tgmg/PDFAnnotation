@@ -13,7 +13,6 @@ public class PdfTableElementWithStaticHeader implements PdfTableElement {
     PdfTableHeader pdfTableHeader;
     PdfTableRow pdfTableRow;
     
-
     public PdfTableHeader getPdfTableHeader() {
         return pdfTableHeader;
     }
@@ -85,5 +84,10 @@ public class PdfTableElementWithStaticHeader implements PdfTableElement {
         return true;
     }
 
-    
+
+    @Override
+    public String toString() {
+        return "PdfTableElementWithStaticHeader [pdfTableHeader="
+                + pdfTableHeader + ", pdfTableRow=" + pdfTableRow + "]";
+    }
 }

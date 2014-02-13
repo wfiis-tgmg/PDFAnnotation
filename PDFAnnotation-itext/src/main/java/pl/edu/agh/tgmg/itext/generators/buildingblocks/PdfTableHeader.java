@@ -64,6 +64,8 @@ public class PdfTableHeader implements CreatesTableElement {
         return pdfPTable;
     }
 
+    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -91,6 +93,14 @@ public class PdfTableHeader implements CreatesTableElement {
         } else if (!headerColumns.equals(other.headerColumns))
             return false;
         return true;
+    }
+    
+    
+
+    @Override
+    public String toString() {
+        return "PdfTableHeader [columns=" + columns + ", headerColumns="
+                + headerColumns + "]";
     }
 
     @Override

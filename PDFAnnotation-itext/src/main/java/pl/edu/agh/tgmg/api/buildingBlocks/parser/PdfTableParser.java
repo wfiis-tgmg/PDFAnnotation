@@ -2,6 +2,7 @@ package pl.edu.agh.tgmg.api.buildingBlocks.parser;
 
 import java.lang.reflect.Field;
 
+import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.annotations.PdfTable;
 import pl.edu.agh.tgmg.api.exceptions.InvalidGroupException;
 import pl.edu.agh.tgmg.api.exceptions.InvalidTableGroupException;
@@ -25,8 +26,8 @@ public class PdfTableParser {
         this.rowParser = new PdfTableRowParser(styleResolver);
     }
 
-    public PdfTableElementWithStaticHeader parseTable(Field field) throws ReflectionException, InvalidTableGroupException, InvalidGroupException {
-        Class<?> fieldClass = field.getType();
+    public PdfTableElementWithStaticHeader parse(Field field) throws ReflectionException, InvalidTableGroupException, InvalidGroupException {
+        Class<?> fieldClass = CommonUtils.getTypeParamOfIterableField(field);
         PdfTable pdfTable = field.getAnnotation(PdfTable.class);
         PdfTableHeader header = headerParser.parse(fieldClass);
         PdfTableRow row = rowParser.parse(fieldClass);

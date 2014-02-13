@@ -68,7 +68,7 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
                 elements.addAll(paragraphParser.parse(paragraphs, root));
             }
             if(field.isAnnotationPresent(PdfTable.class)) {
-                elements.add(tableParser.parseTable(field));
+                elements.add(tableParser.parse(field));
             } else if(field.isAnnotationPresent(PdfFlowTextCells.class) || 
                     field.isAnnotationPresent(PdfFlowDataCell.class)) {
                 List<SingleDataTable> tables = flowCellParser.parse(root, i);

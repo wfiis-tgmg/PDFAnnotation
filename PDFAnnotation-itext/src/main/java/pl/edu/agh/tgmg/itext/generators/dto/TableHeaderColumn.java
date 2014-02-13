@@ -1,12 +1,11 @@
 package pl.edu.agh.tgmg.itext.generators.dto;
 
-import com.itextpdf.text.pdf.PdfPCell;
-
 import pl.edu.agh.tgmg.api.annotations.styles.CellHeaderStyle;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.formatters.CreatesHeaderCellElement;
-import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellHeaderFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
+
+import com.itextpdf.text.pdf.PdfPCell;
 
 public class TableHeaderColumn implements CreatesHeaderCellElement {
     protected int column;
@@ -74,7 +73,7 @@ public class TableHeaderColumn implements CreatesHeaderCellElement {
             return true;
         if (obj == null)
             return false;
-        if (getClass() != obj.getClass())
+        if (!getClass().isAssignableFrom(obj.getClass()))
             return false;
         TableHeaderColumn other = (TableHeaderColumn) obj;
         if (column != other.column)
@@ -87,6 +86,12 @@ public class TableHeaderColumn implements CreatesHeaderCellElement {
         } else if (!text.equals(other.text))
             return false;
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "TableHeaderColumn [column=" + column + ", row=" + row
+                + ", text=" + text + "]";
     }
 
     @Override

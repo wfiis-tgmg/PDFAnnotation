@@ -88,6 +88,4 @@ public class PdfColumnGroupParser {
             throw new InvalidGroupException("cyclic dependency encountered!");
         }
     }
-    
-    
 }

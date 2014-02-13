@@ -17,7 +17,6 @@ public class CommonUtils {
 
      static public Object getValue(Object o,String name)  {
         try {
-
             Field field = o.getClass().getDeclaredField(name);
             field.setAccessible(true);
             return field.get(o);

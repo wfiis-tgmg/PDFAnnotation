@@ -169,10 +169,10 @@ public class ColumnGroupNode extends TableHeaderColumn implements Comparable<Col
 		return id == null && parent == null;
 	}
 	
-	public String toString() {
+	/*public String toString() {
 		return "g["+getText() + ", " + id+", "+parentId+",l:" + isLeaf() + 
 				",g:" + isGroup() + ",r:" + isRoot() + ",lc: " + leafCount + ",or:" + order + "]";
-	}
+	}*/
 	
 	public String dump(int level) {
 		StringBuilder result = new StringBuilder();
@@ -191,4 +191,18 @@ public class ColumnGroupNode extends TableHeaderColumn implements Comparable<Col
 	public int compareTo(ColumnGroupNode o) {
 		return this.order - o.order;
 	}
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+	
+	
+	
+	
 }
