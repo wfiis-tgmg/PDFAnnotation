@@ -10,7 +10,6 @@ import pl.edu.agh.tgmg.api.annotations.PdfMessageFeed;
 import pl.edu.agh.tgmg.api.annotations.PdfRowGroup;
 import pl.edu.agh.tgmg.api.annotations.PdfTableGroup;
 import pl.edu.agh.tgmg.api.exceptions.InvalidAnnotationException;
-import pl.edu.agh.tgmg.api.exceptions.InvalidParagraphException;
 import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 
 public class CommonUtils {

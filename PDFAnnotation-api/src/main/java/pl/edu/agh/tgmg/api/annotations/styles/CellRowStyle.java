@@ -25,9 +25,9 @@ public @interface CellRowStyle {
     int[] fontSize() default {};
     FontStyle[] fontStyle() default {};
     FontFamily[] fontFamily() default {};
-    PdfColor[] fontColor() default @PdfColor;
-    PdfColor[] borderColor() default @PdfColor;
-    PdfColor[] backgroundColor() default @PdfColor;
+    PdfColor[] fontColor() default {};
+    PdfColor[] borderColor() default {};
+    PdfColor[] backgroundColor() default {};
     HorizontalAlignment[] horizontalAlignment() default {};
     VerticalAlignment[] verticalAlignment() default {};
 }

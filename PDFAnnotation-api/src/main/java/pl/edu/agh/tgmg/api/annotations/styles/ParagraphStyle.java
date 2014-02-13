@@ -19,7 +19,7 @@ public @interface ParagraphStyle {
     int[] fontSize() default {};
     FontStyle[] fontStyle() default {};
     FontFamily[] fontFamily() default {};
-    PdfColor[] fontColor() default @PdfColor;
+    PdfColor[] fontColor() default {};
     float[] spacingAfter() default {};
     float[] spacingBefore() default {};
     float[] indentationLeft() default {};

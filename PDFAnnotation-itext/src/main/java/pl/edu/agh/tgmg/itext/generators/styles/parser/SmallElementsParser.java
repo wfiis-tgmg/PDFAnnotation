@@ -1,17 +1,5 @@
 package pl.edu.agh.tgmg.itext.generators.styles.parser;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.RectangleReadOnly;
-import com.itextpdf.text.pdf.PdfPCell;
-
-import pl.edu.agh.tgmg.api.annotations.styles.CellHeaderStyle;
 import pl.edu.agh.tgmg.api.annotations.styles.elements.BooleanEnum;
 import pl.edu.agh.tgmg.api.annotations.styles.elements.ColorName;
 import pl.edu.agh.tgmg.api.annotations.styles.elements.FontFamily;
@@ -23,15 +11,18 @@ import pl.edu.agh.tgmg.api.annotations.styles.elements.PdfBoxValuesF;
 import pl.edu.agh.tgmg.api.annotations.styles.elements.PdfColor;
 import pl.edu.agh.tgmg.api.annotations.styles.elements.TextAlignment;
 import pl.edu.agh.tgmg.api.annotations.styles.elements.VerticalAlignment;
-import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 import pl.edu.agh.tgmg.itext.generators.styles.elements.BoxValues;
-import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
+
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.RectangleReadOnly;
 
 public class SmallElementsParser {
 
     public static BaseColor parse(PdfColor color) {
         if(color.R() >= 0 && color.G() >= 0 && color.B() >= 0) {
-            new BaseColor(color.R(), color.G(), color.B());
+            return new BaseColor(color.R(), color.G(), color.B());
         }
         return parse(color.colorName());
     }

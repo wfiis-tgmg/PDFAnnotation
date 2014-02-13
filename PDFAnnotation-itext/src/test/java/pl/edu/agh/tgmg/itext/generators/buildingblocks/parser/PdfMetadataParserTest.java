@@ -29,7 +29,7 @@ public class PdfMetadataParserTest {
         Assert.assertEquals(false, metadata.isCreateDate());
         Assert.assertEquals(com.itextpdf.text.PageSize.A0.getTop(), metadata.getPageSize().getTop());
         Assert.assertEquals(com.itextpdf.text.PageSize.A0.getRight(), metadata.getPageSize().getRight());
-        Assert.assertEquals(new BoxValues<Integer>(13), metadata.getMargins());
+        Assert.assertEquals(new BoxValues<Float>(13.0f), metadata.getMargins());
         
     }
 }

@@ -11,10 +11,11 @@ import pl.edu.agh.tgmg.api.annotations.PdfFlowTextCells;
 import pl.edu.agh.tgmg.api.exceptions.InvalidFlowCellException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.SingleDataTable;
 import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
+import pl.edu.agh.tgmg.itext.generators.styles.StyleResolverImpl;
 
 public class PdfFlowCellParser {
 
-    private StyleResolver styleRepository = new StyleResolver();
+    private StyleResolver styleRepository = new StyleResolverImpl();
     
     List<SingleDataTable> result;
     Field startingField;

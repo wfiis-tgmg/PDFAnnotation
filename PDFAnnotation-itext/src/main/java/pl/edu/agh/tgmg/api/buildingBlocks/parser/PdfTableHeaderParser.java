@@ -14,10 +14,11 @@ import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableHeader;
 import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
 import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
+import pl.edu.agh.tgmg.itext.generators.styles.StyleResolverImpl;
 
 public class PdfTableHeaderParser {
 
-    private StyleResolver styleResolver = new StyleResolver();
+    private StyleResolver styleResolver = new StyleResolverImpl();
     
     public PdfTableHeaderParser() {}
     

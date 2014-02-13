@@ -8,12 +8,13 @@ import pl.edu.agh.tgmg.api.annotations.styles.ParagraphStyle;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.Paragraph;
 
 public class ParagraphFormatter implements StyleFormatter<Paragraph, ParagraphStyle> {
 
     private  int fontSize = Font.DEFAULTSIZE;
-    private  BaseColor fontColor = BaseColor.BLACK;
+    public  BaseColor fontColor = BaseColor.BLACK;
     private  Font.FontFamily fontFamily = Font.FontFamily.HELVETICA;
     private  int extraSpace = 0;
     private  float spacingAfter = 0.5f;
@@ -24,6 +25,22 @@ public class ParagraphFormatter implements StyleFormatter<Paragraph, ParagraphSt
     private  float indentationLeft = 0;
 
     public ParagraphFormatter() {
+    }
+    
+    public ParagraphFormatter(int fontSize, BaseColor fontColor,
+            FontFamily fontFamily, int extraSpace, float spacingAfter,
+            float spacingBefore, int textAlignment, int fontStyle,
+            float indentationRight, float indentationLeft) {
+        this.fontSize = fontSize;
+        this.fontColor = fontColor;
+        this.fontFamily = fontFamily;
+        this.extraSpace = extraSpace;
+        this.spacingAfter = spacingAfter;
+        this.spacingBefore = spacingBefore;
+        this.textAlignment = textAlignment;
+        this.fontStyle = fontStyle;
+        this.indentationRight = indentationRight;
+        this.indentationLeft = indentationLeft;
     }
 
     @Override
@@ -99,6 +116,75 @@ public class ParagraphFormatter implements StyleFormatter<Paragraph, ParagraphSt
 
     public void setIndentationLeft(float indentationLeft) {
         this.indentationLeft = indentationLeft;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + extraSpace;
+        result = prime * result
+                + ((fontColor == null) ? 0 : fontColor.hashCode());
+        result = prime * result
+                + ((fontFamily == null) ? 0 : fontFamily.hashCode());
+        result = prime * result + fontSize;
+        result = prime * result + fontStyle;
+        result = prime * result + Float.floatToIntBits(indentationLeft);
+        result = prime * result + Float.floatToIntBits(indentationRight);
+        result = prime * result + Float.floatToIntBits(spacingAfter);
+        result = prime * result + Float.floatToIntBits(spacingBefore);
+        result = prime * result + textAlignment;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ParagraphFormatter other = (ParagraphFormatter) obj;
+        if (extraSpace != other.extraSpace)
+            return false;
+        if (fontColor == null) {
+            if (other.fontColor != null)
+                return false;
+        } else if (!fontColor.equals(other.fontColor))
+            return false;
+        if (fontFamily != other.fontFamily)
+            return false;
+        if (fontSize != other.fontSize)
+            return false;
+        if (fontStyle != other.fontStyle)
+            return false;
+        if (Float.floatToIntBits(indentationLeft) != Float
+                .floatToIntBits(other.indentationLeft))
+            return false;
+        if (Float.floatToIntBits(indentationRight) != Float
+                .floatToIntBits(other.indentationRight))
+            return false;
+        if (Float.floatToIntBits(spacingAfter) != Float
+                .floatToIntBits(other.spacingAfter))
+            return false;
+        if (Float.floatToIntBits(spacingBefore) != Float
+                .floatToIntBits(other.spacingBefore))
+            return false;
+        if (textAlignment != other.textAlignment)
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ParagraphFormatter [fontSize=" + fontSize + ", fontColor="
+                + fontColor + ", fontFamily=" + fontFamily + ", extraSpace="
+                + extraSpace + ", spacingAfter=" + spacingAfter
+                + ", spacingBefore=" + spacingBefore + ", textAlignment="
+                + textAlignment + ", fontStyle=" + fontStyle
+                + ", indentationRight=" + indentationRight
+                + ", indentationLeft=" + indentationLeft + "]";
     }
     
     

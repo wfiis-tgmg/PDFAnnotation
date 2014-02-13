@@ -6,6 +6,7 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+import org.mockito.Mockito;
 import org.testng.annotations.Test;
 
 import pl.edu.agh.tgmg.api.annotations.PdfColumn;
@@ -20,6 +21,7 @@ import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableRow;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableWithDynamicHeader;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.SingleDataTable;
 import pl.edu.agh.tgmg.itext.generators.dto.DynamicTableHeaderColumn;
+import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
 import pl.edu.agh.tgmg.itext.wrapper.StringCellRow;
 import pl.edu.agh.tgmg.itext.wrapper.TableCellRow;
 
@@ -57,6 +59,8 @@ class TableGroupError4DTO {
 
 public class PdfTableRowParserTest {
 
+    StyleResolver styleResolver = Mockito.mock(StyleResolver.class);
+    
     @Test
     public void testSimpleRows() {
         PdfTableRow expectedRows = new PdfTableRow(
@@ -124,33 +128,33 @@ public class PdfTableRowParserTest {
     @Test(expectedExceptions=InvalidTableGroupException.class, 
             expectedExceptionsMessageRegExp="table group mixed with other elements in class .*")
     public void testTableGroupErrors1() {
-        PdfTableRowParser rowParser = new PdfTableRowParser();
+        PdfTableRowParser rowParser = new PdfTableRowParser(styleResolver);
         rowParser.parse(TableGroupError1DTO.class);
     }
     
     @Test(expectedExceptions=InvalidTableGroupException.class,
             expectedExceptionsMessageRegExp="table group mixed with other elements in class .*")
     public void testTableGroupErrors2() {
-        PdfTableRowParser rowParser = new PdfTableRowParser();
+        PdfTableRowParser rowParser = new PdfTableRowParser(styleResolver);
         rowParser.parse(TableGroupError2DTO.class);
     }
     
     @Test(expectedExceptions=InvalidTableGroupException.class,
             expectedExceptionsMessageRegExp="multiple table groups in class .*")
     public void testTableGroupErrors3() {
-        PdfTableRowParser rowParser = new PdfTableRowParser();
+        PdfTableRowParser rowParser = new PdfTableRowParser(styleResolver);
         rowParser.parse(TableGroupError3DTO.class);
     }
     
     @Test(expectedExceptions=InvalidTableGroupException.class,
     expectedExceptionsMessageRegExp="table group headers in class .* with no table group")
     public void testTableGroupErrors4() {
-        PdfTableRowParser rowParser = new PdfTableRowParser();
+        PdfTableRowParser rowParser = new PdfTableRowParser(styleResolver);
         rowParser.parse(TableGroupError4DTO.class);
     }
     
     private void checkRows(Class<?> testedClass, PdfTableRow expectedRows) {
-        PdfTableRowParser rowParser = new PdfTableRowParser();
+        PdfTableRowParser rowParser = new PdfTableRowParser(styleResolver);
         PdfTableRow actualRows = rowParser.parse(testedClass);
         Assert.assertEquals(expectedRows, actualRows);
     }

@@ -19,12 +19,13 @@ import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableWithDynamicHeader
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.SingleDataTable;
 import pl.edu.agh.tgmg.itext.generators.dto.DynamicTableHeaderColumn;
 import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
+import pl.edu.agh.tgmg.itext.generators.styles.StyleResolverImpl;
 import pl.edu.agh.tgmg.itext.wrapper.StringCellRow;
 import pl.edu.agh.tgmg.itext.wrapper.TableCellRow;
 
 public class PdfTableRowParser {
     
-    private StyleResolver styleResolver = new StyleResolver();
+    private StyleResolver styleResolver = new StyleResolverImpl();
 
     public PdfTableRowParser() {}
     

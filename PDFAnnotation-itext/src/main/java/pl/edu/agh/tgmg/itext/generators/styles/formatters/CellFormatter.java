@@ -27,16 +27,16 @@ public class CellFormatter {
     private  Font.FontFamily fontFamily;
     private  int fontStyle;
     
-    public CellFormatter(BoxValues<Float> padding,
+    protected CellFormatter(BoxValues<Float> padding,
             BoxValues<Float> borderWidth, BaseColor borderColor,
-            BaseColor backgroundColor, BoxValues<Boolean> borders,
+            BaseColor backgroundColor, BoxValues<Boolean> border,
             int horizontalAlignment, int verticalAlignment, int fontSize,
             BaseColor fontColor, FontFamily fontFamily, int fontStyle) {
-        this.padding.setValue(padding);
-        this.borderWidth.setValue(borderWidth);
+        this.padding = padding;
+        this.borderWidth = borderWidth;
         this.borderColor = borderColor;
         this.backgroundColor = backgroundColor;
-        this.border.setValue(borders);
+        this.border = border;
         this.horizontalAlignment = horizontalAlignment;
         this.verticalAlignment = verticalAlignment;
         this.fontSize = fontSize;
@@ -79,11 +79,11 @@ public class CellFormatter {
     }
 
     public void setPadding(BoxValues<Float> padding) {
-        this.padding = padding;
+        this.padding.setValue(padding);
     }
 
     public void setBorderWidth(BoxValues<Float> borderWidth) {
-        this.borderWidth = borderWidth;
+        this.borderWidth.setValue(borderWidth);
     }
 
     public void setBorderColor(BaseColor borderColor) {
@@ -95,7 +95,7 @@ public class CellFormatter {
     }
 
     public void setBorder(BoxValues<Boolean> border) {
-        this.border = border;
+        this.border.setValue(border);
     }
 
     public void setFontSize(int fontSize) {

@@ -5,6 +5,7 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+import org.mockito.Mockito;
 import org.testng.annotations.Test;
 
 import pl.edu.agh.tgmg.api.annotations.PdfColumn;
@@ -17,6 +18,7 @@ import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfTableHeaderParser;
 import pl.edu.agh.tgmg.api.exceptions.InvalidGroupException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableHeader;
 import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
+import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
 
 //--------- SIMPLE COLUMNS ----------
 
@@ -190,6 +192,8 @@ class ColumnGroupError4DTO {
 
 public class PdfTableHeaderParserTest {
 
+    StyleResolver styleResolver = Mockito.mock(StyleResolver.class);
+    
     //--------- SIMPLE COLUMNS ----------
     
     @Test
@@ -267,28 +271,28 @@ public class PdfTableHeaderParserTest {
     @Test(expectedExceptions=InvalidGroupException.class, 
             expectedExceptionsMessageRegExp="parent .* for group .* does not exist!")
     public void testGroupingErrors1() {
-        PdfTableHeaderParser headerParser = new PdfTableHeaderParser();
+        PdfTableHeaderParser headerParser = new PdfTableHeaderParser(styleResolver);
         headerParser.parse(ColumnGroupError1DTO.class);
     }
     
     @Test(expectedExceptions=InvalidGroupException.class, 
             expectedExceptionsMessageRegExp="group .* already exists!")
     public void testGroupingErrors2() {
-        PdfTableHeaderParser headerParser = new PdfTableHeaderParser();
+        PdfTableHeaderParser headerParser = new PdfTableHeaderParser(styleResolver);
         headerParser.parse(ColumnGroupError2DTO.class);
     }
     
     @Test(expectedExceptions=InvalidGroupException.class, 
             expectedExceptionsMessageRegExp=".* group not found")
     public void testGroupingErrors3() {
-        PdfTableHeaderParser headerParser = new PdfTableHeaderParser();
+        PdfTableHeaderParser headerParser = new PdfTableHeaderParser(styleResolver);
         headerParser.parse(ColumnGroupError3DTO.class);
     }
     
     @Test(expectedExceptions=InvalidGroupException.class, 
             expectedExceptionsMessageRegExp="cyclic dependency encountered!")
     public void testGroupingErrors4() {
-        PdfTableHeaderParser headerParser = new PdfTableHeaderParser();
+        PdfTableHeaderParser headerParser = new PdfTableHeaderParser(styleResolver);
         headerParser.parse(ColumnGroupError4DTO.class);
     }
     
@@ -303,7 +307,7 @@ public class PdfTableHeaderParserTest {
     
     private void checkColumns(Class<?> clazz, int expectedColumns, 
             String[] expectedNames, int[] expectedColSpans, int[] expectedRowSpans) {
-        PdfTableHeaderParser headerParser = new PdfTableHeaderParser();
+        PdfTableHeaderParser headerParser = new PdfTableHeaderParser(styleResolver);
         PdfTableHeader header = headerParser.parse(clazz);
         Assert.assertEquals(expectedColumns, header.getColumns());
         List<TableHeaderColumn> headers = header.getHeaderColumns();

@@ -10,10 +10,11 @@ import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableElementWithStatic
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableHeader;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableRow;
 import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
+import pl.edu.agh.tgmg.itext.generators.styles.StyleResolverImpl;
 
 public class PdfTableParser {
 
-    private StyleResolver styleResolver = new StyleResolver();
+    private StyleResolver styleResolver = new StyleResolverImpl();
     
     PdfTableHeaderParser headerParser;
     PdfTableRowParser rowParser;

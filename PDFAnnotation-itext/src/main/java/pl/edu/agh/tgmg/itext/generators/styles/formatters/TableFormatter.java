@@ -65,4 +65,61 @@ public class TableFormatter implements StyleFormatter<PdfPTable, TableStyle> {
             "widthPercentage");
     }
 
+    public int getHorizontalAlignment() {
+        return horizontalAlignment;
+    }
+
+    public float getSpacingAfter() {
+        return spacingAfter;
+    }
+
+    public float getSpacingBefore() {
+        return spacingBefore;
+    }
+
+    public float getWidthPercentage() {
+        return widthPercentage;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + horizontalAlignment;
+        result = prime * result + Float.floatToIntBits(spacingAfter);
+        result = prime * result + Float.floatToIntBits(spacingBefore);
+        result = prime * result + Float.floatToIntBits(widthPercentage);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        TableFormatter other = (TableFormatter) obj;
+        if (horizontalAlignment != other.horizontalAlignment)
+            return false;
+        if (Float.floatToIntBits(spacingAfter) != Float
+                .floatToIntBits(other.spacingAfter))
+            return false;
+        if (Float.floatToIntBits(spacingBefore) != Float
+                .floatToIntBits(other.spacingBefore))
+            return false;
+        if (Float.floatToIntBits(widthPercentage) != Float
+                .floatToIntBits(other.widthPercentage))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "TableFormatter [horizontalAlignment=" + horizontalAlignment
+                + ", spacingAfter=" + spacingAfter + ", spacingBefore="
+                + spacingBefore + ", widthPercentage=" + widthPercentage + "]";
+    }
+    
 }

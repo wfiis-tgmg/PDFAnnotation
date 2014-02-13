@@ -10,10 +10,11 @@ import pl.edu.agh.tgmg.api.annotations.PdfColumnGroups;
 import pl.edu.agh.tgmg.api.exceptions.InvalidGroupException;
 import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
+import pl.edu.agh.tgmg.itext.generators.styles.StyleResolverImpl;
 
 public class PdfColumnGroupParser {
     
-    private StyleResolver styleResolver = new StyleResolver();
+    private StyleResolver styleResolver = new StyleResolverImpl();
     
     ColumnGroupNode rootNode;
     List<ColumnGroupNode> nodes;
@@ -32,7 +33,6 @@ public class PdfColumnGroupParser {
         return rootNode;
     }
     
-    //TODO HeaderCellStyle (element, HeaderCellStyle, class, parentField))
     private void findGroups(Class<?> clazz) throws ReflectionException, InvalidGroupException {
         PdfColumnGroups groups = (PdfColumnGroups) clazz.getAnnotation(PdfColumnGroups.class);    
         if(groups != null) {

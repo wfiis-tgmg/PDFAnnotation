@@ -20,6 +20,7 @@ import pl.edu.agh.tgmg.api.exceptions.AnnotationParserException;
 import pl.edu.agh.tgmg.api.exceptions.InvalidAnnotationException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.SingleDataTable;
 import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
+import pl.edu.agh.tgmg.itext.generators.styles.StyleResolverImpl;
 
 public class PdfAnnotationParserImpl implements PdfAnnotationParser {
 
@@ -30,7 +31,7 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
     PdfFlowCellParser flowCellParser;
     
     public PdfAnnotationParserImpl() {
-        this(new StyleResolver());
+        this(new StyleResolverImpl());
     }
     
     public PdfAnnotationParserImpl(StyleResolver styleResolver) {

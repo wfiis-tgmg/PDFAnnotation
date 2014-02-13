@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.mockito.Mockito;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -17,6 +18,7 @@ import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfAnnotationParser;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfAnnotationParserImpl;
 import pl.edu.agh.tgmg.api.exceptions.InvalidSignatureException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfSignatureElement;
+import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
 
 @PdfDocument
 class SimpleSignatureDTO {
@@ -97,7 +99,8 @@ public class PdfSignatureParserTest {
     }
     
     private void checkParagraphs(Class<?> clazz, List<PdfSignatureElement> expected) {
-        PdfAnnotationParser parser = new PdfAnnotationParserImpl();
+        StyleResolver styleResolver = Mockito.mock(StyleResolver.class);
+        PdfAnnotationParser parser = new PdfAnnotationParserImpl(styleResolver);
         DocumentStructure structure = parser.parse(clazz);
         List<? extends PdfElement> elements = structure.getPdfElements();
         Assert.assertNotNull(elements);

@@ -12,10 +12,11 @@ import pl.edu.agh.tgmg.api.exceptions.InvalidParagraphException;
 import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.ParagraphElement;
 import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
+import pl.edu.agh.tgmg.itext.generators.styles.StyleResolverImpl;
 
 public class PdfParagraphParser {
     
-    private StyleResolver styleResolver = new StyleResolver();
+    private StyleResolver styleResolver = new StyleResolverImpl();
     
     public PdfParagraphParser() {}
     

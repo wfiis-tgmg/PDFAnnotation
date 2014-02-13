@@ -7,10 +7,11 @@ import pl.edu.agh.tgmg.api.exceptions.InvalidSignatureException;
 import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfSignatureElement;
 import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
+import pl.edu.agh.tgmg.itext.generators.styles.StyleResolverImpl;
 
 public class PdfSignatureParser {
     
-    private StyleResolver styleResolver = new StyleResolver();
+    private StyleResolver styleResolver = new StyleResolverImpl();
     
     public PdfSignatureParser() {}
     
