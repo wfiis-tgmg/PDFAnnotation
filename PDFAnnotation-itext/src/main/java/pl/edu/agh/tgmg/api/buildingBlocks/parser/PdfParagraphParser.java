@@ -31,7 +31,6 @@ public class PdfParagraphParser {
         return result;
     }
     
-  //TODO (element, ParagraphStyle, class))
     public ParagraphElement parse(PdfParagraph paragraph, Class<?> root) throws InvalidParagraphException {
         List<String> params = Arrays.asList(paragraph.messageFieldNames());
         String text = CommonUtils.processText(paragraph.value(), paragraph.value());

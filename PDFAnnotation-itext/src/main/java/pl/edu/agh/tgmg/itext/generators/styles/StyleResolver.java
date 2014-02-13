@@ -10,7 +10,6 @@ import pl.edu.agh.tgmg.api.annotations.styles.ParagraphStyle;
 import pl.edu.agh.tgmg.api.annotations.styles.TableStyle;
 import pl.edu.agh.tgmg.api.exceptions.InvalidStyleException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.formatters.CreatesPdfElement;
-import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellHeaderFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellRowFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.ParagraphFormatter;
@@ -75,13 +74,13 @@ public class StyleResolver {
     @SuppressWarnings("unchecked")
     private <E extends Element, S extends Annotation> void applyStyle(CreatesPdfElement<E, S> element, S styleAnnotation) {
         StyleFormatter<E, S> formatter = element.getFormatter();
-        Class<S> annotationClass = (Class<S>) styleAnnotation.getClass();
+        Class<S> annotationClass = formatter.getFormatterStyleClass();
         Class<?> styleClass = getStyleClass(styleAnnotation);
         StyleElementParser<E, S> styleParser = (StyleElementParser<E, S>) styleParsers.get(annotationClass);
         if(!styleClass.equals(Class.class)) {
             S style = styleClass.getAnnotation(annotationClass);
             if(style == null) {
-                throw new InvalidStyleException("Class " + styleClass.getName() + 
+                throw new InvalidStyleException("Class " + styleClass + 
                         " has no " + annotationClass.getName());
             }
             styleParser.applyStyle(formatter, style);
@@ -92,13 +91,15 @@ public class StyleResolver {
     private <S extends Annotation> Class<?> getStyleClass(S styleAnnotation) {
         if(styleAnnotation instanceof CellHeaderStyle) {
             return ((CellHeaderStyle) styleAnnotation).styleClass();
+        } else if(styleAnnotation instanceof CellRowStyle) {
+            return ((CellRowStyle) styleAnnotation).styleClass();
         } else if(styleAnnotation instanceof TableStyle) {
             return ((TableStyle) styleAnnotation).styleClass();
         } else if(styleAnnotation instanceof ParagraphStyle) {
             return ((ParagraphStyle) styleAnnotation).styleClass();
         } else {
             throw new InvalidStyleException("Parser for style annotation '" + 
-                    styleAnnotation.getClass().getName() + "' is not defined");
+                    styleAnnotation + "' is not defined");
         }
     }
 }
