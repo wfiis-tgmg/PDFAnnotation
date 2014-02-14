@@ -313,8 +313,11 @@ public class TableExamples implements BuildingBlocksExamples<PdfTableElementWith
                             new SimpleRowGroupDTO("item2", "item3"),
                             new SimpleRowGroupDTO("item2", "item3")), "item4"),
                     new ColumnWithSimpleRowGroupDTO("item1", Arrays.asList(
-                                    new SimpleRowGroupDTO("item2", "item3")), "item4"),
+                            new SimpleRowGroupDTO("item2", "item3"),
+                            new SimpleRowGroupDTO("item2", "item3"),
+                            new SimpleRowGroupDTO("item2", "item3")), "item4"),
                     new ColumnWithSimpleRowGroupDTO("item1", Arrays.asList(
+                            new SimpleRowGroupDTO("item2", "item3"),
                             new SimpleRowGroupDTO("item2", "item3"),
                             new SimpleRowGroupDTO("item2", "item3")), "item4"));
         }
@@ -527,15 +530,6 @@ public class TableExamples implements BuildingBlocksExamples<PdfTableElementWith
         return table;
     }
     
-    @Test
-    public void testAll() {
-        for(int i=0;i<7;i++) {
-            checkHeaderExamples(i);
-            checkRowExamples(i);
-            checkTableExamples(i);
-        }
-    }
-    
     DefaultITextDocumentFactory factory = new DefaultITextDocumentFactory();
     
     public void generateTable(int i) throws DocumentException, GenDocumentException, FileNotFoundException {
@@ -549,6 +543,8 @@ public class TableExamples implements BuildingBlocksExamples<PdfTableElementWith
     
     @Test
     public void testGenerate() throws GenDocumentException, FileNotFoundException, DocumentException {
-        generateTable(1);
+        for(int i=0;i<6;i++) {
+            generateTable(i);
+        }
     }
 }
