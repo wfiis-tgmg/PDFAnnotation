@@ -44,7 +44,7 @@ public class PdfTableRow implements CreatesRowCellElement{
 
         List<PdfPCell> res = new LinkedList<PdfPCell>();
         for (CellRow row : cellRows) {
-            PdfPCell cell = new PdfPCell(cast(row.getCell(data))); //FIXME Na pewno dwa razy new PdfPCell?
+            PdfPCell cell = cast(row.getCell(data)); //FIXME Na pewno dwa razy new PdfPCell?
             row.getFormatter().addStyle(cell);
             res.add(cell);
         }
