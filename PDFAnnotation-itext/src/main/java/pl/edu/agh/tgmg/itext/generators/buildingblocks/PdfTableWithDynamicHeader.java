@@ -37,6 +37,26 @@ public class PdfTableWithDynamicHeader implements PdfTableElement, CellRow {
     public PdfTableRow getPdfTableRow() {
         return pdfTableRow;
     }
+//
+//
+//    @Override
+//    public PdfPTable print(Object dataList) throws DocumentException {
+//
+//        PdfPTable main = new PdfPTable(pdfTableRow.getCells());
+//
+//        PdfPCell headerRowCell = new PdfPCell(singleDataTable.createPdfTable(dataList));
+//        headerRowCell.setColspan(pdfTableRow.getCells());
+//        main.addCell(headerRowCell);
+//
+//        Object iter = CommonUtils.getValue(dataList, listFieldName);
+//        for (Object dataRow : CommonUtils.getIterable(iter)) {
+//            List<PdfPCell> cells = pdfTableRow.print(dataRow);
+//            for (PdfPCell c : cells) {
+//                main.addCell(c);
+//            }
+//        }
+//        return main;
+//    }
 
     @Override
     public PdfPTable print(Object dataList) throws DocumentException {

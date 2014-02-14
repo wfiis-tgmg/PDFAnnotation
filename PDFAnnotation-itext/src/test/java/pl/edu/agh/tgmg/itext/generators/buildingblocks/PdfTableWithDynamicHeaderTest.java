@@ -43,7 +43,7 @@ public class PdfTableWithDynamicHeaderTest {
         CellRow tableCell = new PdfTableWithDynamicHeader(
                 "row3",
                 new PdfTableRow(new StringCellRow("name"), new StringCellRow("col")),
-                new SingleDataTable(2, ImmutableList.of(new DynamicTableHeaderColumn(1, 2, "Title", "row1"))));
+                new SingleDataTable(2, ImmutableList.of(new DynamicTableHeaderColumn(1, 1, "Title", "row1"))));
 
 
         PdfTableElementWithStaticHeader rootTable = new PdfTableElementWithStaticHeader(
