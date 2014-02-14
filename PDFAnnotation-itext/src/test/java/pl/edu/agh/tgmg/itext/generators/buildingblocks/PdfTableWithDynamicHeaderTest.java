@@ -39,7 +39,7 @@ public class PdfTableWithDynamicHeaderTest {
 
     @Test
     public void testGen2() throws Exception {
-        Document document = factory.create(new FileOutputStream(new File("tableWithDynamicHeaderInTable.pdf")));
+        Document document = factory.create(new FileOutputStream(new File("tableWithDynamicHeaderInTable2.pdf")));
 
         CellRow tableCell = new PdfTableWithDynamicHeader(
                 "row3",
@@ -61,7 +61,7 @@ public class PdfTableWithDynamicHeaderTest {
 
     @Test
     public void testGen3() throws Exception {
-        Document document = factory.create(new FileOutputStream(new File("tableWithDynamicHeaderInTable.pdf")));
+        Document document = factory.create(new FileOutputStream(new File("tableWithDynamicHeaderInTable3.pdf")));
         CellRow tableCell = new PdfTableWithDynamicHeader(
                 "row3",
                 new PdfTableRow(new StringCellRow("name"), new StringCellRow("col")),
