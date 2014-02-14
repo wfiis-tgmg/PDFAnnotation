@@ -1,5 +1,8 @@
 package pl.edu.agh.tgmg.itext.examples;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -9,6 +12,7 @@ import org.mockito.Mockito;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import pl.edu.agh.tgmg.api.PdfElement;
 import pl.edu.agh.tgmg.api.annotations.PdfColumn;
 import pl.edu.agh.tgmg.api.annotations.PdfColumnGroup;
 import pl.edu.agh.tgmg.api.annotations.PdfColumnGroups;
@@ -18,9 +22,11 @@ import pl.edu.agh.tgmg.api.annotations.PdfTable;
 import pl.edu.agh.tgmg.api.annotations.PdfTableGroup;
 import pl.edu.agh.tgmg.api.annotations.PdfTableGroupHeader;
 import pl.edu.agh.tgmg.api.buildingBlocks.CellRow;
+import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaDataImpl;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfTableHeaderParser;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfTableParser;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfTableRowParser;
+import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableElementWithStaticHeader;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableHeader;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableRow;
@@ -28,13 +34,20 @@ import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableWithDynamicHeader
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.SingleDataTable;
 import pl.edu.agh.tgmg.itext.generators.dto.DynamicTableHeaderColumn;
 import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
+import pl.edu.agh.tgmg.itext.generators.metadata.DefaultITextDocumentFactory;
 import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
 import pl.edu.agh.tgmg.itext.wrapper.StringCellRow;
 import pl.edu.agh.tgmg.itext.wrapper.TableCellRow;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+
 //--------- SIMPLE COLUMNS ----------
 
 class SimpleColumnsDTO {
+    public SimpleColumnsDTO(String col1, String col2, String col3, String col4) {
+        this.col1 = col1; this.col2 = col2; this.col3 = col3; this.col4 = col4;
+    }
     @PdfColumn
     String col1;
     @PdfColumn
@@ -50,7 +63,9 @@ class SimpleColumnsDTO {
 @PdfColumnGroups({
     @PdfColumnGroup(id="g1", name="group1")})
 class NamedColumnsDTO {
-    
+    public NamedColumnsDTO(String col1, String col2, String col3) {
+        this.col1 = col1; this.col2 = col2;this.col3 = col3;
+    }
     @PdfColumn(name="column1")
     String col1;
     @PdfColumn(group="g1", name="column2")
@@ -63,6 +78,9 @@ class NamedColumnsDTO {
     @PdfColumnGroup(id="g1"),
     @PdfColumnGroup(id="g2", parent="g1")})
 class ColumnGroupDTO {
+    public ColumnGroupDTO(String col1, String col2, String col3, String col4) {
+        this.col1 = col1; this.col2 = col2; this.col3 = col3; this.col4 = col4;
+    }
     @PdfColumn
     String col1;
     @PdfColumn(group="g1")
@@ -78,6 +96,9 @@ class ColumnGroupDTO {
     @PdfColumnGroup(id="g2"),
     @PdfColumnGroup(id="g3", parent="g2")})
 class ColumnGroup2DTO {
+    public ColumnGroup2DTO(String col1, String col2, String col3) {
+        this.col1 = col1; this.col2 = col2; this.col3 = col3;
+    }
     @PdfColumn(group="g1")
     String col1;
     @PdfColumn(group="g2")
@@ -89,6 +110,9 @@ class ColumnGroup2DTO {
 //--------- COLUMNS WITH SIMPLE NESTED TABLES ----------
 
 class SimpleRowGroupDTO {
+    public SimpleRowGroupDTO(String col1, String col2) {
+        this.col1 = col1; this.col2 = col2;
+    }
     @PdfColumn
     String col1;
     @PdfColumn
@@ -96,6 +120,10 @@ class SimpleRowGroupDTO {
 }
 
 class ColumnWithSimpleRowGroupDTO {
+    public ColumnWithSimpleRowGroupDTO(String col3,
+            List<SimpleRowGroupDTO> table, String col4) {
+        this.col3 = col3; this.table = table; this.col4 = col4;
+    }
     @PdfColumn
     String col3;
     @PdfRowGroup
@@ -105,6 +133,10 @@ class ColumnWithSimpleRowGroupDTO {
 }
 
 class ColumnWithSimpleTableGroupDTO {
+    public ColumnWithSimpleTableGroupDTO(String header,
+            List<SimpleRowGroupDTO> table) {
+        this.header = header; this.table = table;
+    }
     @PdfTableGroupHeader
     String header;
     @PdfTableGroup
@@ -114,6 +146,10 @@ class ColumnWithSimpleTableGroupDTO {
 //--------- COLUMN GROUPING WITH COMPLEX NESTED TABLES ----------
 
 class ColumnWithComlexTableNestingDTO {
+    public ColumnWithComlexTableNestingDTO(String h1, String h2,
+            List<ComplexNestedTableA> table) {
+        this.h1 = h1; this.h2 = h2; this.table = table;
+    }
     @PdfTableGroupHeader(name="header1")
     String h1;
     @PdfTableGroupHeader(name="header2")
@@ -126,6 +162,10 @@ class ColumnWithComlexTableNestingDTO {
     @PdfColumnGroup(id="g1"),
     @PdfColumnGroup(id="g2", parent="g1")})
 class ComplexNestedTableA {
+    public ComplexNestedTableA(List<ComplexNestedTableD> table1, String col1,
+            List<ComplexNestedTableB> table2, String col5) {
+        this.table1 = table1; this.col1 = col1; this.table2 = table2; this.col5 = col5;
+    }
     @PdfRowGroup
     List<ComplexNestedTableD> table1;
     @PdfColumn
@@ -139,6 +179,9 @@ class ComplexNestedTableA {
 @PdfColumnGroups({
     @PdfColumnGroup(id="g3", parent="g2")})
 class ComplexNestedTableB {
+    public ComplexNestedTableB(String col2, List<ComplexNestedTableC> table, String col4) {
+        this.col2 = col2; this.table = table;this.col4 = col4;
+    }
     @PdfColumn(group="g1")
     String col2;
     @PdfRowGroup
@@ -148,11 +191,17 @@ class ComplexNestedTableB {
 }
 
 class ComplexNestedTableC {
+    public ComplexNestedTableC(String col3) {
+        this.col3 = col3;
+    }
     @PdfColumn(group="g3")
     String col3;
 }
 
 class ComplexNestedTableD {
+    public ComplexNestedTableD(String col0) {
+        this.col0 = col0;
+    }
     @PdfColumn
     String col0;
 }
@@ -161,6 +210,9 @@ class ComplexNestedTableD {
 
 @PdfDocument
 class TableWrapperDTO1 {
+    public TableWrapperDTO1(List<SimpleColumnsDTO> table) {
+        this.table = table;
+    }
     @PdfTable
     List<SimpleColumnsDTO> table;
 }
@@ -201,7 +253,7 @@ class TableWrapperDTO7 {
     List<ColumnWithComlexTableNestingDTO> table;
 }
 
-public class TablerExamples implements BuildingBlocksExamples<PdfTableElementWithStaticHeader> {
+public class TableExamples implements BuildingBlocksExamples<PdfTableElementWithStaticHeader> {
     
     @Override
     public Class<?> getExampleClass(int i) {
@@ -226,7 +278,67 @@ public class TablerExamples implements BuildingBlocksExamples<PdfTableElementWit
 
     @Override
     public Object getExampleDTO(Class<?> clazz) {
-        // TODO Auto-generated method stub
+        if(clazz.equals(SimpleColumnsDTO.class)) {
+            return Arrays.asList(
+                    new SimpleColumnsDTO("item1", "item2", "Item3", "Item4"),
+                    new SimpleColumnsDTO("item1", "item2", "Item3", "Item4"),
+                    new SimpleColumnsDTO("item1", "item2", "Item3", "Item4"),
+                    new SimpleColumnsDTO("item1", "item2", "Item3", "Item4"));
+        } 
+        if(clazz.equals(NamedColumnsDTO.class)) {
+            return Arrays.asList(
+                    new NamedColumnsDTO("item1", "item2", "Item3"),
+                    new NamedColumnsDTO("item1", "item2", "Item3"),
+                    new NamedColumnsDTO("item1", "item2", "Item3"),
+                    new NamedColumnsDTO("item1", "item2", "Item3"));
+        }
+        if(clazz.equals(ColumnGroupDTO.class)) {
+            return Arrays.asList(
+                    new ColumnGroupDTO("item1", "item2", "Item3", "Item4"),
+                    new ColumnGroupDTO("item1", "item2", "Item3", "Item4"),
+                    new ColumnGroupDTO("item1", "item2", "Item3", "Item4"),
+                    new ColumnGroupDTO("item1", "item2", "Item3", "Item4"));
+        }
+        if(clazz.equals(ColumnGroup2DTO.class)) {
+            return Arrays.asList(
+                    new ColumnGroup2DTO("item1", "item2", "Item3"),
+                    new ColumnGroup2DTO("item1", "item2", "Item3"),
+                    new ColumnGroup2DTO("item1", "item2", "Item3"),
+                    new ColumnGroup2DTO("item1", "item2", "Item3"));
+        }
+        if(clazz.equals(ColumnWithSimpleRowGroupDTO.class)) {
+            return Arrays.asList(
+                    new ColumnWithSimpleRowGroupDTO("item1", Arrays.asList(
+                            new SimpleRowGroupDTO("item2", "item3"),
+                            new SimpleRowGroupDTO("item2", "item3"),
+                            new SimpleRowGroupDTO("item2", "item3")), "item4"),
+                    new ColumnWithSimpleRowGroupDTO("item1", Arrays.asList(
+                                    new SimpleRowGroupDTO("item2", "item3")), "item4"),
+                    new ColumnWithSimpleRowGroupDTO("item1", Arrays.asList(
+                            new SimpleRowGroupDTO("item2", "item3"),
+                            new SimpleRowGroupDTO("item2", "item3")), "item4"));
+        }
+        if(clazz.equals(ColumnWithSimpleTableGroupDTO.class)) {
+            return Arrays.asList(
+                    new ColumnWithSimpleTableGroupDTO("some header 1", Arrays.asList(
+                            new SimpleRowGroupDTO("item2", "item3"),
+                            new SimpleRowGroupDTO("item2", "item3"),
+                            new SimpleRowGroupDTO("item2", "item3"))),
+                    new ColumnWithSimpleTableGroupDTO("some header 2", Arrays.asList(
+                            new SimpleRowGroupDTO("item2", "item3"),
+                            new SimpleRowGroupDTO("item2", "item3"))),
+                    new ColumnWithSimpleTableGroupDTO("some header 3", Arrays.asList(
+                            new SimpleRowGroupDTO("item2", "item3"),
+                            new SimpleRowGroupDTO("item2", "item3"),
+                            new SimpleRowGroupDTO("item2", "item3"),
+                            new SimpleRowGroupDTO("item2", "item3"))));
+        }
+        if(clazz.equals(ColumnWithComlexTableNestingDTO.class)) {
+            /*return new ColumnWithComlexTableNestingDTO("Header 1", "Header 2", Arrays.asList(
+                    new ComplexNestedTableA(Arrays.asList(
+                        new ComplexNestedTableD("col A"), new ComplexNestedTableD("col B")), "col C", Arrays.asList(
+                        new ComplexNestedTableB("Col D", Arrays.asList(new ComplexNestedTableC("")), "Col E"), "col F")*/
+        }
         return null;
     }
 
@@ -390,26 +502,29 @@ public class TablerExamples implements BuildingBlocksExamples<PdfTableElementWit
     
     StyleResolver styleResolver = Mockito.mock(StyleResolver.class);
     
-    public void checkHeaderExamples(int i) {
+    public PdfTableHeader checkHeaderExamples(int i) {
         PdfTableHeaderParser headerParser = new PdfTableHeaderParser(styleResolver);
         Class<?> clazz = getExampleClass(i);
         PdfTableHeader header = headerParser.parse(clazz);
         Assert.assertEquals(header, getExpectedHeader(clazz));
+        return header;
     }
     
-    public void checkRowExamples(int i) {
+    public PdfTableRow checkRowExamples(int i) {
         PdfTableRowParser rowParser = new PdfTableRowParser(styleResolver);
         Class<?> clazz = getExampleClass(i);
         PdfTableRow row = rowParser.parse(clazz);
         Assert.assertEquals(row, getExpectedRow(clazz));
+        return row;
     }
 
-    public void checkTableExamples(int i) {
+    public PdfTableElementWithStaticHeader checkTableExamples(int i) {
         PdfTableParser tableParser = new PdfTableParser(styleResolver);
         Class<?> clazz = getExampleClass(i);
         Field field = getTableFieldForExample(clazz);
         PdfTableElementWithStaticHeader table = tableParser.parse(field);
         Assert.assertEquals(table, getExpectedElement(clazz));
+        return table;
     }
     
     @Test
@@ -419,5 +534,21 @@ public class TablerExamples implements BuildingBlocksExamples<PdfTableElementWit
             checkRowExamples(i);
             checkTableExamples(i);
         }
+    }
+    
+    DefaultITextDocumentFactory factory = new DefaultITextDocumentFactory();
+    
+    public void generateTable(int i) throws DocumentException, GenDocumentException, FileNotFoundException {
+        Class<?> clazz = getExampleClass(i);
+        String pathName = "target/" + clazz.getSimpleName() + ".pdf";
+        PdfElement element = checkTableExamples(i);
+        Document document = factory.create(new FileOutputStream(new File(pathName)), new DocumentMetaDataImpl());
+        document.add(element.print(getExampleDTO(clazz)));
+        factory.close(document);
+    }
+    
+    @Test
+    public void testGenerate() throws GenDocumentException, FileNotFoundException, DocumentException {
+        generateTable(1);
     }
 }

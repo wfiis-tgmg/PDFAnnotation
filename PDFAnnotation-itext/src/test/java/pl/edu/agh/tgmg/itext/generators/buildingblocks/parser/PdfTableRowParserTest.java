@@ -2,12 +2,12 @@ package pl.edu.agh.tgmg.itext.generators.buildingblocks.parser;
 
 import org.testng.annotations.Test;
 
-import pl.edu.agh.tgmg.itext.examples.TablerExamples;
+import pl.edu.agh.tgmg.itext.examples.TableExamples;
 import pl.edu.agh.tgmg.itext.examples.TableErrorExamples;
 
 public class PdfTableRowParserTest {
 
-    TablerExamples examples = new TablerExamples();
+    TableExamples examples = new TableExamples();
     TableErrorExamples errorsExamples = new TableErrorExamples();
     
     @Test
