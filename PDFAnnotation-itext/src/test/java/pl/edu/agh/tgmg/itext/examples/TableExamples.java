@@ -143,6 +143,22 @@ class ColumnWithSimpleTableGroupDTO {
     List<SimpleRowGroupDTO> table;
 }
 
+class ColumnWithSimpleTableGroupDTO2 {
+    public ColumnWithSimpleTableGroupDTO2(String header1, String header2,
+            String header3, List<SimpleRowGroupDTO> table) {
+        this.header1 = header1; this.header2 = header2; this.header3 = header3; this.table = table;
+    }
+    @PdfTableGroupHeader
+    String header1;
+    @PdfTableGroupHeader
+    String header2;
+    @PdfTableGroupHeader
+    String header3;
+    @PdfTableGroup
+    List<SimpleRowGroupDTO> table;
+}
+
+
 //--------- COLUMN GROUPING WITH COMPLEX NESTED TABLES ----------
 
 class ColumnWithComlexTableNestingDTO {
@@ -206,13 +222,23 @@ class ComplexNestedTableD {
     String col0;
 }
 
+//--------- DOUBLE ROW GROUPS ----------
+
+class DoubleRowGroupsDTO {
+    public DoubleRowGroupsDTO(List<ComplexNestedTableD> table1,
+            List<ComplexNestedTableD> table2) {
+        this.table1 = table1; this.table2 = table2;
+    }
+    @PdfRowGroup
+    List<ComplexNestedTableD> table1;
+    @PdfRowGroup
+    List<ComplexNestedTableD> table2;
+}
+
 //--------- DOCUMNET WRAPPERS ----------
 
 @PdfDocument
 class TableWrapperDTO1 {
-    public TableWrapperDTO1(List<SimpleColumnsDTO> table) {
-        this.table = table;
-    }
     @PdfTable
     List<SimpleColumnsDTO> table;
 }
@@ -250,7 +276,25 @@ class TableWrapperDTO6 {
 @PdfDocument
 class TableWrapperDTO7 {
     @PdfTable
+    List<ComplexNestedTableA> table;
+}
+
+@PdfDocument
+class TableWrapperDTO8 {
+    @PdfTable
     List<ColumnWithComlexTableNestingDTO> table;
+}
+
+@PdfDocument
+class TableWrapperDTO9 {
+    @PdfTable
+    List<DoubleRowGroupsDTO> table;
+}
+
+@PdfDocument
+class TableWrapperDTO10 {
+    @PdfTable
+    List<ColumnWithSimpleTableGroupDTO2> table;
 }
 
 public class TableExamples implements BuildingBlocksExamples<PdfTableElementWithStaticHeader> {
@@ -271,7 +315,13 @@ public class TableExamples implements BuildingBlocksExamples<PdfTableElementWith
         case 5:
             return ColumnWithSimpleTableGroupDTO.class;
         case 6:
+            return ComplexNestedTableA.class;
+        case 7:
             return ColumnWithComlexTableNestingDTO.class;
+        case 8:
+            return DoubleRowGroupsDTO.class;
+        case 9:
+            return ColumnWithSimpleTableGroupDTO2.class;
         }
         return null;
     }
@@ -333,11 +383,80 @@ public class TableExamples implements BuildingBlocksExamples<PdfTableElementWith
                             new SimpleRowGroupDTO("item2", "item3"),
                             new SimpleRowGroupDTO("item2", "item3"))));
         }
+        if(clazz.equals(ComplexNestedTableA.class)) {
+            return Arrays.asList(
+                    new ComplexNestedTableA(
+                        Arrays.asList (
+                           new ComplexNestedTableD("col A"), 
+                           new ComplexNestedTableD("col A"), 
+                           new ComplexNestedTableD("col A"), 
+                           new ComplexNestedTableD("col B")), 
+                        "col C", 
+                        Arrays.asList(
+                            new ComplexNestedTableB(
+                                "Col D", 
+                                Arrays.asList(
+                                    new ComplexNestedTableC("Col F"),
+                                    new ComplexNestedTableC("Col F"),
+                                    new ComplexNestedTableC("Col F"),
+                                    new ComplexNestedTableC("Col G")), 
+                                "Col E")),
+                       "col F"),
+                   new ComplexNestedTableA(
+                       Arrays.asList (
+                          new ComplexNestedTableD("col A"), 
+                          new ComplexNestedTableD("col A"), 
+                          new ComplexNestedTableD("col A"), 
+                          new ComplexNestedTableD("col B")), 
+                       "col C", 
+                       Arrays.asList(
+                           new ComplexNestedTableB(
+                               "Col D", 
+                               Arrays.asList(
+                                   new ComplexNestedTableC("Col F"),
+                                   new ComplexNestedTableC("Col G")), 
+                               "Col E"),
+                           new ComplexNestedTableB(
+                               "Col D", 
+                               Arrays.asList(
+                                   new ComplexNestedTableC("Col F"),
+                                   new ComplexNestedTableC("Col F")),
+                               "Col E")), 
+                      "col F"),
+                  new ComplexNestedTableA(
+                      Arrays.asList (
+                         new ComplexNestedTableD("col A"), 
+                         new ComplexNestedTableD("col B")), 
+                      "col C", 
+                      Arrays.asList(
+                          new ComplexNestedTableB(
+                              "Col D", 
+                              Arrays.asList(
+                                  new ComplexNestedTableC("Col F"),
+                                  new ComplexNestedTableC("Col G")), 
+                              "Col E")), 
+                     "col F"),
+                 new ComplexNestedTableA(
+                     Arrays.asList (
+                        new ComplexNestedTableD("col A"), 
+                        new ComplexNestedTableD("col B")), 
+                     "col C", 
+                     Arrays.asList(
+                         new ComplexNestedTableB(
+                             "Col D", 
+                             Arrays.asList(
+                                 new ComplexNestedTableC("Col F"),
+                                 new ComplexNestedTableC("Col G")), 
+                             "Col E")), 
+                    "col F"));
+        }
         if(clazz.equals(ColumnWithComlexTableNestingDTO.class)) {
             return Arrays.asList(
                 new ColumnWithComlexTableNestingDTO("Header 1", "Header 2", Arrays.asList(
                     new ComplexNestedTableA(
                         Arrays.asList (
+                           new ComplexNestedTableD("col A"), 
+                           new ComplexNestedTableD("col A"), 
                            new ComplexNestedTableD("col A"), 
                            new ComplexNestedTableD("col B")), 
                         "col C", 
@@ -357,6 +476,8 @@ public class TableExamples implements BuildingBlocksExamples<PdfTableElementWith
                        "col F"),
                    new ComplexNestedTableA(
                        Arrays.asList (
+                          new ComplexNestedTableD("col A"), 
+                          new ComplexNestedTableD("col A"), 
                           new ComplexNestedTableD("col A"), 
                           new ComplexNestedTableD("col B")), 
                        "col C", 
@@ -401,6 +522,52 @@ public class TableExamples implements BuildingBlocksExamples<PdfTableElementWith
                                  new ComplexNestedTableC("Col G")), 
                              "Col E")), 
                     "col F"))));
+        }
+        if(clazz.equals(DoubleRowGroupsDTO.class)) {
+            return Arrays.asList(
+                    new DoubleRowGroupsDTO(
+                        Arrays.asList(
+                            new ComplexNestedTableD("Col A"),
+                            new ComplexNestedTableD("Col A"),
+                            new ComplexNestedTableD("Col A"),
+                            new ComplexNestedTableD("Col A")),
+                        Arrays.asList(
+                            new ComplexNestedTableD("Col B"),
+                            new ComplexNestedTableD("Col B"))),
+                    new DoubleRowGroupsDTO(
+                        Arrays.asList(
+                            new ComplexNestedTableD("Col A"),
+                            new ComplexNestedTableD("Col A"),
+                            new ComplexNestedTableD("Col A"),
+                            new ComplexNestedTableD("Col A")),
+                        Arrays.asList(
+                            new ComplexNestedTableD("Col B"),
+                            new ComplexNestedTableD("Col B"),
+                            new ComplexNestedTableD("Col B"),
+                            new ComplexNestedTableD("Col B"))), 
+                    new DoubleRowGroupsDTO(
+                        Arrays.asList(
+                            new ComplexNestedTableD("Col A"),
+                            new ComplexNestedTableD("Col A")),
+                        Arrays.asList(
+                            new ComplexNestedTableD("Col B"),
+                            new ComplexNestedTableD("Col B"),
+                            new ComplexNestedTableD("Col B"))));  
+        }
+        if(clazz.equals(ColumnWithSimpleTableGroupDTO2.class)) {
+            return Arrays.asList(
+                    new ColumnWithSimpleTableGroupDTO2("h1", "h2", "h3", Arrays.asList(
+                            new SimpleRowGroupDTO("item2", "item3"),
+                            new SimpleRowGroupDTO("item2", "item3"),
+                            new SimpleRowGroupDTO("item2", "item3"))),
+                    new ColumnWithSimpleTableGroupDTO2("h1", "h2", "h3", Arrays.asList(
+                            new SimpleRowGroupDTO("item2", "item3"),
+                            new SimpleRowGroupDTO("item2", "item3"))),
+                    new ColumnWithSimpleTableGroupDTO2("h1", "h2", "h3", Arrays.asList(
+                            new SimpleRowGroupDTO("item2", "item3"),
+                            new SimpleRowGroupDTO("item2", "item3"),
+                            new SimpleRowGroupDTO("item2", "item3"),
+                            new SimpleRowGroupDTO("item2", "item3"))));
         }
         return null;
     }
@@ -456,6 +623,23 @@ public class TableExamples implements BuildingBlocksExamples<PdfTableElementWith
                     new TableHeaderColumn("col1"), 
                     new TableHeaderColumn("col2")));
         }
+        if(clazz.equals(ColumnWithSimpleTableGroupDTO2.class)) {
+            return new PdfTableHeader(2, Arrays.asList(
+                    new TableHeaderColumn("col1"), 
+                    new TableHeaderColumn("col2")));
+        }
+        if(clazz.equals(ComplexNestedTableA.class)) {
+            return new PdfTableHeader(6, Arrays.asList(
+                    new TableHeaderColumn(4, 1, "col0"),
+                    new TableHeaderColumn(4, 1, "col1"),
+                    new TableHeaderColumn(1, 4, "g1"),
+                    new TableHeaderColumn(3, 1, "col2"),
+                    new TableHeaderColumn(1, 3, "g2"),
+                    new TableHeaderColumn(1, 2, "g3"),
+                    new TableHeaderColumn(2, 1, "col5"),
+                    new TableHeaderColumn(1, 1, "col3"),
+                    new TableHeaderColumn(1, 1, "col4")));
+        }
         if(clazz.equals(ColumnWithComlexTableNestingDTO.class)) {
             return new PdfTableHeader(6, Arrays.asList(
                     new TableHeaderColumn(4, 1, "col0"),
@@ -467,6 +651,11 @@ public class TableExamples implements BuildingBlocksExamples<PdfTableElementWith
                     new TableHeaderColumn(2, 1, "col5"),
                     new TableHeaderColumn(1, 1, "col3"),
                     new TableHeaderColumn(1, 1, "col4")));
+        }
+        if(clazz.equals(DoubleRowGroupsDTO.class)) {
+            return new PdfTableHeader(2, Arrays.asList(
+                    new TableHeaderColumn("col0"), 
+                    new TableHeaderColumn("col0")));
         }
         return null;
     }
@@ -512,6 +701,34 @@ public class TableExamples implements BuildingBlocksExamples<PdfTableElementWith
                     new PdfTableRow(innerCellRows), header);
             return new PdfTableRow(Arrays.asList(innerTable));
         }
+        if(clazz.equals(ColumnWithSimpleTableGroupDTO2.class)) {
+            List<CellRow> innerCellRows = new LinkedList<CellRow>();
+            innerCellRows.add(new StringCellRow("col1"));
+            innerCellRows.add(new StringCellRow("col2"));
+            SingleDataTable header = new SingleDataTable(3, Arrays.asList(
+                    new DynamicTableHeaderColumn("header1", "header1"),
+                    new DynamicTableHeaderColumn("header2", "header2"),
+                    new DynamicTableHeaderColumn("header3", "header3")));
+            CellRow innerTable = new PdfTableWithDynamicHeader("table", 
+                    new PdfTableRow(innerCellRows), header);
+            return new PdfTableRow(Arrays.asList(innerTable));
+        }
+        if(clazz.equals(ComplexNestedTableA.class)) {
+            TableCellRow innerTable4 = new TableCellRow("table1",
+                    new PdfTableElementWithStaticHeader( new PdfTableRow(
+                            new StringCellRow("col0") )));
+            TableCellRow innerTable3 = new TableCellRow("table",
+                    new PdfTableElementWithStaticHeader( new PdfTableRow(
+                            new StringCellRow("col3") )));
+            TableCellRow innerTable2 = new TableCellRow("table2",
+                    new PdfTableElementWithStaticHeader( new PdfTableRow(
+                            new StringCellRow("col2"), innerTable3, 
+                            new StringCellRow("col4"))));
+            List<CellRow> innerTable1 = Arrays.asList(
+                    innerTable4, new StringCellRow("col1"), 
+                    innerTable2, new StringCellRow("col5"));
+            return new PdfTableRow(innerTable1);
+        }
         if(clazz.equals(ColumnWithComlexTableNestingDTO.class)) {
             TableCellRow innerTable4 = new TableCellRow("table1",
                     new PdfTableElementWithStaticHeader( new PdfTableRow(
@@ -530,6 +747,16 @@ public class TableExamples implements BuildingBlocksExamples<PdfTableElementWith
                     innerTable4, new StringCellRow("col1"), 
                     innerTable2, new StringCellRow("col5")), header);
             return new PdfTableRow(Arrays.asList(innerTable1));
+        }
+        if(clazz.equals(DoubleRowGroupsDTO.class)) {
+            TableCellRow innerTable1 = new TableCellRow("table1",
+                    new PdfTableElementWithStaticHeader( new PdfTableRow(
+                            new StringCellRow("col0"))));
+            TableCellRow innerTable2 = new TableCellRow("table2",
+                    new PdfTableElementWithStaticHeader( new PdfTableRow(
+                            new StringCellRow("col0"))));
+            List<CellRow> list = Arrays.asList((CellRow) innerTable1,(CellRow) innerTable2);
+            return new PdfTableRow(list);
         }
         return null;
     }
@@ -554,8 +781,17 @@ public class TableExamples implements BuildingBlocksExamples<PdfTableElementWith
         if(clazz.equals(ColumnWithSimpleTableGroupDTO.class)) {
             return TableWrapperDTO6.class.getDeclaredField("table");
         }
-        if(clazz.equals(ColumnWithComlexTableNestingDTO.class)) {
+        if(clazz.equals(ComplexNestedTableA.class)) {
             return TableWrapperDTO7.class.getDeclaredField("table");
+        }
+        if(clazz.equals(ColumnWithComlexTableNestingDTO.class)) {
+            return TableWrapperDTO8.class.getDeclaredField("table");
+        }
+        if(clazz.equals(DoubleRowGroupsDTO.class)) {
+            return TableWrapperDTO9.class.getDeclaredField("table");
+        }
+        if(clazz.equals(ColumnWithSimpleTableGroupDTO2.class)) {
+            return TableWrapperDTO10.class.getDeclaredField("table");
         }
         } catch(NoSuchFieldException e) {
             e.printStackTrace();
@@ -603,7 +839,7 @@ public class TableExamples implements BuildingBlocksExamples<PdfTableElementWith
     
     @Test
     public void testGenerate() throws GenDocumentException, FileNotFoundException, DocumentException {
-        for(int i=0;i<7;i++) {
+        for(int i=0;i<10;i++) {
             generateTable(i);
         }
     }
