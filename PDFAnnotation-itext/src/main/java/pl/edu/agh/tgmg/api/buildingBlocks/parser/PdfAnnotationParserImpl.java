@@ -42,8 +42,8 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
 
     public PdfAnnotationParserImpl(StyleResolver styleResolver,I18nResolver i18nResolver) {
 
-        tableParser = new PdfTableParser(styleResolver);
-        paragraphParser = new PdfParagraphParser(styleResolver);
+        tableParser = new PdfTableParser(styleResolver,i18nResolver);
+        paragraphParser = new PdfParagraphParser(styleResolver,i18nResolver);
         metadataParser = new PdfMetadataParser(i18nResolver);
         signatureParser = new PdfSignatureParser(styleResolver);
         flowCellParser = new PdfFlowCellParser(styleResolver);
