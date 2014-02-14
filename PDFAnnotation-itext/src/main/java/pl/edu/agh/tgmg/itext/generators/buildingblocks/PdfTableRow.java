@@ -59,7 +59,9 @@ public class PdfTableRow implements CreatesRowCellElement{
             case PHRASE:
                 return new PdfPCell((Phrase) value1);
             case TABLE:
-                PdfPCell pdfPCell = new PdfPCell((PdfPTable) value1);
+                PdfPTable table = (PdfPTable) value1;
+                PdfPCell pdfPCell = new PdfPCell(table);
+                pdfPCell.setColspan(table.getNumberOfColumns());
                 return pdfPCell;
         }
         throw new GenDocumentException();
