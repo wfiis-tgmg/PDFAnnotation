@@ -313,11 +313,8 @@ public class TableExamples implements BuildingBlocksExamples<PdfTableElementWith
                             new SimpleRowGroupDTO("item2", "item3"),
                             new SimpleRowGroupDTO("item2", "item3")), "item4"),
                     new ColumnWithSimpleRowGroupDTO("item1", Arrays.asList(
-                            new SimpleRowGroupDTO("item2", "item3"),
-                            new SimpleRowGroupDTO("item2", "item3"),
                             new SimpleRowGroupDTO("item2", "item3")), "item4"),
                     new ColumnWithSimpleRowGroupDTO("item1", Arrays.asList(
-                            new SimpleRowGroupDTO("item2", "item3"),
                             new SimpleRowGroupDTO("item2", "item3"),
                             new SimpleRowGroupDTO("item2", "item3")), "item4"));
         }
@@ -337,10 +334,73 @@ public class TableExamples implements BuildingBlocksExamples<PdfTableElementWith
                             new SimpleRowGroupDTO("item2", "item3"))));
         }
         if(clazz.equals(ColumnWithComlexTableNestingDTO.class)) {
-            /*return new ColumnWithComlexTableNestingDTO("Header 1", "Header 2", Arrays.asList(
-                    new ComplexNestedTableA(Arrays.asList(
-                        new ComplexNestedTableD("col A"), new ComplexNestedTableD("col B")), "col C", Arrays.asList(
-                        new ComplexNestedTableB("Col D", Arrays.asList(new ComplexNestedTableC("")), "Col E"), "col F")*/
+            return Arrays.asList(
+                new ColumnWithComlexTableNestingDTO("Header 1", "Header 2", Arrays.asList(
+                    new ComplexNestedTableA(
+                        Arrays.asList (
+                           new ComplexNestedTableD("col A"), 
+                           new ComplexNestedTableD("col B")), 
+                        "col C", 
+                        Arrays.asList(
+                            new ComplexNestedTableB(
+                                "Col D", 
+                                Arrays.asList(
+                                    new ComplexNestedTableC("Col F"),
+                                    new ComplexNestedTableC("Col G")), 
+                                "Col E"),
+                            new ComplexNestedTableB(
+                                "Col D", 
+                                Arrays.asList(
+                                    new ComplexNestedTableC("Col F"),
+                                    new ComplexNestedTableC("Col G")), 
+                                "Col E")), 
+                       "col F"),
+                   new ComplexNestedTableA(
+                       Arrays.asList (
+                          new ComplexNestedTableD("col A"), 
+                          new ComplexNestedTableD("col B")), 
+                       "col C", 
+                       Arrays.asList(
+                           new ComplexNestedTableB(
+                               "Col D", 
+                               Arrays.asList(
+                                   new ComplexNestedTableC("Col F"),
+                                   new ComplexNestedTableC("Col G")), 
+                               "Col E"),
+                           new ComplexNestedTableB(
+                               "Col D", 
+                               Arrays.asList(
+                                   new ComplexNestedTableC("Col F"),
+                                   new ComplexNestedTableC("Col G")), 
+                               "Col E")), 
+                      "col F"))),
+              new ColumnWithComlexTableNestingDTO("Header 3", "Header 4", Arrays.asList(
+                  new ComplexNestedTableA(
+                      Arrays.asList (
+                         new ComplexNestedTableD("col A"), 
+                         new ComplexNestedTableD("col B")), 
+                      "col C", 
+                      Arrays.asList(
+                          new ComplexNestedTableB(
+                              "Col D", 
+                              Arrays.asList(
+                                  new ComplexNestedTableC("Col F"),
+                                  new ComplexNestedTableC("Col G")), 
+                              "Col E")), 
+                     "col F"),
+                 new ComplexNestedTableA(
+                     Arrays.asList (
+                        new ComplexNestedTableD("col A"), 
+                        new ComplexNestedTableD("col B")), 
+                     "col C", 
+                     Arrays.asList(
+                         new ComplexNestedTableB(
+                             "Col D", 
+                             Arrays.asList(
+                                 new ComplexNestedTableC("Col F"),
+                                 new ComplexNestedTableC("Col G")), 
+                             "Col E")), 
+                    "col F"))));
         }
         return null;
     }
@@ -543,7 +603,7 @@ public class TableExamples implements BuildingBlocksExamples<PdfTableElementWith
     
     @Test
     public void testGenerate() throws GenDocumentException, FileNotFoundException, DocumentException {
-        for(int i=0;i<6;i++) {
+        for(int i=0;i<7;i++) {
             generateTable(i);
         }
     }

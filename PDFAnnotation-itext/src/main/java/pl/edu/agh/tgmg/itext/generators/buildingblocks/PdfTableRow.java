@@ -9,7 +9,6 @@ import pl.edu.agh.tgmg.api.buildingBlocks.CellRow;
 import pl.edu.agh.tgmg.api.buildingBlocks.CellWrapper;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.formatters.CreatesRowCellElement;
-import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellRowFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 
