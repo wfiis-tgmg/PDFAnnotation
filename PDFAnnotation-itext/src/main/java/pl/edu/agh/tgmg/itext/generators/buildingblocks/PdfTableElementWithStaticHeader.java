@@ -44,7 +44,7 @@ public class PdfTableElementWithStaticHeader implements PdfTableElement {
         for (Object dataRow : CommonUtils.getIterable(dataList)) {
             List<PdfPCell> cells = pdfTableRow.print(dataRow);
             for (PdfPCell c : cells) {
-                c.setColspan(pdfTableHeader.getColumns());
+//                c.setColspan(pdfTableHeader.getColumns());
                 t.addCell(c);
             }
         }
