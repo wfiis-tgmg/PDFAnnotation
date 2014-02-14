@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import pl.edu.agh.tgmg.api.CommonUtils;
+import pl.edu.agh.tgmg.api.I18nResolver;
 import pl.edu.agh.tgmg.api.annotations.PdfParagraph;
 import pl.edu.agh.tgmg.api.annotations.PdfParagraphs;
 import pl.edu.agh.tgmg.api.exceptions.InvalidAnnotationException;
@@ -17,11 +18,13 @@ import pl.edu.agh.tgmg.itext.generators.styles.StyleResolverImpl;
 public class PdfParagraphParser {
     
     private StyleResolver styleResolver = new StyleResolverImpl();
-    
+    private I18nResolver i18nResolver;
+
     public PdfParagraphParser() {}
     
-    public PdfParagraphParser(StyleResolver styleResolver) {
+    public PdfParagraphParser(StyleResolver styleResolver, I18nResolver i18nResolver) {
         this.styleResolver = styleResolver;
+        this.i18nResolver = i18nResolver;
     }
 
     public List<ParagraphElement> parse(PdfParagraphs paragraphs, Class<?> root) throws InvalidParagraphException {
@@ -34,7 +37,7 @@ public class PdfParagraphParser {
     
     public ParagraphElement parse(PdfParagraph paragraph, Class<?> root) throws InvalidParagraphException {
         List<String> params = Arrays.asList(paragraph.messageFieldNames());
-        String text = CommonUtils.processText(paragraph.value(), paragraph.value());
+        String text = i18nResolver.translate(paragraph.value(), paragraph.value());
         checkParams(params, root);
         ParagraphElement result = new ParagraphElement(params, text);
         styleResolver.applyStyle(result, paragraph.style(), root);

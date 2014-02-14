@@ -2,7 +2,9 @@ package pl.edu.agh.tgmg.api.buildingBlocks.parser;
 
 import java.lang.reflect.Field;
 
+import pl.edu.agh.tgmg.api.BlankI18nResolverImpl;
 import pl.edu.agh.tgmg.api.CommonUtils;
+import pl.edu.agh.tgmg.api.I18nResolver;
 import pl.edu.agh.tgmg.api.annotations.PdfTable;
 import pl.edu.agh.tgmg.api.exceptions.InvalidGroupException;
 import pl.edu.agh.tgmg.api.exceptions.InvalidTableGroupException;
@@ -19,11 +21,15 @@ public class PdfTableParser {
     
     PdfTableHeaderParser headerParser;
     PdfTableRowParser rowParser;
-   
+
     public PdfTableParser(StyleResolver styleResolver) {
+        this(styleResolver, new BlankI18nResolverImpl());
+    }
+
+    public PdfTableParser(StyleResolver styleResolver,I18nResolver i18nResolver) {
         this.styleResolver = styleResolver;
-        this.headerParser = new PdfTableHeaderParser(styleResolver);
-        this.rowParser = new PdfTableRowParser(styleResolver);
+        this.headerParser = new PdfTableHeaderParser(styleResolver,i18nResolver);
+        this.rowParser = new PdfTableRowParser(styleResolver,i18nResolver);
     }
 
     public PdfTableElementWithStaticHeader parse(Field field) throws ReflectionException, InvalidTableGroupException, InvalidGroupException {
