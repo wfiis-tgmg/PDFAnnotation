@@ -60,7 +60,7 @@ public class PdfTableRowTest {
 
         PdfPTable element1 = new PdfPTable(2);
         for (Object obj : feed) {
-            List<PdfPCell> print = pdfTableRow.print(obj);
+            List<PdfPCell> print = pdfTableRow.printCells(obj);
             PdfTables.addCells(element1, print);
         }
 
@@ -193,7 +193,7 @@ public class PdfTableRowTest {
     private PdfPTable genTable(List data, int numColumns, PdfTableRow pdfTableRow) {
         PdfPTable element = new PdfPTable(numColumns);
         for (Object obj : data) {
-            List<PdfPCell> print = pdfTableRow.print(obj);
+            List<PdfPCell> print = pdfTableRow.printCells(obj);
             PdfTables.addCells(element, print);
         }
         

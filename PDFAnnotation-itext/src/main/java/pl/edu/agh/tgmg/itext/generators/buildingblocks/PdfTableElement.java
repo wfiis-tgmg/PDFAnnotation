@@ -6,7 +6,7 @@ import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfPTable;
 
-public interface PdfTableElement extends PdfElement {
+public interface PdfTableElement extends PdfElement, hasColumns {
     PdfPTable print(Object data) throws DocumentException, ReflectionException;
     
     @Override

@@ -1,4 +1,4 @@
-package pl.edu.agh.tgmg.api;
+package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 
 
 import static org.testng.Assert.assertEquals;

@@ -4,30 +4,41 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import pl.edu.agh.tgmg.api.CommonUtils;
+import pl.edu.agh.tgmg.api.PdfElement;
 import pl.edu.agh.tgmg.api.annotations.styles.CellRowStyle;
 import pl.edu.agh.tgmg.api.buildingBlocks.CellRow;
 import pl.edu.agh.tgmg.api.buildingBlocks.CellWrapper;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
+import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.formatters.CreatesRowCellElement;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellRowFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 
 import com.google.common.collect.Lists;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
-public class PdfTableRow implements CreatesRowCellElement{
+public class PdfTableRow implements CreatesRowCellElement, PdfElement, hasColumns {
 
     List<CellRow> cellRows = Collections.emptyList();
     StyleFormatter<PdfPCell, CellRowStyle> cellFormatter = new CellRowFormatter();
+    
+    private int columns;
 
     public PdfTableRow(List<CellRow> cellRows) {
         this.cellRows = cellRows;
+        this.columns = 0;
+        for(CellRow cellRow : cellRows) {
+            columns += cellRow.getColumnCount();
+        }
     }
 
     public PdfTableRow(CellRow ... cellRows) {
-        this.cellRows = Lists.newArrayList(cellRows);
+        this(Lists.newArrayList(cellRows));
     }
     
     @Override
@@ -40,7 +51,7 @@ public class PdfTableRow implements CreatesRowCellElement{
         return cellRows;
     }
 
-    public List<PdfPCell> print(Object data) {
+    public List<PdfPCell> printCells(Object data) {
 
         List<PdfPCell> res = new LinkedList<PdfPCell>();
         for (CellRow row : cellRows) {
@@ -64,10 +75,6 @@ public class PdfTableRow implements CreatesRowCellElement{
                 return pdfPCell;
         }
         throw new GenDocumentException();
-    }
-
-    public int getCells() {
-        return cellRows.size();
     }
 
     @Override
@@ -99,6 +106,22 @@ public class PdfTableRow implements CreatesRowCellElement{
     @Override
     public void setFormatter(StyleFormatter<PdfPCell, CellRowStyle> formatter) {
         cellFormatter = formatter;
+    }
+
+    @Override
+    public Element print(Object data) throws DocumentException,
+            ReflectionException {
+        PdfPTable element = new PdfPTable(getColumnCount());
+        for (Object obj : CommonUtils.getIterable(data)) {
+            List<PdfPCell> print = printCells(obj);
+            PdfTables.addCells(element, print);
+        }
+        return element;
+    }
+
+    @Override
+    public int getColumnCount() {
+        return columns;
     }
 
 

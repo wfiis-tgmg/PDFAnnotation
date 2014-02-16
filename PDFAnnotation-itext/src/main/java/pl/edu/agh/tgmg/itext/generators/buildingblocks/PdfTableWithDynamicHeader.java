@@ -7,7 +7,6 @@ import pl.edu.agh.tgmg.api.annotations.styles.CellRowStyle;
 import pl.edu.agh.tgmg.api.buildingBlocks.CellRow;
 import pl.edu.agh.tgmg.api.buildingBlocks.CellWrapper;
 import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
-import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellRowFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 import pl.edu.agh.tgmg.itext.wrapper.ITextTableWrapper;
@@ -22,12 +21,15 @@ public class PdfTableWithDynamicHeader implements PdfTableElement, CellRow {
     PdfTableRow pdfTableRow;
     String listFieldName;
     
+    int columns;
+    
     StyleFormatter<PdfPCell, CellRowStyle> cellFormatter = new CellRowFormatter();
 
     public PdfTableWithDynamicHeader(String listFieldName, PdfTableRow pdfTableRow, SingleDataTable singleDataTable) {
         this.listFieldName = listFieldName;
         this.pdfTableRow = pdfTableRow;
         this.singleDataTable = singleDataTable;
+        this.columns = pdfTableRow.getColumnCount();
     }
     
     public SingleDataTable getSingleDataTable() {
@@ -42,15 +44,15 @@ public class PdfTableWithDynamicHeader implements PdfTableElement, CellRow {
     @Override
     public PdfPTable print(Object dataList) throws DocumentException {
 
-        PdfPTable main = new PdfPTable(pdfTableRow.getCells());
+        PdfPTable main = new PdfPTable(pdfTableRow.getColumnCount());
 
         PdfPCell headerRowCell = new PdfPCell(singleDataTable.createPdfTable(dataList));
-        headerRowCell.setColspan(pdfTableRow.getCells());
+        headerRowCell.setColspan(pdfTableRow.getColumnCount());
         main.addCell(headerRowCell);
 
         Object iter = CommonUtils.getValue(dataList, listFieldName);
         for (Object dataRow : CommonUtils.getIterable(iter)) {
-            List<PdfPCell> cells = pdfTableRow.print(dataRow);
+            List<PdfPCell> cells = pdfTableRow.printCells(dataRow);
             for (PdfPCell c : cells) {
                 main.addCell(c);
             }
@@ -134,6 +136,11 @@ public class PdfTableWithDynamicHeader implements PdfTableElement, CellRow {
     @Override
     public void setFormatter(StyleFormatter<PdfPCell, CellRowStyle> formatter) {
         cellFormatter = formatter;
+    }
+
+    @Override
+    public int getColumnCount() {
+        return columns;
     }
     
     

@@ -27,7 +27,7 @@ public class PdfTableElementWithStaticHeader implements PdfTableElement {
     }
 
     public PdfTableElementWithStaticHeader(PdfTableRow pdfTableRow) {
-        pdfTableHeader = new PdfTableHeader(pdfTableRow.getCells());
+        pdfTableHeader = new PdfTableHeader(pdfTableRow.getColumnCount());
         this.pdfTableRow = pdfTableRow;
     }
 
@@ -42,7 +42,7 @@ public class PdfTableElementWithStaticHeader implements PdfTableElement {
         PdfPTable t = pdfTableHeader.createPdfTable();
 
         for (Object dataRow : CommonUtils.getIterable(dataList)) {
-            List<PdfPCell> cells = pdfTableRow.print(dataRow);
+            List<PdfPCell> cells = pdfTableRow.printCells(dataRow);
             for (PdfPCell c : cells) {
              //   c.setColspan(pdfTableHeader.getColumns());
                 t.addCell(c);
@@ -89,5 +89,14 @@ public class PdfTableElementWithStaticHeader implements PdfTableElement {
     public String toString() {
         return "PdfTableElementWithStaticHeader [pdfTableHeader="
                 + pdfTableHeader + ", pdfTableRow=" + pdfTableRow + "]";
+    }
+
+
+    @Override
+    public int getColumnCount() {
+        if(pdfTableRow != null) {
+            return pdfTableRow.getColumnCount();
+        }
+        return pdfTableHeader.getColumnCount();
     }
 }

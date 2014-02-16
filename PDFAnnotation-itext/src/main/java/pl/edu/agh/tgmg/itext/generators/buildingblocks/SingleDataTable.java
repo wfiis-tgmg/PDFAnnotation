@@ -38,7 +38,8 @@ public class SingleDataTable implements PdfTableElement, CreatesTableElement {
         return tableFormatter;
     }
     
-    public int getColumn() {
+    @Override
+    public int getColumnCount() {
         return column;
     }
 

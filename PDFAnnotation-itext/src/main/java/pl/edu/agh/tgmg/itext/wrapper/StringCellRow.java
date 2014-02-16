@@ -66,6 +66,11 @@ public class StringCellRow implements CellRow {
         cellFormatter = formatter;
     }
 
+    @Override
+    public int getColumnCount() {
+        return 1;
+    }
+
     
 }
 

@@ -3,17 +3,21 @@ package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 import java.util.Collections;
 import java.util.List;
 
+import pl.edu.agh.tgmg.api.PdfElement;
 import pl.edu.agh.tgmg.api.annotations.styles.TableStyle;
+import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.formatters.CreatesTableElement;
 import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.TableFormatter;
 
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 
-public class PdfTableHeader implements CreatesTableElement {
+public class PdfTableHeader implements CreatesTableElement, PdfElement, hasColumns {
 
     int columns;
 
@@ -26,11 +30,12 @@ public class PdfTableHeader implements CreatesTableElement {
         return tableFormatter;
     }
 
-    public int getColumns() {
+    @Override
+    public int getColumnCount() {
         return columns;
     }
 
-    public void setColumns(int columns) {
+    public void setColumnCount(int columns) {
         this.columns = columns;
     }
 
@@ -106,6 +111,12 @@ public class PdfTableHeader implements CreatesTableElement {
     @Override
     public void setFormatter(StyleFormatter<PdfPTable, TableStyle> formatter) {
         tableFormatter = formatter;
+    }
+
+    @Override
+    public Element print(Object data) throws DocumentException,
+            ReflectionException {
+        return createPdfTable();
     }
 
 }

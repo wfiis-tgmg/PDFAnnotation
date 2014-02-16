@@ -80,6 +80,11 @@ public class DynamicTableCellRow implements CellRow {
     public void setFormatter(StyleFormatter<PdfPCell, CellRowStyle> formatter) {
         cellFormatter = formatter;
     }
+
+    @Override
+    public int getColumnCount() {
+        return tableElement.getColumnCount();
+    }
     
     
 }
