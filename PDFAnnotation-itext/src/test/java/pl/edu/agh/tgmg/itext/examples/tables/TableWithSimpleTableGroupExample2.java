@@ -19,15 +19,15 @@ import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
 import pl.edu.agh.tgmg.itext.wrapper.StringCellRow;
 
 @PdfDocument
-class TableWrapperDTO10 extends TableDocumentWrapper<TableWithSimpleTableGroup2Example> {
+class TableWrapperDTO10 extends TableDocumentWrapper<TableWithSimpleTableGroupExample2> {
     @PdfTable
-    List<TableWithSimpleTableGroup2Example> table = Arrays.asList(
-            new TableWithSimpleTableGroup2Example(3),
-            new TableWithSimpleTableGroup2Example(2),
-            new TableWithSimpleTableGroup2Example(4));
+    List<TableWithSimpleTableGroupExample2> table = Arrays.asList(
+            new TableWithSimpleTableGroupExample2(3),
+            new TableWithSimpleTableGroupExample2(2),
+            new TableWithSimpleTableGroupExample2(4));
 
     @Override
-    public List<TableWithSimpleTableGroup2Example> getTable() {
+    public List<TableWithSimpleTableGroupExample2> getTable() {
         return table;
     }
 
@@ -37,11 +37,11 @@ class TableWrapperDTO10 extends TableDocumentWrapper<TableWithSimpleTableGroup2E
     }
 }
 
-public class TableWithSimpleTableGroup2Example extends TableExample {
-    public TableWithSimpleTableGroup2Example() {
+public class TableWithSimpleTableGroupExample2 extends TableExample {
+    public TableWithSimpleTableGroupExample2() {
         this(4);
     }
-    public TableWithSimpleTableGroup2Example(int n) {
+    public TableWithSimpleTableGroupExample2(int n) {
         table = Collections.nCopies(n, new SimpleRowGroupExample());
     }
     @PdfTableGroupHeader

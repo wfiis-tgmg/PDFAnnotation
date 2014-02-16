@@ -15,12 +15,12 @@ import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
 import pl.edu.agh.tgmg.itext.wrapper.StringCellRow;
 
 @PdfDocument
-class TableWrapperDTO4 extends TableDocumentWrapper<ColumnGroup2Example> {
+class TableWrapperDTO4 extends TableDocumentWrapper<ColumnGroupExample2> {
     @PdfTable
-    List<ColumnGroup2Example> table = Collections.nCopies(4, new ColumnGroup2Example());
+    List<ColumnGroupExample2> table = Collections.nCopies(4, new ColumnGroupExample2());
 
     @Override
-    public List<ColumnGroup2Example> getTable() {
+    public List<ColumnGroupExample2> getTable() {
         return table;
     }
 
@@ -34,7 +34,7 @@ class TableWrapperDTO4 extends TableDocumentWrapper<ColumnGroup2Example> {
     @PdfColumnGroup(id="g1"),
     @PdfColumnGroup(id="g2"),
     @PdfColumnGroup(id="g3", parent="g2")})
-public class ColumnGroup2Example extends TableExample {
+public class ColumnGroupExample2 extends TableExample {
 
     @PdfColumn(group="g1")
     String col1 = "item1";

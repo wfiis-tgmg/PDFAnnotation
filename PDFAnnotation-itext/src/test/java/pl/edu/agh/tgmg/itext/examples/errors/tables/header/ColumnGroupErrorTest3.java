@@ -7,18 +7,25 @@ import pl.edu.agh.tgmg.api.exceptions.InvalidGroupException;
 
 @PdfColumnGroups({
     @PdfColumnGroup(id="g1"),
-    @PdfColumnGroup(id="g1")})
-class ColumnGroupError2DTO extends TableHeaderErrorTest {
+    @PdfColumnGroup(id="g2")})
+class ColumnGroupErrorTest3 extends TableHeaderErrorTest {
+    
     @PdfColumn
     String col1;
-
+    @PdfColumn(group="g1")
+    String col2;
+    @PdfColumn(group="g2")
+    String col3;
+    @PdfColumn(group="g3")
+    String col4;
+    
     @Override
     public Class<? extends Exception> getExpectedException() {
         return InvalidGroupException.class;
     }
-
+    
     @Override
     public String getExpectedExceptionMessage() {
-        return "group .* already exists!";
+        return ".* group not found";
     }
 }

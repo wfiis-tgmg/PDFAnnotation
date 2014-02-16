@@ -7,10 +7,8 @@ import pl.edu.agh.tgmg.api.exceptions.InvalidGroupException;
 
 @PdfColumnGroups({
     @PdfColumnGroup(id="g1"),
-    @PdfColumnGroup(id="g2", parent="g3"),
-    @PdfColumnGroup(id="g3", parent="g2")})
-class ColumnGroupError4DTO extends TableHeaderErrorTest {
-    
+    @PdfColumnGroup(id="g1")})
+class ColumnGroupErrorTest2 extends TableHeaderErrorTest {
     @PdfColumn
     String col1;
 
@@ -21,6 +19,6 @@ class ColumnGroupError4DTO extends TableHeaderErrorTest {
 
     @Override
     public String getExpectedExceptionMessage() {
-        return "cyclic dependency encountered!";
+        return "group .* already exists!";
     }
 }

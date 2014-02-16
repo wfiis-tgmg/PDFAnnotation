@@ -22,15 +22,15 @@ import pl.edu.agh.tgmg.itext.wrapper.TableCellRow;
 
 
 @PdfDocument
-class TableWrapperDTO11 extends TableDocumentWrapper<TableWithSimpleTableGroup3Example> {
+class TableWrapperDTO11 extends TableDocumentWrapper<TableWithSimpleTableGroupExample3> {
     @PdfTable
-    List<TableWithSimpleTableGroup3Example> table = Arrays.asList(
-            new TableWithSimpleTableGroup3Example("header 1", 3),
-            new TableWithSimpleTableGroup3Example("header 2", 1),
-            new TableWithSimpleTableGroup3Example("header 3", 2));
+    List<TableWithSimpleTableGroupExample3> table = Arrays.asList(
+            new TableWithSimpleTableGroupExample3("header 1", 3),
+            new TableWithSimpleTableGroupExample3("header 2", 1),
+            new TableWithSimpleTableGroupExample3("header 3", 2));
 
     @Override
-    public List<TableWithSimpleTableGroup3Example> getTable() {
+    public List<TableWithSimpleTableGroupExample3> getTable() {
         return table;
     }
 
@@ -40,11 +40,11 @@ class TableWrapperDTO11 extends TableDocumentWrapper<TableWithSimpleTableGroup3E
     }
 }
 
-public class TableWithSimpleTableGroup3Example extends TableExample {
-    public TableWithSimpleTableGroup3Example() {
+public class TableWithSimpleTableGroupExample3 extends TableExample {
+    public TableWithSimpleTableGroupExample3() {
         this("H1", 3);
     }
-    public TableWithSimpleTableGroup3Example(String header, int n) {
+    public TableWithSimpleTableGroupExample3(String header, int n) {
         this.header = header; 
         this.table = Collections.nCopies(n, new TableWithSimpleRowGroupExample(2));
     }
