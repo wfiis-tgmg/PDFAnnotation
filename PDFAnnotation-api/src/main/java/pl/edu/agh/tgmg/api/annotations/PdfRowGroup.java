@@ -13,4 +13,5 @@ import pl.edu.agh.tgmg.api.annotations.styles.TableStyle;
 public @interface PdfRowGroup {
     CellRowStyle rowCellStyle() default @CellRowStyle;
     TableStyle tableStyle() default @TableStyle;
+    int order() default -1;
 }

@@ -6,13 +6,13 @@ import pl.edu.agh.tgmg.api.annotations.PdfColumn;
 import pl.edu.agh.tgmg.api.annotations.PdfTableGroup;
 import pl.edu.agh.tgmg.api.annotations.PdfTableGroupHeader;
 import pl.edu.agh.tgmg.api.exceptions.InvalidTableGroupException;
-import pl.edu.agh.tgmg.itext.examples.tables.SimpleRowGroupExample;
+import pl.edu.agh.tgmg.itext.examples.tables.SimpleRowGroup;
 
 class TableGroupErrorTest2 extends TableRowErrorTest {
     @PdfTableGroupHeader
     String header;
     @PdfTableGroup
-    List<SimpleRowGroupExample> table;
+    List<SimpleRowGroup> table;
     @PdfColumn
     String col3;
     

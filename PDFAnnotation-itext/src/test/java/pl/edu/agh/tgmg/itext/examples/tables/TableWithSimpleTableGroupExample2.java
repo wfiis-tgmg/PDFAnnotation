@@ -42,7 +42,7 @@ public class TableWithSimpleTableGroupExample2 extends TableExample {
         this(4);
     }
     public TableWithSimpleTableGroupExample2(int n) {
-        table = Collections.nCopies(n, new SimpleRowGroupExample());
+        table = Collections.nCopies(n, new SimpleRowGroup());
     }
     @PdfTableGroupHeader
     String header1 = "h1";
@@ -51,7 +51,7 @@ public class TableWithSimpleTableGroupExample2 extends TableExample {
     @PdfTableGroupHeader
     String header3 = "h3";
     @PdfTableGroup
-    List<SimpleRowGroupExample> table;
+    List<SimpleRowGroup> table;
     
     @Override
     public PdfTableHeader getExpectedHeader() {

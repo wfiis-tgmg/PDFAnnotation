@@ -71,6 +71,12 @@ public class StringCellRow implements CellRow {
         return 1;
     }
 
+    @Override
+    public String toString() {
+        return "StringCellRow [name=" + name + "]";
+    }
+
+
     
 }
 

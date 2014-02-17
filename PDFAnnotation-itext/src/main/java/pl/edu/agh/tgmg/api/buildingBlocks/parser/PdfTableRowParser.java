@@ -2,8 +2,12 @@ package pl.edu.agh.tgmg.api.buildingBlocks.parser;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import pl.edu.agh.tgmg.api.BlankI18nResolverImpl;
 import pl.edu.agh.tgmg.api.CommonUtils;
@@ -13,6 +17,7 @@ import pl.edu.agh.tgmg.api.annotations.PdfRowGroup;
 import pl.edu.agh.tgmg.api.annotations.PdfTableGroup;
 import pl.edu.agh.tgmg.api.annotations.PdfTableGroupHeader;
 import pl.edu.agh.tgmg.api.buildingBlocks.CellRow;
+import pl.edu.agh.tgmg.api.exceptions.InvalidOrderException;
 import pl.edu.agh.tgmg.api.exceptions.InvalidTableGroupException;
 import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableElementWithStaticHeader;
@@ -98,6 +103,8 @@ public class PdfTableRowParser {
     }
     
     private List<CellRow> findColumns(Class<?> clazz) throws ReflectionException, InvalidTableGroupException {
+        
+        CellRowComparator comparator = new CellRowComparator();
         List<CellRow> cellRows = new LinkedList<CellRow>();
         for(Field field : clazz.getDeclaredFields()) {
             PdfColumn column = field.getAnnotation(PdfColumn.class);
@@ -106,6 +113,7 @@ public class PdfTableRowParser {
                 CellRow row = new StringCellRow(field.getName());
                 styleResolver.applyStyle(row, column.rowStyle(), clazz);
                 cellRows.add(row);
+                comparator.addItem(column.order(), row);
             } else if(rowGroup != null) {
                 Class<?> innerClass = CommonUtils.getTypeParamOfIterableField(field); 
                 PdfTableRow innerRows = new PdfTableRow(findCellRows(innerClass));
@@ -113,9 +121,37 @@ public class PdfTableRowParser {
                     new PdfTableElementWithStaticHeader( innerRows ));
                 styleResolver.applyStyle(innerTable, rowGroup.rowCellStyle(), clazz);
                 cellRows.add(innerTable);
+                comparator.addItem(rowGroup.order(), innerTable);
             }
             
         }
+        Collections.sort(cellRows, comparator);
         return cellRows;
+    }
+    
+    private static class CellRowComparator implements Comparator<CellRow> {
+        
+        int currentOrder = 1;
+        boolean useCustomOrder = false;
+        Map<CellRow, Integer> orderMap = new HashMap<>();
+
+        @Override
+        public int compare(CellRow o1, CellRow o2) {
+            return orderMap.get(o1) - orderMap.get(o2);
+        } 
+        
+        public void addItem(int customOrder, CellRow row) {
+            boolean columnHasCustomOrder = customOrder >= 0;
+            if(currentOrder == 1) {
+                useCustomOrder = columnHasCustomOrder;
+            } else if(useCustomOrder != columnHasCustomOrder) {
+                throw new InvalidOrderException("Column currenOrder is only set partially");
+            }
+            if(useCustomOrder) {
+                orderMap.put(row, customOrder);
+            } else {
+                orderMap.put(row, currentOrder++);
+            }
+        }
     }
 }

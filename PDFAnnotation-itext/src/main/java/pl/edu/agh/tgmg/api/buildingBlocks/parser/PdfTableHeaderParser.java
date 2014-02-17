@@ -12,6 +12,7 @@ import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.I18nResolver;
 import pl.edu.agh.tgmg.api.annotations.PdfColumn;
 import pl.edu.agh.tgmg.api.exceptions.InvalidGroupException;
+import pl.edu.agh.tgmg.api.exceptions.InvalidOrderException;
 import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableHeader;
 import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
@@ -36,13 +37,14 @@ public class PdfTableHeaderParser {
     }
 
     ColumnGroupNode groupTree;
-    int order;
+    int currenOrder;
+    boolean useCustomOrder;
     
     public PdfTableHeader parse(Class<?> clazz) throws ReflectionException, InvalidGroupException  {
         
         PdfColumnGroupParser groupParser = new PdfColumnGroupParser(styleResolver, i18nResolver);
         groupTree = groupParser.parse(clazz);
-        order = 1;
+        currenOrder = 1;
         findColumns(clazz);
         
         int columns = groupTree.updateColSpan();
@@ -78,13 +80,29 @@ public class PdfTableHeaderParser {
             PdfColumn column = field.getAnnotation(PdfColumn.class);
             if(column != null) {
                 String name = i18nResolver.translate(column.name(), field.getName());
-                ColumnGroupNode node = new ColumnGroupNode(name, column.group(),order++);
+                int order = getOrder(column);
+                ColumnGroupNode node = new ColumnGroupNode(name, column.group(), order);
                 styleResolver.applyStyle(node, column.headerStyle(), clazz);
                 groupTree.addLeafNode(node);
             } else if(CommonUtils.isFieldANestedTable(field)) {
                 Class<?> nestedClass = CommonUtils.getTypeParamOfIterableField(field);
                 findColumns(nestedClass);
             } 
+        }
+    }
+    
+    private int getOrder(PdfColumn column) {
+        int customOrder = column.order();
+        boolean columnHasCustomOrder = customOrder >= 0;
+        if(currenOrder == 1) {
+            useCustomOrder = columnHasCustomOrder;
+        } else if(useCustomOrder != columnHasCustomOrder) {
+            throw new InvalidOrderException("Column currenOrder is only set partially"); 
+        }
+        if(useCustomOrder) {
+            return customOrder;
+        } else {
+            return currenOrder++;
         }
     }
 }

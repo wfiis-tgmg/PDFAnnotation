@@ -90,6 +90,10 @@ public class TableCellRow implements CellRow {
     public int getColumnCount() {
         return tableElement.getColumnCount();
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "TableCellRow [name=" + name + ", tableElement=" + tableElement
+                + "]";
+    }
 }

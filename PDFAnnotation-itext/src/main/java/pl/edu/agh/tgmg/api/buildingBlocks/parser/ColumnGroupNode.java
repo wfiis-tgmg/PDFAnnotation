@@ -171,7 +171,7 @@ public class ColumnGroupNode extends TableHeaderColumn implements Comparable<Col
 	
 	/*public String toString() {
 		return "g["+getText() + ", " + id+", "+parentId+",l:" + isLeaf() + 
-				",g:" + isGroup() + ",r:" + isRoot() + ",lc: " + leafCount + ",or:" + order + "]";
+				",g:" + isGroup() + ",r:" + isRoot() + ",lc: " + leafCount + ",or:" + currenOrder + "]";
 	}*/
 	
 	public String dump(int level) {

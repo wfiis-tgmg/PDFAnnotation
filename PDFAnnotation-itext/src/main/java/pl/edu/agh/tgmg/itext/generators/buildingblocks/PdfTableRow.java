@@ -124,7 +124,10 @@ public class PdfTableRow implements CreatesRowCellElement, PdfElement, hasColumn
         return columns;
     }
 
-
-    
+    @Override
+    public String toString() {
+        return "PdfTableRow [cellRows=" + cellRows + ", columns=" + columns
+                + "]";
+    }
     
 }

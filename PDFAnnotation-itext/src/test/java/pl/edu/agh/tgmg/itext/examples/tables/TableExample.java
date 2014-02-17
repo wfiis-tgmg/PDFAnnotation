@@ -56,7 +56,7 @@ public abstract class TableExample extends BuildingBlocksExample <PdfTableElemen
         Assert.assertEquals(row, getExpectedRow());
     }
 
-    @Test(dependsOnMethods={"checkRowExamples", "checkHeaderExamples"})
+    @Test
     @Override
     public void checkElementParsing() {
         PdfTableParser tableParser = new PdfTableParser(styleResolver);

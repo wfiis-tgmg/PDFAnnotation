@@ -44,13 +44,13 @@ public class TableWithSimpleTableGroupExample extends TableExample {
     }
     public TableWithSimpleTableGroupExample(String header, int n) {
         this.header = header; 
-        this.table = Collections.nCopies(n, new SimpleRowGroupExample());
+        this.table = Collections.nCopies(n, new SimpleRowGroup());
     }
     
     @PdfTableGroupHeader
     String header;
     @PdfTableGroup
-    List<SimpleRowGroupExample> table;
+    List<SimpleRowGroup> table;
     
     @Override
     public PdfTableHeader getExpectedHeader() {
