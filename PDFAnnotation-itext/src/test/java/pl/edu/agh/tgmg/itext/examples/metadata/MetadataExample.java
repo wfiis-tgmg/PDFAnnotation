@@ -4,14 +4,14 @@ import junit.framework.Assert;
 
 import org.testng.annotations.Test;
 
-import pl.edu.agh.tgmg.api.BlankI18nResolverImpl;
+import pl.edu.agh.tgmg.api.BlankMessageResolverImpl;
 import pl.edu.agh.tgmg.api.annotations.PdfDocument;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaData;
 import pl.edu.agh.tgmg.api.buildingBlocks.parser.PdfMetadataParser;
 
 public abstract class MetadataExample {
     
-    PdfMetadataParser parser = new PdfMetadataParser(new BlankI18nResolverImpl());
+    PdfMetadataParser parser = new PdfMetadataParser(new BlankMessageResolverImpl());
 
     public abstract DocumentMetaData getExpectedMetadata();
     

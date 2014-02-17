@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import pl.edu.agh.tgmg.api.CommonUtils;
-import pl.edu.agh.tgmg.api.I18nResolver;
+import pl.edu.agh.tgmg.api.MessageResolver;
 import pl.edu.agh.tgmg.api.annotations.PdfColumnGroup;
 import pl.edu.agh.tgmg.api.annotations.PdfColumnGroups;
 import pl.edu.agh.tgmg.api.exceptions.InvalidGroupException;
@@ -20,11 +20,11 @@ public class PdfColumnGroupParser {
     ColumnGroupNode rootNode;
     List<ColumnGroupNode> nodes;
 
-    I18nResolver i18nResolver;
+    MessageResolver messageResolver;
 
-    public PdfColumnGroupParser(StyleResolver styleResolver,I18nResolver i18nResolver) {
+    public PdfColumnGroupParser(StyleResolver styleResolver,MessageResolver messageResolver) {
         this.styleResolver = styleResolver;
-        this.i18nResolver = i18nResolver;
+        this.messageResolver = messageResolver;
     }
 
     public ColumnGroupNode parse(Class<?> clazz) throws InvalidGroupException, ReflectionException {
@@ -41,7 +41,7 @@ public class PdfColumnGroupParser {
         PdfColumnGroups groups = (PdfColumnGroups) clazz.getAnnotation(PdfColumnGroups.class);    
         if(groups != null) {
             for(PdfColumnGroup group : groups.value()) {
-                String name = i18nResolver.translate(group.name(), group.id());
+                String name = messageResolver.getMessage(group.name(), group.id());
                 checkGroupExists(group.id());
                 ColumnGroupNode node = new ColumnGroupNode(group.id(), name, group.parent());
                 styleResolver.applyStyle(node, group.style(), clazz);

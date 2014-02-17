@@ -7,9 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import pl.edu.agh.tgmg.api.BlankI18nResolverImpl;
+import pl.edu.agh.tgmg.api.BlankMessageResolverImpl;
 import pl.edu.agh.tgmg.api.CommonUtils;
-import pl.edu.agh.tgmg.api.I18nResolver;
+import pl.edu.agh.tgmg.api.MessageResolver;
 import pl.edu.agh.tgmg.api.annotations.PdfColumn;
 import pl.edu.agh.tgmg.api.exceptions.InvalidGroupException;
 import pl.edu.agh.tgmg.api.exceptions.InvalidOrderException;
@@ -21,19 +21,19 @@ import pl.edu.agh.tgmg.itext.generators.styles.StyleResolverImpl;
 
 public class PdfTableHeaderParser {
 
-    private I18nResolver i18nResolver ;
+    private MessageResolver messageResolver ;
     private StyleResolver styleResolver = new StyleResolverImpl();
 
     public PdfTableHeaderParser() {}
 
 
     public PdfTableHeaderParser(StyleResolver styleResolver) {
-        this(styleResolver, new BlankI18nResolverImpl());
+        this(styleResolver, new BlankMessageResolverImpl());
     }
 
-    public PdfTableHeaderParser(StyleResolver styleResolver,I18nResolver i18nResolver ) {
+    public PdfTableHeaderParser(StyleResolver styleResolver, MessageResolver messageResolver) {
         this.styleResolver = styleResolver;
-        this.i18nResolver = i18nResolver;
+        this.messageResolver = messageResolver;
     }
 
     ColumnGroupNode groupTree;
@@ -42,7 +42,7 @@ public class PdfTableHeaderParser {
     
     public PdfTableHeader parse(Class<?> clazz) throws ReflectionException, InvalidGroupException  {
         
-        PdfColumnGroupParser groupParser = new PdfColumnGroupParser(styleResolver, i18nResolver);
+        PdfColumnGroupParser groupParser = new PdfColumnGroupParser(styleResolver, messageResolver);
         groupTree = groupParser.parse(clazz);
         currenOrder = 1;
         findColumns(clazz);
@@ -79,7 +79,7 @@ public class PdfTableHeaderParser {
         for(Field field : clazz.getDeclaredFields()) {
             PdfColumn column = field.getAnnotation(PdfColumn.class);
             if(column != null) {
-                String name = i18nResolver.translate(column.name(), field.getName());
+                String name = messageResolver.getMessage(column.name(), field.getName());
                 int order = getOrder(column);
                 ColumnGroupNode node = new ColumnGroupNode(name, column.group(), order);
                 styleResolver.applyStyle(node, column.headerStyle(), clazz);

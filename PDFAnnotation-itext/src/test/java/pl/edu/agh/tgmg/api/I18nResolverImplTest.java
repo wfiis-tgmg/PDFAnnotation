@@ -14,18 +14,18 @@ import static org.testng.Assert.*;
 public class I18nResolverImplTest {
 
     private final String validClassPath = "i18n/test";
-    I18nResolverImpl resolver;
+    MessageResolverImpl resolver;
 
     @BeforeMethod
     public void setUp() throws Exception {
-        resolver = new I18nResolverImpl(validClassPath);
+        resolver = new MessageResolverImpl(validClassPath);
     }
 
 
 
     @Test(dependsOnMethods = "testValidFile")
     public void testI18nKeys() throws Exception {
-        I18nResolverImpl resolver = new I18nResolverImpl(validClassPath);
+        MessageResolverImpl resolver = new MessageResolverImpl(validClassPath);
         assertTrue(resolver.matches("${some}"));
         assertTrue(resolver.matches("${32some}"));
         assertTrue(resolver.matches("${som32e}"));
@@ -42,24 +42,24 @@ public class I18nResolverImplTest {
 
     @Test
     public void testValidFile() throws Exception {
-         new I18nResolverImpl(validClassPath);
+         new MessageResolverImpl(validClassPath);
     }
 
     @Test(expectedExceptions = MissingResourceException.class, expectedExceptionsMessageRegExp = "Can't find bundle for base name invalidFile, locale pl_PL")
     public void testInvalidFile() throws Exception {
-        new I18nResolverImpl("invalidFile");
+        new MessageResolverImpl("invalidFile");
         fail("expected exception");
     }
 
     @Test
     public void testPlaceholderForDifferentLocale() throws Exception {
-        assertEquals("SomeTextValue", new I18nResolverImpl(validClassPath, Locale.forLanguageTag("pl")).translate("${some.text}"));
-        assertEquals("SomeTextValue ENG", new I18nResolverImpl(validClassPath, Locale.ENGLISH).translate("${some.text}"));
+        assertEquals("SomeTextValue", new MessageResolverImpl(validClassPath, Locale.forLanguageTag("pl")).getMessage("${some.text}"));
+        assertEquals("SomeTextValue ENG", new MessageResolverImpl(validClassPath, Locale.ENGLISH).getMessage("${some.text}"));
     }
 
     @Test(expectedExceptions = MissingResourceException.class)
     public void testPlaceHolderNotFound() throws Exception {
-        String translate = new I18nResolverImpl(validClassPath).translate("${some.notExisted}");
+        String translate = new MessageResolverImpl(validClassPath).getMessage("${some.notExisted}");
         Assert.assertNotNull(translate);
         fail();
     }

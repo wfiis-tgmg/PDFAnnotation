@@ -5,16 +5,16 @@ import com.google.common.base.Strings;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class BlankI18nResolverImpl implements I18nResolver {
+public class BlankMessageResolverImpl implements MessageResolver {
 
     @Override
-    public String translate(String key)
+    public String getMessage(String key)
     {
         return key;
     }
 
     @Override
-    public String translate(String key, String defaultVal) {
+    public String getMessage(String key, String defaultVal) {
         return Strings.isNullOrEmpty(key) ? defaultVal : key;
     }
 }

@@ -9,9 +9,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import pl.edu.agh.tgmg.api.BlankI18nResolverImpl;
+import pl.edu.agh.tgmg.api.BlankMessageResolverImpl;
 import pl.edu.agh.tgmg.api.CommonUtils;
-import pl.edu.agh.tgmg.api.I18nResolver;
+import pl.edu.agh.tgmg.api.MessageResolver;
 import pl.edu.agh.tgmg.api.annotations.PdfColumn;
 import pl.edu.agh.tgmg.api.annotations.PdfRowGroup;
 import pl.edu.agh.tgmg.api.annotations.PdfTableGroup;
@@ -33,17 +33,17 @@ import pl.edu.agh.tgmg.itext.wrapper.TableCellRow;
 public class PdfTableRowParser {
     
     private StyleResolver styleResolver = new StyleResolverImpl();
-    I18nResolver i18nResolver ;
+    MessageResolver messageResolver ;
 
     public PdfTableRowParser() {}
 
     public PdfTableRowParser(StyleResolver styleResolver) {
-        this(styleResolver, new BlankI18nResolverImpl());
+        this(styleResolver, new BlankMessageResolverImpl());
     }
 
-    public PdfTableRowParser(StyleResolver styleResolver,I18nResolver i18nResolver ) {
+    public PdfTableRowParser(StyleResolver styleResolver,MessageResolver messageResolver ) {
         this.styleResolver = styleResolver;
-        this.i18nResolver = i18nResolver;
+        this.messageResolver = messageResolver;
     }
 
     public PdfTableRow parse(Class<?> clazz) throws InvalidTableGroupException, ReflectionException {
@@ -65,7 +65,7 @@ public class PdfTableRowParser {
         for(Field field: clazz.getDeclaredFields()) {
             PdfTableGroupHeader header = field.getAnnotation(PdfTableGroupHeader.class);
             if(header != null) {
-                String text = i18nResolver.translate(header.name(), field.getName());
+                String text = messageResolver.getMessage(header.name(), field.getName());
                 DynamicTableHeaderColumn h = new DynamicTableHeaderColumn(text, field.getName());
                 styleResolver.applyStyle(h, header.style(), clazz);
                 headers.add(h);
