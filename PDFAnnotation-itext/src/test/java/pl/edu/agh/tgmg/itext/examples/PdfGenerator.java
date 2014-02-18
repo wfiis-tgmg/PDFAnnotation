@@ -3,6 +3,7 @@ package pl.edu.agh.tgmg.itext.examples;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,21 +42,25 @@ public class PdfGenerator {
     }
     
     public void generatePdf(List<Element> elements) throws DocumentException, GenDocumentException, FileNotFoundException {
- 
-        String pathName = getPathName();
-        Document document = createNewDocument(pathName);
+        Document document = createNewDocument();
         for(Element element : elements) {
             document.add(element);
         }
         factory.close(document);
     }
        
-    private Document createNewDocument(String pathName) throws GenDocumentException, FileNotFoundException {
+    private Document createNewDocument() throws GenDocumentException, FileNotFoundException {
+        OutputStream out = getOutputStream();
+        return factory.create(out, new DocumentMetaDataImpl());
+    }
+    
+    public OutputStream getOutputStream() throws FileNotFoundException {
+        String pathName = getPathName();
         File file = new File(pathName);
         if(!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
         }
-        return factory.create(new FileOutputStream(file), new DocumentMetaDataImpl());
+        return new FileOutputStream(file);
     }
 
     private String getPathName() {

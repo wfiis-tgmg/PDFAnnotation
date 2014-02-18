@@ -18,8 +18,8 @@ import com.itextpdf.text.DocumentException;
 
 public abstract class DocumentExample {
 
-    PdfGenerator pdfGenerator = new PdfGenerator(this.getClass());
-    StyleResolver styleResolver = Mockito.mock(StyleResolver.class);
+    protected PdfGenerator pdfGenerator = new PdfGenerator(this.getClass());
+    protected StyleResolver styleResolver = Mockito.mock(StyleResolver.class);
     PdfAnnotationParser parser = new PdfAnnotationParserImpl(styleResolver);
     
     public abstract List<? extends PdfElement> getExpectedElements();
@@ -36,7 +36,7 @@ public abstract class DocumentExample {
         Assert.assertEquals(elements, expected);
     }
     
-    @Test(dependsOnMethods = "checkDocumentParsing")
+    @Test
     public void generatePdf() throws DocumentException, GenDocumentException, FileNotFoundException {
         pdfGenerator.generatePdf(getExpectedElements(), getExampleDTO());
     }

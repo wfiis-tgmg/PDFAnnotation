@@ -14,7 +14,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 public class CellRowFormatter extends CellFormatter implements StyleFormatter<PdfPCell, CellRowStyle> {
     
     public CellRowFormatter() {
-        super(new BoxValues<Float>(0.5f), 
+        super(new BoxValues<Float>(5f), 
                 new BoxValues<Float>(1f), 
                 BaseColor.BLACK, 
                 BaseColor.WHITE, 

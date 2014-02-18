@@ -38,6 +38,8 @@ public class PdfTableParser {
         PdfTableHeader header = headerParser.parse(fieldClass);
         PdfTableRow row = rowParser.parse(fieldClass);
         styleResolver.applyStyle(header, pdfTable.tableStyle(), field.getDeclaringClass());
-        return new PdfTableElementWithStaticHeader(header, row);
+        PdfTableElementWithStaticHeader result = new PdfTableElementWithStaticHeader(header, row);
+        result.setListFieldName(field.getName());
+        return result;
     }
 }

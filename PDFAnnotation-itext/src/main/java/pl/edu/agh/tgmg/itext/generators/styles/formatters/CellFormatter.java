@@ -46,11 +46,6 @@ public class CellFormatter {
     }
     
     public void addStyle(PdfPCell p) {
-        p.setPaddingBottom(padding.getForBottom());
-        p.setPaddingTop(padding.getForTop());
-        p.setPaddingLeft(padding.getForLeft());
-        p.setPaddingRight(padding.getForRight());
-
         p.setBorderColor(borderColor);
         p.setBackgroundColor(backgroundColor);
 
@@ -65,6 +60,15 @@ public class CellFormatter {
             phrase.getFont().setColor(fontColor);
             phrase.getFont().setFamily(fontFamily.name());
             phrase.getFont().setStyle(fontStyle);
+            p.setPaddingBottom(padding.getForBottom());
+            p.setPaddingTop(padding.getForTop());
+            p.setPaddingLeft(padding.getForLeft());
+            p.setPaddingRight(padding.getForRight());
+        } else {
+            p.setPaddingBottom(0);
+            p.setPaddingTop(0);
+            p.setPaddingLeft(0);
+            p.setPaddingRight(0);
         }
         
         int brd = Rectangle.NO_BORDER;

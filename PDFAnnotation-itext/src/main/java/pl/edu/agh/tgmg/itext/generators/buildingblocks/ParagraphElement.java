@@ -9,10 +9,12 @@ import pl.edu.agh.tgmg.api.PdfElement;
 import pl.edu.agh.tgmg.api.annotations.ToTest;
 import pl.edu.agh.tgmg.api.annotations.styles.ParagraphStyle;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.formatters.CreatesParagraphElement;
+import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellHeaderFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.ParagraphFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 
 @ToTest
@@ -47,6 +49,8 @@ public class ParagraphElement implements PdfElement, CreatesParagraphElement {
         String format = String.format(text, params.toArray());
         Paragraph element = new Paragraph(format);
         styleFormatter.addStyle(element);
+        //ParagraphFormatter formP = (ParagraphFormatter) styleFormatter;
+        //Paragraph element = new Paragraph(format, new Font(formP.getFontFamily(), formP.getFontSize()));
         return element;
     }
 

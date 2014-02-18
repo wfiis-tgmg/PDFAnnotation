@@ -45,6 +45,7 @@ public class TableWithComlexTableNestingExample extends TableExample {
         this.h1 = h1; this.h2 = h2; 
         this.table = Collections.nCopies(2, new ComplexNestedTableAExample(n1, n2, n2n));
     }
+    
     @PdfTableGroupHeader(name="header1")
     String h1 = "H 1";
     @PdfTableGroupHeader(name="header2")

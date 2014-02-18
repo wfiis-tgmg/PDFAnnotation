@@ -31,6 +31,8 @@ public class StyleResolverImpl implements StyleResolver {
     private Map<
         Class<? extends Annotation>, 
         StyleFormatter<? extends Element, ? extends Annotation>> defaultFormatters;
+    
+    private Class<?> rootClass;
 
     public StyleResolverImpl() {
         this(new CellHeaderFormatter(), new CellRowFormatter(), new TableFormatter(), new ParagraphFormatter());
@@ -48,6 +50,11 @@ public class StyleResolverImpl implements StyleResolver {
     }
     
     @Override
+    public void setRootClass(Class<?> root) {
+        rootClass = root;
+    }
+    
+    @Override
     public <E extends Element, S extends Annotation> void setDefaltStyle(
             Class<S> annotationType, StyleFormatter<E, S> formatter) {
         defaultFormatters.put(annotationType, formatter);
@@ -57,12 +64,21 @@ public class StyleResolverImpl implements StyleResolver {
             S styleAnnotation, Class<?> declaringClass) {
         applyDefaultStyle(element);
         Class<S> annotationClass = getAnnotationType(styleAnnotation);
-        S style = declaringClass.getAnnotation(annotationClass);
+        S style = null;
+        if(rootClass != null) {
+            style = rootClass.getAnnotation(annotationClass);
+        }
+        if(style != null) {
+            applyStyle(element, style);
+        }
+        style = declaringClass.getAnnotation(annotationClass);
         if(style != null) {
             applyStyle(element, style);
         }
         applyStyle(element, styleAnnotation);
     }
+    
+    
     
     @SuppressWarnings("unchecked")
     <E extends Element, S extends Annotation> void applyDefaultStyle(CreatesPdfElement<E, S> element) {

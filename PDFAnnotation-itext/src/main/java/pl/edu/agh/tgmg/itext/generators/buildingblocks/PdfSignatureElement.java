@@ -76,7 +76,7 @@ public class PdfSignatureElement implements PdfElement {
     
     private void addTextCell(PdfPTable table, String text, CellPosition cellPosition) {
         PdfPCell cell = new PdfPCell(new Phrase(text));
-        cell.setPadding(contentPadding);  
+        cell.setPadding(contentPadding*2);  
         cell.setHorizontalAlignment(Element.ALIGN_CENTER);
         cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
         setBorders(cell, cellPosition);

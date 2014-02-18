@@ -186,6 +186,46 @@ public class ParagraphFormatter implements StyleFormatter<Paragraph, ParagraphSt
                 + ", indentationRight=" + indentationRight
                 + ", indentationLeft=" + indentationLeft + "]";
     }
+
+    public int getFontSize() {
+        return fontSize;
+    }
+
+    public BaseColor getFontColor() {
+        return fontColor;
+    }
+
+    public Font.FontFamily getFontFamily() {
+        return fontFamily;
+    }
+
+    public int getExtraSpace() {
+        return extraSpace;
+    }
+
+    public float getSpacingAfter() {
+        return spacingAfter;
+    }
+
+    public float getSpacingBefore() {
+        return spacingBefore;
+    }
+
+    public int getTextAlignment() {
+        return textAlignment;
+    }
+
+    public int getFontStyle() {
+        return fontStyle;
+    }
+
+    public float getIndentationRight() {
+        return indentationRight;
+    }
+
+    public float getIndentationLeft() {
+        return indentationLeft;
+    }
     
     
 

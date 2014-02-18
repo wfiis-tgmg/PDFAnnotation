@@ -31,7 +31,8 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
     PdfMetadataParser metadataParser;
     PdfSignatureParser signatureParser;
     PdfFlowCellParser flowCellParser;
-
+    StyleResolver styleResolver;
+    
     public PdfAnnotationParserImpl() {
         this(new StyleResolverImpl());
     }
@@ -41,7 +42,7 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
     }
 
     public PdfAnnotationParserImpl(StyleResolver styleResolver,MessageResolver messageResolver) {
-
+        this.styleResolver = styleResolver;
         tableParser = new PdfTableParser(styleResolver,messageResolver);
         paragraphParser = new PdfParagraphParser(styleResolver,messageResolver);
         metadataParser = new PdfMetadataParser(messageResolver);
@@ -56,6 +57,7 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
             throw new InvalidAnnotationException("Class " + root.getName() + " is not a PdfDocument");
         }
         
+        styleResolver.setRootClass(root);
         DocumentMetaData metadata = metadataParser.parse(document);
         List<PdfElement> elements = new LinkedList<PdfElement>();
         
@@ -96,5 +98,4 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
         
         return new DocumentStructureImpl(elements, metadata);
     }
-
 }

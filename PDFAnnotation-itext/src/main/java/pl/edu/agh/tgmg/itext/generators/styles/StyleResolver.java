@@ -11,6 +11,9 @@ import com.itextpdf.text.Element;
 public interface StyleResolver {
     <E extends Element, S extends Annotation> void setDefaltStyle(
             Class<S> annotationType, StyleFormatter<E, S> formatter);
+    
     <E extends Element, S extends Annotation> void applyStyle(CreatesPdfElement<E, S> element, 
             S styleAnnotation, Class<?> declaringClass);
+    
+    void setRootClass(Class<?> root);
 }

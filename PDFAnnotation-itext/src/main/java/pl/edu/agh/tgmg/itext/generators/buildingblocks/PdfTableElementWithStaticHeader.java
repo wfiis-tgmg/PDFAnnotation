@@ -12,6 +12,7 @@ public class PdfTableElementWithStaticHeader implements PdfTableElement {
 
     PdfTableHeader pdfTableHeader;
     PdfTableRow pdfTableRow;
+    String listFieldName;
     
     public PdfTableHeader getPdfTableHeader() {
         return pdfTableHeader;
@@ -35,13 +36,22 @@ public class PdfTableElementWithStaticHeader implements PdfTableElement {
         this.pdfTableHeader = pdfTableHeader;
         this.pdfTableRow = pdfTableRow;
     }
+    
+    public void setListFieldName(String listFieldName) {
+        this.listFieldName = listFieldName;
+    }
 
     @Override
     public PdfPTable print(Object dataList) throws DocumentException {
 
         PdfPTable t = pdfTableHeader.createPdfTable();
 
-        for (Object dataRow : CommonUtils.getIterable(dataList)) {
+        Object iter = dataList;
+        if(listFieldName != null) {
+            iter = CommonUtils.getValue(dataList, listFieldName);
+        }
+        
+        for (Object dataRow : CommonUtils.getIterable(iter)) {
             List<PdfPCell> cells = pdfTableRow.printCells(dataRow);
             for (PdfPCell c : cells) {
              //   c.setColspan(pdfTableHeader.getColumns());

@@ -49,7 +49,7 @@ public class CommonUtils {
         else if(data.getClass().isArray())
         {
             iter = Arrays.asList((Object[]) data);
-        } else throw new ReflectionException("Object is not Iterable");
+        } else throw new ReflectionException("Object is not Iterable: " + data.toString());
         return iter;
     }
     
