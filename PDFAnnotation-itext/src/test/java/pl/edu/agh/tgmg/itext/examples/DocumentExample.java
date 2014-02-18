@@ -36,7 +36,7 @@ public abstract class DocumentExample {
         Assert.assertEquals(elements, expected);
     }
     
-    @Test
+    @Test(dependsOnMethods = "checkDocumentParsing")
     public void generatePdf() throws DocumentException, GenDocumentException, FileNotFoundException {
         pdfGenerator.generatePdf(getExpectedElements(), getExampleDTO());
     }
