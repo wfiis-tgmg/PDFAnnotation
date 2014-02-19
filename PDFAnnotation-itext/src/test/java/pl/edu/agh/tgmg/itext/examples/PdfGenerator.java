@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import pl.edu.agh.tgmg.api.PdfElement;
@@ -32,9 +33,12 @@ public class PdfGenerator {
     
     public void generatePdf(List<? extends PdfElement> elements, Object dto) throws DocumentException, 
             GenDocumentException, FileNotFoundException {
+
+        List<Element> itextElems = new LinkedList<>();
         for(PdfElement element : elements) {
-            generatePdf(element, dto);
+            itextElems.add(element.print(dto));
         }
+        generatePdf(itextElems);
     }
     
     public void generatePdf(Element element) throws DocumentException, GenDocumentException, FileNotFoundException {

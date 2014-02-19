@@ -1,10 +1,12 @@
 package pl.edu.agh.tgmg.itext.examples.errors.tables.header;
 
+import org.testng.annotations.Test;
 import pl.edu.agh.tgmg.api.annotations.PdfColumn;
 import pl.edu.agh.tgmg.api.exceptions.InvalidOrderException;
 
 
-class ColumnOrderErrorTest extends TableHeaderErrorTest {
+@Test
+public class ColumnOrderErrorTest extends TableHeaderErrorTest {
     
     @PdfColumn
     String col1;
