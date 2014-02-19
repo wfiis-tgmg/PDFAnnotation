@@ -8,10 +8,12 @@ import java.lang.annotation.Target;
 import pl.edu.agh.tgmg.api.annotations.styles.CellRowStyle;
 import pl.edu.agh.tgmg.api.annotations.styles.TableStyle;
 
+/**
+ * Define a nested table group. The field has to be an Iterable, or an array.
+ * @author Tom
+ *
+ */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PdfTableGroup {
-    CellRowStyle rowCellStyle() default @CellRowStyle;
-    //CellHeaderStyle headerCellStyle() default @CellHeaderStyle;   //unused - not implemented
-    TableStyle tableStyle() default @TableStyle;
 }

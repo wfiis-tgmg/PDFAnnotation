@@ -1,4 +1,4 @@
-package pl.edu.agh.tgmg.api;
+package pl.edu.agh.tgmg.utlis;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -23,21 +23,6 @@ public class CommonUtils {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    // TODO add localization
-    public static String processText(String input) {
-        return processText(input, input);
-    }
-
-
-    public static String processText(String input, String defaultValue) {
-        if(input == null || input.isEmpty()) {
-            return defaultValue;
-        }
-
-
-        return input;
     }
 
     static public Iterable getIterable(Object data) throws ReflectionException {

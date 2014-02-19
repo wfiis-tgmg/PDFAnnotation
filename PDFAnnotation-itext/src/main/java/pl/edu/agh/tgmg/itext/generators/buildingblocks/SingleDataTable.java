@@ -5,12 +5,12 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 import java.util.Collections;
 import java.util.List;
 
-import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.annotations.styles.TableStyle;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.formatters.CreatesTableElement;
 import pl.edu.agh.tgmg.itext.generators.dto.DynamicTableHeaderColumn;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.TableFormatter;
+import pl.edu.agh.tgmg.utlis.CommonUtils;
 
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Phrase;

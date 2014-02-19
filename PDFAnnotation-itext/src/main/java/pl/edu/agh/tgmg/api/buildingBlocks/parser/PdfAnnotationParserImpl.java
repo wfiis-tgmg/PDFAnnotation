@@ -24,6 +24,12 @@ import pl.edu.agh.tgmg.itext.generators.buildingblocks.SingleDataTable;
 import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
 import pl.edu.agh.tgmg.itext.generators.styles.StyleResolverImpl;
 
+/**
+ * Implementation of a AnnotaionParser. Parses the whole document
+ * and returns a structure of PDF elements.
+ * @author Tom
+ *
+ */
 public class PdfAnnotationParserImpl implements PdfAnnotationParser {
 
     PdfTableParser tableParser;
@@ -37,10 +43,19 @@ public class PdfAnnotationParserImpl implements PdfAnnotationParser {
         this(new StyleResolverImpl());
     }
 
+    /**
+     * Constructor with param
+     * @param styleResolver Allows to set custom default styles.
+     */
     public PdfAnnotationParserImpl(StyleResolver styleResolver) {
         this(styleResolver, new BlankMessageResolverImpl());
     }
 
+    /**
+     * Constructor with param
+     * @param styleResolver Allows to set custom default styles.
+     * @param messageResolver Allows to use message properties and localization
+     */
     public PdfAnnotationParserImpl(StyleResolver styleResolver,MessageResolver messageResolver) {
         this.styleResolver = styleResolver;
         tableParser = new PdfTableParser(styleResolver,messageResolver);

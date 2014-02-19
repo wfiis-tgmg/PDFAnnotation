@@ -3,7 +3,6 @@ package pl.edu.agh.tgmg.api.buildingBlocks.parser;
 import java.lang.reflect.Field;
 
 import pl.edu.agh.tgmg.api.BlankMessageResolverImpl;
-import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.MessageResolver;
 import pl.edu.agh.tgmg.api.annotations.PdfTable;
 import pl.edu.agh.tgmg.api.exceptions.InvalidGroupException;
@@ -14,6 +13,7 @@ import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableHeader;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableRow;
 import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
 import pl.edu.agh.tgmg.itext.generators.styles.StyleResolverImpl;
+import pl.edu.agh.tgmg.utlis.CommonUtils;
 
 public class PdfTableParser {
 

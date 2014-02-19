@@ -12,11 +12,22 @@ import pl.edu.agh.tgmg.itext.generators.metadata.ITextDocumentFactory;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 
+/**
+ * Main class for generating PDF documents.
+ * @author Tom
+ *
+ */
 public class PdfGeneratorFacadeImpl implements PdfGeneratorFacade {
 
     PdfAnnotationParser annotationParser;
     ITextDocumentFactory documentFactory;
     
+    /**
+     * Initializes PDFGeneratorFactory. Needs {@link PdfAnnotationParser},
+     * and {@link ITextDocumentFactory} implementations
+     * @param annotationParser
+     * @param documentFactory
+     */
     public PdfGeneratorFacadeImpl(PdfAnnotationParser annotationParser, ITextDocumentFactory documentFactory) {
         this.annotationParser = annotationParser;
         this.documentFactory = documentFactory;

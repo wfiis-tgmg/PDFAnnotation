@@ -1,6 +1,5 @@
 package pl.edu.agh.tgmg.itext.wrapper;
 
-import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.annotations.styles.CellRowStyle;
 import pl.edu.agh.tgmg.api.buildingBlocks.CellRow;
 import pl.edu.agh.tgmg.api.buildingBlocks.CellWrapper;
@@ -8,6 +7,7 @@ import pl.edu.agh.tgmg.api.exceptions.GenDocumentException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableElement;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellRowFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
+import pl.edu.agh.tgmg.utlis.CommonUtils;
 
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfPCell;

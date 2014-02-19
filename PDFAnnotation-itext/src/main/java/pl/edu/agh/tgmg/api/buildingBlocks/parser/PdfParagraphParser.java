@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.MessageResolver;
 import pl.edu.agh.tgmg.api.annotations.PdfParagraph;
 import pl.edu.agh.tgmg.api.annotations.PdfParagraphs;
@@ -14,6 +13,7 @@ import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.ParagraphElement;
 import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
 import pl.edu.agh.tgmg.itext.generators.styles.StyleResolverImpl;
+import pl.edu.agh.tgmg.utlis.CommonUtils;
 
 public class PdfParagraphParser {
     

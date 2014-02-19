@@ -10,10 +10,21 @@ public class MessageResolverImpl implements MessageResolver {
     private final String PATTERN = "^\\$\\{[a-zA-Z0-9.]*}";
     private ResourceBundle bundle;
 
+    /**
+     * Initializes the message resolver. Sets the given locale, and uses
+     * the given properties file for message resolving.
+     * @param fileClassPath Classpath of the properties file with messages
+     * @param locale Language of messages to be used
+     */
     public MessageResolverImpl(String fileClassPath, Locale locale) {
         bundle = ResourceBundle.getBundle(fileClassPath, locale);
     }
 
+    /**
+     * Initializes the message resolver. Uses 
+     * the given properties file for message resolving. Sets the default locale.
+     * @param fileClassPath Classpath of the properties file with messages
+     */
     public MessageResolverImpl(String fileClassPath) {
         this(fileClassPath,Locale.getDefault());
     }

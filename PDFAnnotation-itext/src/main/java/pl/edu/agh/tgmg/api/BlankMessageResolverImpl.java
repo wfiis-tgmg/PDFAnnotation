@@ -5,6 +5,12 @@ import com.google.common.base.Strings;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+
+/**
+ * MessageResolver with no custom messages
+ * @author Tom
+ *
+ */
 public class BlankMessageResolverImpl implements MessageResolver {
 
     @Override

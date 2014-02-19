@@ -9,6 +9,8 @@ import junit.framework.Assert;
 
 import org.testng.annotations.Test;
 
+import pl.edu.agh.tgmg.utlis.CommonUtils;
+
 class A {
     List<String> a;
     String[] b;

@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.PdfElement;
 import pl.edu.agh.tgmg.api.annotations.ToTest;
 import pl.edu.agh.tgmg.api.annotations.styles.ParagraphStyle;
@@ -12,6 +11,7 @@ import pl.edu.agh.tgmg.itext.generators.buildingblocks.formatters.CreatesParagra
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.CellHeaderFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.ParagraphFormatter;
 import pl.edu.agh.tgmg.itext.generators.styles.formatters.StyleFormatter;
+import pl.edu.agh.tgmg.utlis.CommonUtils;
 
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;

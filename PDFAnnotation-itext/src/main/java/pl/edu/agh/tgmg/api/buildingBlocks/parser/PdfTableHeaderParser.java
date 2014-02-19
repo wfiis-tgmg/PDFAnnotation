@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Queue;
 
 import pl.edu.agh.tgmg.api.BlankMessageResolverImpl;
-import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.MessageResolver;
 import pl.edu.agh.tgmg.api.annotations.PdfColumn;
 import pl.edu.agh.tgmg.api.exceptions.InvalidGroupException;
@@ -18,6 +17,7 @@ import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfTableHeader;
 import pl.edu.agh.tgmg.itext.generators.dto.TableHeaderColumn;
 import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
 import pl.edu.agh.tgmg.itext.generators.styles.StyleResolverImpl;
+import pl.edu.agh.tgmg.utlis.CommonUtils;
 
 public class PdfTableHeaderParser {
 

@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import pl.edu.agh.tgmg.api.BlankMessageResolverImpl;
-import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.MessageResolver;
 import pl.edu.agh.tgmg.api.annotations.PdfColumn;
 import pl.edu.agh.tgmg.api.annotations.PdfRowGroup;
@@ -29,6 +28,7 @@ import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
 import pl.edu.agh.tgmg.itext.generators.styles.StyleResolverImpl;
 import pl.edu.agh.tgmg.itext.wrapper.StringCellRow;
 import pl.edu.agh.tgmg.itext.wrapper.TableCellRow;
+import pl.edu.agh.tgmg.utlis.CommonUtils;
 
 public class PdfTableRowParser {
     
@@ -94,11 +94,11 @@ public class PdfTableRowParser {
         }
         PdfTableGroup pdfTableGroup = tableGroupField.getAnnotation(PdfTableGroup.class);
         SingleDataTable dataTable = new SingleDataTable(headers.size(), headers);
-        styleResolver.applyStyle(dataTable, pdfTableGroup.tableStyle(), clazz);
+        //styleResolver.applyStyle(dataTable, pdfTableGroup.tableStyle(), clazz);
         List<CellRow> rows = findCellRows(CommonUtils.getTypeParamOfIterableField(tableGroupField));
         CellRow table = new PdfTableWithDynamicHeader(tableGroupField.getName(), 
                 new PdfTableRow(rows), dataTable);
-        styleResolver.applyStyle(table, pdfTableGroup.rowCellStyle(), clazz);
+        //styleResolver.applyStyle(table, pdfTableGroup.rowCellStyle(), clazz);
         return table;
     }
     

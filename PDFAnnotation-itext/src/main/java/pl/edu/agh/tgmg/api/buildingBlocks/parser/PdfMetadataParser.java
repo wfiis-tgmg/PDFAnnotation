@@ -1,12 +1,12 @@
 package pl.edu.agh.tgmg.api.buildingBlocks.parser;
 
-import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.MessageResolver;
 import pl.edu.agh.tgmg.api.annotations.PdfDocument;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaData;
 import pl.edu.agh.tgmg.api.buildingBlocks.DocumentMetaDataImpl;
 import pl.edu.agh.tgmg.itext.generators.styles.elements.BoxValues;
 import pl.edu.agh.tgmg.itext.generators.styles.parser.SmallElementsParser;
+import pl.edu.agh.tgmg.utlis.CommonUtils;
 
 import com.itextpdf.text.Rectangle;
 

@@ -1,7 +1,6 @@
 package pl.edu.agh.tgmg.api.buildingBlocks.parser;
 
 import pl.edu.agh.tgmg.api.BlankMessageResolverImpl;
-import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.MessageResolver;
 import pl.edu.agh.tgmg.api.annotations.PdfSignature;
 import pl.edu.agh.tgmg.api.exceptions.InvalidAnnotationException;
@@ -10,6 +9,7 @@ import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
 import pl.edu.agh.tgmg.itext.generators.buildingblocks.PdfSignatureElement;
 import pl.edu.agh.tgmg.itext.generators.styles.StyleResolver;
 import pl.edu.agh.tgmg.itext.generators.styles.StyleResolverImpl;
+import pl.edu.agh.tgmg.utlis.CommonUtils;
 
 public class PdfSignatureParser {
     

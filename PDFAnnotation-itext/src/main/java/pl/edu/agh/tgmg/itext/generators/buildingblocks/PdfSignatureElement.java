@@ -1,10 +1,10 @@
 package pl.edu.agh.tgmg.itext.generators.buildingblocks;
 
-import pl.edu.agh.tgmg.api.CommonUtils;
 import pl.edu.agh.tgmg.api.PdfElement;
 import pl.edu.agh.tgmg.api.annotations.ToTest;
 import pl.edu.agh.tgmg.api.annotations.styles.elements.HorizontalAlignment;
 import pl.edu.agh.tgmg.api.exceptions.ReflectionException;
+import pl.edu.agh.tgmg.utlis.CommonUtils;
 
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
