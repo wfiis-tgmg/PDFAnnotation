@@ -45,7 +45,7 @@ public class I18nResolverImplTest {
          new MessageResolverImpl(validClassPath);
     }
 
-    @Test(expectedExceptions = MissingResourceException.class, expectedExceptionsMessageRegExp = "Can't find bundle for base name invalidFile, locale pl_PL")
+    @Test(expectedExceptions = MissingResourceException.class, expectedExceptionsMessageRegExp = "Can't find bundle for base name invalidFile, locale .*")
     public void testInvalidFile() throws Exception {
         new MessageResolverImpl("invalidFile");
         fail("expected exception");
