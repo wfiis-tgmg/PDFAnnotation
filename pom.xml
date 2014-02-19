@@ -8,7 +8,6 @@
     <modules>
         <module>PDFAnnotation-api</module>
         <module>PDFAnnotation-itext</module>
-        <module>PDFAnnotation-examples</module>
     </modules>
 
 

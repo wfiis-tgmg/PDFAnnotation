@@ -5,7 +5,6 @@ import pl.edu.agh.tgmg.api.annotations.PdfColumn;
 import pl.edu.agh.tgmg.api.exceptions.InvalidOrderException;
 
 
-@Test
 public class ColumnOrderErrorTest extends TableHeaderErrorTest {
     
     @PdfColumn
